@@ -23,6 +23,7 @@ setup(
     scripts=[],
     packages = find_packages('.'),
     namespace_packages = ['qingstor'],
+    package_dir = {'sdk': 'qingstor'},
     include_package_data=True,
     install_requires=requires,
     license="Apache License 2.0",
