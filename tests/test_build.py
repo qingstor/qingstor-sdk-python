@@ -43,24 +43,21 @@ class BuildTestCase(unittest.TestCase):
 
     def test_parse_request_params(self):
         test_params = self.test_builder.parse_request_params()
-        self.assertDictEqual(test_params, {
-            'test_params_1': 'test_val',
-            'test_params_2': 'test_val'
-        })
+        self.assertEqual(test_params['test_params_1'], 'test_val')
+        self.assertEqual(test_params['test_params_2'], 'test_val')
 
     def test_parse_request_headers(self):
         test_headers = self.test_builder.parse_request_headers()
-        self.assertDictEqual(
-            test_headers, {
-                'Host': 'pek3a.qingstor.com',
-                'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
-                'User-Agent': ('qingstor-sdk-python/{sdk_version}  '
-                               '(Python v{python_version}; {system})').format(
-                                   sdk_version=__version__,
-                                   python_version=platform.python_version(),
-                                   system=sys.platform),
-                'Content-Type': 'application/json'
-            })
+        self.assertEqual(test_headers['Host'], 'pek3a.qingstor.com')
+        self.assertEqual(test_headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
+        self.assertEqual(
+            test_headers['User-Agent'],
+            ('qingstor-sdk-python/{sdk_version}  '
+             '(Python v{python_version}; {system})').format(
+                 sdk_version=__version__,
+                 python_version=platform.python_version(),
+                 system=sys.platform))
+        self.assertEqual(test_headers['Content-Type'], 'application/json')
 
     def test_parse_request_body(self):
         test_body = self.test_builder.parse_request_body()
@@ -76,11 +73,9 @@ class BuildTestCase(unittest.TestCase):
 
     def test_parse_request_properties(self):
         test_properties = self.test_builder.parse_request_properties()
-        self.assertDictEqual(test_properties, {
-            'zone': 'pek3a',
-            'bucket-name': 'test_bucket',
-            'object-key': 'test_object.json',
-        })
+        self.assertEqual(test_properties['zone'], 'pek3a')
+        self.assertEqual(test_properties['bucket-name'], 'test_bucket')
+        self.assertEqual(test_properties['object-key'], 'test_object.json')
 
     def test_parss_request_uri(self):
         test_uri = self.test_builder.parse_request_uri()
@@ -97,17 +92,17 @@ class BuildTestCase(unittest.TestCase):
                                             '"test_elements_2": "test_val", '
                                             '"test_elements_empty": ""'
                                             '}'))
-        self.assertDictEqual(
-            test_parse.headers, {
-                'Content-Type': 'application/json',
-                'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
-                'Host': 'pek3a.qingstor.com',
-                'User-Agent': ('qingstor-sdk-python/{sdk_version}  '
-                               '(Python v{python_version}; {system})').format(
-                                   sdk_version=__version__,
-                                   python_version=platform.python_version(),
-                                   system=sys.platform)
-            })
+        self.assertEqual(test_parse.headers['Host'], 'pek3a.qingstor.com')
+        self.assertEqual(test_parse.headers['Date'],
+                         'Wed, 10 Dec 2014 17:20:31 GMT')
+        self.assertEqual(
+            test_parse.headers['User-Agent'],
+            ('qingstor-sdk-python/{sdk_version}  '
+             '(Python v{python_version}; {system})').format(
+                 sdk_version=__version__,
+                 python_version=platform.python_version(),
+                 system=sys.platform))
+        self.assertEqual(test_parse.headers['Content-Type'], 'application/json')
         self.assertEquals(test_parse.method, 'GET')
         self.assertEquals(test_parse.url,
                           ('https://pek3a.qingstor.com:443'

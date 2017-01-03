@@ -93,3 +93,4 @@ ENV/
 
 *.iml
 
+scenarios/test_config.yaml

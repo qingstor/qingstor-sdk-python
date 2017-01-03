@@ -544,7 +544,11 @@ class Bucket():
             if 'action' not in x and not x['action']:
                 raise ParameterRequiredError('action', 'statement')
             if 'condition' not in x:
+                if 'ip_address' not in x['condition']:
+                    pass
                 if 'is_null' not in x['condition']:
+                    pass
+                if 'not_ip_address' not in x['condition']:
                     pass
                 if 'string_like' not in x['condition']:
                     pass
@@ -694,6 +698,12 @@ class Bucket():
 
     def get_object_request(self,
                            object_key,
+                           response_cache_control='',
+                           response_content_disposition='',
+                           response_content_encoding='',
+                           response_content_language='',
+                           response_content_type='',
+                           response_expires='',
                            if_match='',
                            if_modified_since='',
                            if_none_match='',
@@ -720,7 +730,14 @@ class Bucket():
                 'X-QS-Encryption-Customer-Key-MD5':
                 x_qs_encryption_customer_key_md5,
             },
-            'Params': {},
+            'Params': {
+                'response_cache_control': response_cache_control,
+                'response_content_disposition': response_content_disposition,
+                'response_content_encoding': response_content_encoding,
+                'response_content_language': response_content_language,
+                'response_content_type': response_content_type,
+                'response_expires': response_expires,
+            },
             'Elements': {},
             'Properties': self.properties,
             'Body': None
@@ -731,6 +748,12 @@ class Bucket():
 
     def get_object(self,
                    object_key,
+                   response_cache_control='',
+                   response_content_disposition='',
+                   response_content_encoding='',
+                   response_content_language='',
+                   response_content_type='',
+                   response_expires='',
                    if_match='',
                    if_modified_since='',
                    if_none_match='',
@@ -741,6 +764,12 @@ class Bucket():
                    x_qs_encryption_customer_key_md5=''):
         req = self.get_object_request(
             object_key,
+            response_cache_control=response_cache_control,
+            response_content_disposition=response_content_disposition,
+            response_content_encoding=response_content_encoding,
+            response_content_language=response_content_language,
+            response_content_type=response_content_type,
+            response_expires=response_expires,
             if_match=if_match,
             if_modified_since=if_modified_since,
             if_none_match=if_none_match,
