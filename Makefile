@@ -5,6 +5,8 @@ help:
 	@echo "  all               to update, generate and test this SDK"
 	@echo "  test              to run service test"
 	@echo "  unit              to run all sort of unit tests except runtime"
+	@echo "  build             to build sdist and bdist_wheel"
+	@echo "  clean             to clean build and dist files"
 	@echo "  update            to update git submodules"
 	@echo "  generate          to generate service code"
 
@@ -40,4 +42,14 @@ tox:
 	@echo "run unit test in multi python version"
 	@echo "please do pyenv local before run this script"
 	tox
+	@echo "ok"
+
+clean:
+	@echo "clean build and dist files"
+	rm -rf build/ dist/ qingstor_sdk.egg-info
+	@echo "ok"
+
+build: clean
+	@echo "build sdist and bdist_wheel"
+	python setup.py sdist bdist_wheel --universal
 	@echo "ok"
