@@ -89,6 +89,17 @@ def step_impl(context):
     assert_that(len(context.res.content)).is_equal_to(1048576)
 
 
+@when(u'get object with content type "video/mp4; charset=utf8"')
+def step_impl(context):
+    context.res = bucket.get_object(
+        'test_object', response_content_type='video/mp4; charset=utf8')
+
+
+@then(u'get object content type is "video/mp4; charset=utf8"')
+def step_impl(context):
+    assert_that(context.res.headers['Content-Type'], 'video/mp4; charset=utf8')
+
+
 @when(u'head object')
 def step_impl(context):
     context.res = bucket.head_object('test_object')
