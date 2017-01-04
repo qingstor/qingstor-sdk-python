@@ -58,53 +58,57 @@ class Builder:
 
     def parse_request_params(self):
         parsed_params = dict()
-        for (k, v) in self.operation['Params'].items():
-            if v != '' and v != {} and v is not None:
-                parsed_params[k] = v
+        if 'Params' in self.operation:
+            for (k, v) in self.operation['Params'].items():
+                if v != '' and v != {} and v is not None:
+                    parsed_params[k] = v
         return parsed_params
 
     def parse_request_headers(self):
         parsed_headers = dict()
-        for (k, v) in self.operation['Headers'].items():
-            if v != '' and v != {} and v is not None:
-                parsed_headers[k] = v
-        parsed_headers['Date'] = self.operation['Headers'].get(
-            'Date', strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime()))
-        parsed_headers['User-Agent'] = (
-            'qingstor-sdk-python/{sdk_version}  '
-            '(Python v{python_version}; {system})').format(
-                sdk_version=__version__,
-                python_version=platform.python_version(),
-                system=sys.platform)
-        parsed_body = self.parse_request_body()
-        if parsed_body:
-            parsed_headers['Content-Type'] = self.operation['Headers'].get(
-                'Content-Type',
-                mimetypes.guess_type(urlparse(self.parse_request_uri()).path)[
-                    0])
-            if parsed_headers['Content-Type'] is None:
-                parsed_headers['Content-Type'] = 'application/octet-stream'
-        if self.operation['API'] == 'DeleteMultipleObjects':
-            md5obj = hashlib.md5()
-            md5obj.update(parsed_body.encode())
-            parsed_headers['Content-MD5'] = base64.b64encode(md5obj.digest(
-            )).decode()
+        if 'Headers' in self.operation:
+            for (k, v) in self.operation['Headers'].items():
+                if v != '' and v != {} and v is not None:
+                    parsed_headers[k] = v
+            parsed_headers['Date'] = self.operation['Headers'].get(
+                'Date', strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime()))
+            parsed_headers['User-Agent'] = (
+                'qingstor-sdk-python/{sdk_version}  '
+                '(Python v{python_version}; {system})').format(
+                    sdk_version=__version__,
+                    python_version=platform.python_version(),
+                    system=sys.platform)
+            parsed_body = self.parse_request_body()
+            if parsed_body:
+                parsed_headers['Content-Type'] = self.operation['Headers'].get(
+                    'Content-Type',
+                    mimetypes.guess_type(
+                        urlparse(self.parse_request_uri()).path)[0])
+                if parsed_headers['Content-Type'] is None:
+                    parsed_headers['Content-Type'] = 'application/octet-stream'
+            if 'API' in self.operation:
+                if self.operation['API'] == 'DeleteMultipleObjects':
+                    md5obj = hashlib.md5()
+                    md5obj.update(parsed_body.encode())
+                    parsed_headers['Content-MD5'] = base64.b64encode(
+                        md5obj.digest()).decode()
 
         return parsed_headers
 
     def parse_request_body(self):
         parsed_body = None
-        if self.operation['Body']:
+        if 'Body' in self.operation and self.operation['Body']:
             parsed_body = self.operation['Body']
-        elif self.operation['Elements']:
+        elif 'Elements' in self.operation and self.operation['Elements']:
             parsed_body = json.dumps(self.operation['Elements'], sort_keys=True)
         return parsed_body
 
     def parse_request_properties(self):
         parsed_properties = dict()
-        for (k, v) in self.operation['Properties'].items():
-            if v != '' and v != {} and v is not None:
-                parsed_properties[k] = v
+        if 'Properties' in self.operation:
+            for (k, v) in self.operation['Properties'].items():
+                if v != '' and v != {} and v is not None:
+                    parsed_properties[k] = v
         return parsed_properties
 
     def parse_request_uri(self):
