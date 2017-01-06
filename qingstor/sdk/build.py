@@ -80,10 +80,9 @@ class Builder:
                     system=sys.platform)
             parsed_body = self.parse_request_body()
             if parsed_body:
+                filename = urlparse(self.parse_request_uri()).path
                 parsed_headers['Content-Type'] = self.operation['Headers'].get(
-                    'Content-Type',
-                    mimetypes.guess_type(
-                        urlparse(self.parse_request_uri()).path)[0])
+                    'Content-Type') or mimetypes.guess_type(filename)[0]
                 if parsed_headers['Content-Type'] is None:
                     parsed_headers['Content-Type'] = 'application/octet-stream'
             if 'API' in self.operation:
