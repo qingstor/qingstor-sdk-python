@@ -30,8 +30,8 @@ def step_impl(context):
 
 @when(u'put bucket')
 def step_impl(context):
-    bucket = qingstor.Bucket(test['bucket_name'] + '1', test['zone'])
-    context.res = bucket.put()
+    another_bucket = qingstor.Bucket(test['bucket_name'] + '1', test['zone'])
+    context.res = another_bucket.put()
 
 
 @then(u'put bucket status code is 201')
@@ -110,8 +110,9 @@ def step_impl(context):
 
 @when(u'delete bucket')
 def step_impl(context):
-    bucket = qingstor.Bucket(test['bucket_name'] + '1', test['zone'])
-    context.res = bucket.delete()
+    another_bucket = qingstor.Bucket(test['bucket_name'] + '1', test['zone'])
+    context.res = another_bucket.delete()
+    print(context.res.content)
 
 
 @then(u'delete bucket status code is 204')
