@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0b5] - 2016-01-09
+
+### Fixed
+
+- Fix bug in content_type detect
+
 ## [2.0.0b4] - 2016-01-06
 
 ### Fixed
@@ -28,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.0.0b5]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.0b4...2.0.0b5
 [2.0.0b4]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.0b3...2.0.0b4
 [2.0.0b3]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.0b2...2.0.0b3
 [2.0.0b2]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.0b1...2.0.0b2
