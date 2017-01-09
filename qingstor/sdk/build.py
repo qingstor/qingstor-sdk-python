@@ -44,7 +44,7 @@ class Builder:
         parsed_operation['Method'] = self.operation['Method']
         parsed_operation['URI'] = self.parse_request_uri()
         self.logger.debug('parsed_uri: %s' % parsed_operation['URI'])
-        parsed_body = self.parse_request_body()
+        parsed_body, _ = self.parse_request_body()
         if parsed_body:
             parsed_operation['Body'] = parsed_body
         parsed_headers = self.parse_request_headers()
@@ -70,21 +70,30 @@ class Builder:
             for (k, v) in self.operation['Headers'].items():
                 if v != '' and v != {} and v is not None:
                     parsed_headers[k] = v
+
+            # Handle header Date
             parsed_headers['Date'] = self.operation['Headers'].get(
                 'Date', strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime()))
+
+            # Handle header User-Agent
             parsed_headers['User-Agent'] = (
                 'qingstor-sdk-python/{sdk_version}  '
                 '(Python v{python_version}; {system})').format(
                     sdk_version=__version__,
                     python_version=platform.python_version(),
                     system=sys.platform)
-            parsed_body = self.parse_request_body()
-            if parsed_body:
-                filename = urlparse(self.parse_request_uri()).path
-                parsed_headers['Content-Type'] = self.operation['Headers'].get(
+
+            # Handle header Content-Type
+            parsed_body, is_json = self.parse_request_body()
+            filename = urlparse(self.parse_request_uri()).path
+            parsed_headers['Content-Type'] = self.operation['Headers'].get(
                     'Content-Type') or mimetypes.guess_type(filename)[0]
-                if parsed_headers['Content-Type'] is None:
-                    parsed_headers['Content-Type'] = 'application/octet-stream'
+            if is_json:
+                parsed_headers['Content-Type'] = 'application/json'
+            if parsed_headers['Content-Type'] is None:
+                parsed_headers['Content-Type'] = 'application/octet-stream'
+
+            # Handle specific API
             if 'API' in self.operation:
                 if self.operation['API'] == 'DeleteMultipleObjects':
                     md5obj = hashlib.md5()
@@ -96,11 +105,13 @@ class Builder:
 
     def parse_request_body(self):
         parsed_body = None
+        is_json = False
         if 'Body' in self.operation and self.operation['Body']:
             parsed_body = self.operation['Body']
         elif 'Elements' in self.operation and self.operation['Elements']:
             parsed_body = json.dumps(self.operation['Elements'], sort_keys=True)
-        return parsed_body
+            is_json = True
+        return parsed_body, is_json
 
     def parse_request_properties(self):
         parsed_properties = dict()

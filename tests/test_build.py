@@ -60,7 +60,7 @@ class BuildTestCase(unittest.TestCase):
         self.assertEqual(test_headers['Content-Type'], 'application/json')
 
     def test_parse_request_body(self):
-        test_body = self.test_builder.parse_request_body()
+        test_body , is_json = self.test_builder.parse_request_body()
         self.assertEqual(
             test_body,
             json.dumps(
@@ -70,6 +70,7 @@ class BuildTestCase(unittest.TestCase):
                     'test_elements_empty': '',
                 },
                 sort_keys=True))
+        self.assertEqual(is_json, True)
 
     def test_parse_request_properties(self):
         test_properties = self.test_builder.parse_request_properties()
