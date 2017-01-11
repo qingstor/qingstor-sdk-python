@@ -13,17 +13,17 @@
 # | See the License for the specific language governing permissions and
 # | limitations under the License.
 # +-------------------------------------------------------------------------
+# -*- coding: utf-8 -*-
 
 import hmac
 import base64
 import logging
 from hashlib import sha256
 
-from requests.utils import quote
-from requests.utils import urlparse
-from requests.utils import urlunparse
+from requests.utils import quote, urlparse, urlunparse
 
 from .build import Builder
+from .constant import is_python2, is_python3
 
 
 class Request:
@@ -103,10 +103,17 @@ class Request:
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
-        h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
-        h.update(string_to_sign.encode())
-        signature = base64.b64encode(h.digest()).strip().decode()
-        return signature
+        print(string_to_sign)
+        if is_python2:
+            h = hmac.new(self.secret_access_key, digestmod=sha256)
+            h.update(string_to_sign)
+            signature = base64.b64encode(h.digest()).strip()
+            return signature
+        elif is_python3:
+            h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
+            h.update(string_to_sign.encode())
+            signature = base64.b64encode(h.digest()).strip().decode()
+            return signature
 
     def get_query_signature(self, expires):
         string_to_sign = ''.join([
@@ -115,10 +122,16 @@ class Request:
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
-        h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
-        h.update(string_to_sign.encode())
-        signature = quote(base64.b64encode(h.digest()).strip(), safe='')
-        return signature
+        if is_python2:
+            h = hmac.new(self.secret_access_key, digestmod=sha256)
+            h.update(string_to_sign)
+            signature = quote(base64.b64encode(h.digest()).strip(), safe='')
+            return signature
+        elif is_python3:
+            h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
+            h.update(string_to_sign.encode())
+            signature = quote(base64.b64encode(h.digest()).strip(), safe='')
+            return signature
 
     def is_sub_resource(self, key):
         keys_map = [
