@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 from os import path
 from os import system
@@ -28,12 +30,15 @@ def step_impl(context):
         context.res1 = bucket.put_object('test_object', body=f)
     with open('/tmp/sdk_bin') as f:
         context.res2 = bucket.put_object('test_object_string', body=f.read())
+    with open('/tmp/sdk_bin') as f:
+        context.res3 = bucket.put_object('中文测试', body=f)
 
 
 @then(u'put object status code is 201')
 def step_impl(context):
     assert_that(context.res1.status_code).is_equal_to(201)
     assert_that(context.res2.status_code).is_equal_to(201)
+    assert_that(context.res3.status_code).is_equal_to(201)
 
 
 @when(u'copy object with key "test_object_copy"')
@@ -127,12 +132,14 @@ def step_impl(context):
 def step_impl(context):
     context.res1 = bucket.delete_object('test_object')
     context.res2 = bucket.delete_object('test_object_string')
+    context.res3 = bucket.delete_object('中文测试')
 
 
 @then(u'delete object status code is 204')
 def step_impl(context):
     assert_that(context.res1.status_code).is_equal_to(204)
     assert_that(context.res2.status_code).is_equal_to(204)
+    assert_that(context.res3.status_code).is_equal_to(204)
 
 
 @when(u'delete the move object')

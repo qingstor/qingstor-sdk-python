@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import platform
 import sys
@@ -35,7 +37,7 @@ class BuildTestCase(unittest.TestCase):
             'Properties': {
                 'zone': 'pek3a',
                 'bucket-name': 'test_bucket',
-                'object-key': 'test_object.json',
+                'object-key': '中文测试.json',
             },
             'Body': None,
         }
@@ -60,7 +62,7 @@ class BuildTestCase(unittest.TestCase):
         self.assertEqual(test_headers['Content-Type'], 'application/json')
 
     def test_parse_request_body(self):
-        test_body , is_json = self.test_builder.parse_request_body()
+        test_body, is_json = self.test_builder.parse_request_body()
         self.assertEqual(
             test_body,
             json.dumps(
@@ -76,14 +78,14 @@ class BuildTestCase(unittest.TestCase):
         test_properties = self.test_builder.parse_request_properties()
         self.assertEqual(test_properties['zone'], 'pek3a')
         self.assertEqual(test_properties['bucket-name'], 'test_bucket')
-        self.assertEqual(test_properties['object-key'], 'test_object.json')
+        self.assertEqual(test_properties['object-key'], '中文测试.json')
 
     def test_parss_request_uri(self):
         test_uri = self.test_builder.parse_request_uri()
-        self.assertEqual(test_uri,
-                         ('https://pek3a.qingstor.com:443'
-                          '/test_bucket/test_object.json'
-                          '?test_params_1=test_val&test_params_2=test_val'))
+        self.assertEqual(test_uri, (
+            'https://pek3a.qingstor.com:443'
+            '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+            '?test_params_1=test_val&test_params_2=test_val'))
 
     def test_parse(self):
         self.maxDiff = None
@@ -105,7 +107,7 @@ class BuildTestCase(unittest.TestCase):
                  system=sys.platform))
         self.assertEqual(test_parse.headers['Content-Type'], 'application/json')
         self.assertEquals(test_parse.method, 'GET')
-        self.assertEquals(test_parse.url,
-                          ('https://pek3a.qingstor.com:443'
-                           '/test_bucket/test_object.json'
-                           '?test_params_1=test_val&test_params_2=test_val'))
+        self.assertEquals(test_parse.url, (
+            'https://pek3a.qingstor.com:443'
+            '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+            '?test_params_1=test_val&test_params_2=test_val'))
