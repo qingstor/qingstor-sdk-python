@@ -13,5 +13,6 @@
 # | See the License for the specific language governing permissions and
 # | limitations under the License.
 # +-------------------------------------------------------------------------
+# -*- coding: utf-8 -*-
 
 __version__ = '2.0.0b5'

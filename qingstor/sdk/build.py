@@ -13,6 +13,7 @@
 # | See the License for the specific language governing permissions and
 # | limitations under the License.
 # +-------------------------------------------------------------------------
+# -*- coding: utf-8 -*-
 
 import sys
 import json
@@ -24,7 +25,7 @@ import mimetypes
 from time import strftime, gmtime
 
 from requests import Request as Req
-from requests.utils import urlparse
+from requests.utils import quote, urlparse
 
 from . import __version__
 
@@ -87,7 +88,7 @@ class Builder:
             parsed_body, is_json = self.parse_request_body()
             filename = urlparse(self.parse_request_uri()).path
             parsed_headers['Content-Type'] = self.operation['Headers'].get(
-                    'Content-Type') or mimetypes.guess_type(filename)[0]
+                'Content-Type') or mimetypes.guess_type(filename)[0]
             if is_json:
                 parsed_headers['Content-Type'] = 'application/json'
             if parsed_headers['Content-Type'] is None:
@@ -135,8 +136,8 @@ class Builder:
         request_uri = self.operation['URI']
         if len(properties):
             for (k, v) in properties.items():
-                endpoint = endpoint.replace('<%s>' % k, v)
-                request_uri = request_uri.replace('<%s>' % k, v)
+                endpoint = endpoint.replace('<%s>' % k, quote(v, safe=''))
+                request_uri = request_uri.replace('<%s>' % k, quote(v, safe=''))
         parsed_uri = endpoint + request_uri
 
         parsed_params = self.parse_request_params()
