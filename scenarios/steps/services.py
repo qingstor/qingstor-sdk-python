@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from assertpy import assert_that
 from behave import *
 
