@@ -5,9 +5,9 @@
     {{- if ne $property.ID $firstPropertyID -}},
     {{end -}}
     {{- if eq $property.Type "string" -}}
-      {{$property.ID | snakeCase}}= ''
+      {{$property.ID | snakeCase}}= ""
     {{- else if eq $property.Type "timestamp" -}}
-      {{$property.ID | snakeCase}}=''
+      {{$property.ID | snakeCase}}=""
     {{- else if eq $property.Type "array" -}}
       {{$property.ID | snakeCase}}=list()
     {{- else if eq $property.Type "map" -}}
@@ -34,7 +34,7 @@
 
   {{- if eq $operation.Request.Body.Type "string" -}}
     {{- if or $hasParams $hasHeaders $hasElements -}},{{end}}
-    body=''
+    body=""
   {{- else if eq $operation.Request.Body.Type "binary" -}}
     {{- if or $hasParams $hasHeaders $hasElements -}},{{end}}
     body=None
@@ -88,27 +88,27 @@
 {{- $spaces := index . 3}}
 {{- range $_, $property := $customizedType.Properties}}
         {{- if eq $property.Type "object"}}
-        {{$spaces}}if '{{$property.ID}}' not in {{$prefix}}:
-            {{- $nextPrefix := printf "%s['%s']" $prefix $property.ID}}
+        {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
+            {{- $nextPrefix := printf "%s[\"%s\"]" $prefix $property.ID}}
             {{- $nextCustomizedType := index $customizedTypes $property.ExtraType}}
             {{- $nextSpaces := printf "%s    " $spaces}}
             {{- $x := passThrough $nextPrefix $nextCustomizedType $customizedTypes $nextSpaces }}
             {{- template "RenderCustomizedTypeValidation" $x }}
             {{$spaces}}pass
             {{- if $property.IsRequired }}
-            {{$spaces}}if '{{$property.ID}}' not in {{$prefix}}:
-                {{$spaces}}raise ParameterRequiredError('{{$property.ID}}', '{{$customizedType.ID}}')
+            {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
+                {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
             {{- end}}
         {{- else if eq $property.Type "array"}}
         {{- if $property.IsRequired}}
-        {{$spaces}}if '{{$property.ID}}' not in {{$prefix}} and not {{$prefix}}['{{$property.ID}}']:
-            {{$spaces}}raise ParameterRequiredError('{{$property.ID}}', '{{$customizedType.ID}}')
+        {{$spaces}}if "{{$property.ID}}" not in {{$prefix}} and not {{$prefix}}["{{$property.ID}}"]:
+            {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- $isNotString := ne $property.ExtraType "string"}}
         {{- $isNotInteger := ne $property.ExtraType "integer"}}
         {{- $isNotTimestamp := ne $property.ExtraType "timestamp"}}
         {{- if and $isNotString $isNotInteger $isNotTimestamp}}
-        {{$spaces}}for x in {{$prefix}}['{{$property.ID}}']:
+        {{$spaces}}for x in {{$prefix}}["{{$property.ID}}"]:
             {{- $nextCustomizedType := index $customizedTypes $property.ExtraType}}
             {{- $nextSpaces := printf "%s    " $spaces}}
             {{- $x := passThrough "x" $nextCustomizedType $customizedTypes $nextSpaces}}
@@ -119,17 +119,17 @@
         {{- $isContentLength := eq $property.ID "Content-Length"}}
         {{- if not $isContentLength}}
         {{- if $property.IsRequired}}
-        {{$spaces}}if {{$prefix}}['{{$property.ID}}'] and not {{$prefix}}['{{$property.ID}}']:
-            {{$spaces}}raise ParameterRequiredError('{{$property.ID}}', '{{$customizedType.ID}}')
+        {{$spaces}}if {{$prefix}}["{{$property.ID}}"] and not {{$prefix}}["{{$property.ID}}"]:
+            {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- if gt ($property.Enum | len) 0}}
-        {{$spaces}}if {{$prefix}}['{{$property.ID}}'] and not {{$prefix}}['{{$property.ID}}']:
+        {{$spaces}}if {{$prefix}}["{{$property.ID}}"] and not {{$prefix}}["{{$property.ID}}"]:
             {{- $valid_value := $property.Enum | commaConnectedWithQuote}}
-            {{$spaces}}{{$property.ID | snakeCase}}_valid_values = [{{replace $valid_value "\"" "'" -1 }}]
-            {{$spaces}}if str({{$prefix}}['{{$property.ID}}']) not in {{$property.ID | snakeCase}}_valid_values:
+            {{$spaces}}{{$property.ID | snakeCase}}_valid_values = [{{replace $valid_value "\"" "\"" -1 }}]
+            {{$spaces}}if str({{$prefix}}["{{$property.ID}}"]) not in {{$property.ID | snakeCase}}_valid_values:
                 {{$spaces}}raise ParameterValueNotAllowedError(
-                '{{$property.ID}}',
-                {{$prefix}}['{{$property.ID}}'],
+                "{{$property.ID}}",
+                {{$prefix}}["{{$property.ID}}"],
                 {{$property.ID | snakeCase}}_valid_values
                 )
         {{- end}}
@@ -146,11 +146,11 @@
 {{- $request := $operation.Request}}
     @staticmethod
     def {{$operation.ID | snakeCase}}_validate(op):
-        {{- $x := passThrough "op['Params']" $request.Params $customizedTypes ""}}
+        {{- $x := passThrough "op[\"Params\"]" $request.Params $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
-        {{- $x := passThrough "op['Headers']" $request.Headers $customizedTypes ""}}
+        {{- $x := passThrough "op[\"Headers\"]" $request.Headers $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
-        {{- $x := passThrough "op['Elements']" $request.Elements $customizedTypes ""}}
+        {{- $x := passThrough "op[\"Elements\"]" $request.Elements $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
         pass
 {{end}}
@@ -177,40 +177,40 @@
         {{- if $hasInput}},{{end -}}
         {{- template "OperationInitParams" passThrough $service $operation -}}):
         operation = {
-            'API': '{{$operation.ID}}',
-            'Method' : '{{$operation.Request.Method}}',
-            'URI' : '{{$operation.Request.URI}}',
-            'Headers': {
+            "API": "{{$operation.ID}}",
+            "Method" : "{{$operation.Request.Method}}",
+            "URI" : "{{$operation.Request.URI}}",
+            "Headers": {
                 {{- if ne $service "QingStor" -}}
-                'Host': ''.join([self.properties['zone'],'.',self.config.host]),
+                "Host": "".join([self.properties["zone"],".",self.config.host]),
                 {{- end}}
                 {{- if eq $service "QingStor" -}}
-                'Host': self.config.host,
+                "Host": self.config.host,
                 {{- end}}
                 {{- range $id, $property := $operation.Request.Headers.Properties}}
-                '{{$property.Name}}': {{$property.Name| snakeCase}},
+                "{{$property.Name}}": {{$property.Name| snakeCase}},
                 {{- end}}
             },
-            'Params': {
+            "Params": {
                 {{- range $id, $property := $operation.Request.Params.Properties}}
-                '{{$property.Name | snakeCase}}': {{$property.Name | snakeCase}},
+                "{{$property.Name | snakeCase}}": {{$property.Name | snakeCase}},
                 {{- end}}
             },
-            'Elements': {
+            "Elements": {
                 {{- range $id, $property := $operation.Request.Elements.Properties}}
-                '{{$property.Name}}': {{$property.ID | snakeCase}},
+                "{{$property.Name}}": {{$property.ID | snakeCase}},
                 {{- end}}
             },
             {{- if ne $service "QingStor" -}}
-            'Properties' : self.properties,
+            "Properties" : self.properties,
             {{- end}}
             {{- if eq $service "QingStor" -}}
-            'Properties' : {},
+            "Properties" : {},
             {{- end}}
-            'Body' : {{if eq $operation.Request.Body.Type "binary"}}body{{else}}None{{end}}
+            "Body" : {{if eq $operation.Request.Body.Type "binary"}}body{{else}}None{{end}}
         }
         {{- if eq $service "Object"}}
-        operation['Properties']['object-key'] = object_key
+        operation["Properties"]["object-key"] = object_key
         {{- end}}
         self.{{$operation.ID | snakeCase }}_validate(operation)
         return Request(self.config, operation)

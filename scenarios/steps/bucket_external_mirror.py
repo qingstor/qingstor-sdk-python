@@ -13,7 +13,8 @@ from qingstor.sdk.service.qingstor import QingStor
 config = Config().load_user_config()
 qingstor = QingStor(config)
 test_config_file_path = path.abspath(
-    path.join(path.dirname(__file__), path.pardir))
+    path.join(path.dirname(__file__), path.pardir)
+)
 with open(test_config_file_path + '/test_config.yaml') as f:
     test = yaml.load(f)
     f.close()
@@ -46,8 +47,8 @@ def step_impl(context):
     u'get bucket external mirror should have source_site "https://example.com/something/"'
 )
 def step_impl(context):
-    assert_that(context.res['source_site']).is_equal_to(
-        'https://example.com/something/')
+    assert_that(context.res['source_site']
+                ).is_equal_to('https://example.com/something/')
 
 
 @when(u'delete bucket external mirror')

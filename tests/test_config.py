@@ -18,8 +18,9 @@ class ConfigTestCase(unittest.TestCase):
     def test_init_with_key(self):
         test_config = Config('test_access_key_id', 'test_secret_access_key')
         self.assertEqual(test_config.access_key_id, 'test_access_key_id')
-        self.assertEqual(test_config.secret_access_key,
-                         'test_secret_access_key')
+        self.assertEqual(
+            test_config.secret_access_key, 'test_secret_access_key'
+        )
         self.assertEqual(test_config.host, 'qingstor.com')
         self.assertEqual(test_config.port, 443)
         self.assertEqual(test_config.protocol, 'https')

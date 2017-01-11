@@ -15,7 +15,8 @@ from qingstor.sdk.service.qingstor import QingStor
 config = Config().load_user_config()
 qingstor = QingStor(config)
 test_config_file_path = path.abspath(
-    path.join(path.dirname(__file__), path.pardir))
+    path.join(path.dirname(__file__), path.pardir)
+)
 with open(test_config_file_path + '/test_config.yaml') as f:
     test = yaml.load(f)
     f.close()
@@ -45,8 +46,8 @@ def step_impl(context):
 def step_impl(context):
     context.res = bucket.put_object(
         'test_object_copy',
-        x_qs_copy_source=''.join(
-            ['/', test['bucket_name'], '/', 'test_object']))
+        x_qs_copy_source=''.join(['/', test['bucket_name'], '/', 'test_object'])
+    )
 
 
 @then(u'copy object status code is 201')
@@ -59,7 +60,9 @@ def step_impl(context):
     context.res = bucket.put_object(
         'test_object_move',
         x_qs_move_source=''.join(
-            ['/', test['bucket_name'], '/', 'test_object_copy']))
+            ['/', test['bucket_name'], '/', 'test_object_copy']
+        )
+    )
 
 
 @then(u'move object status code is 201')
@@ -97,7 +100,8 @@ def step_impl(context):
 @when(u'get object with content type "video/mp4; charset=utf8"')
 def step_impl(context):
     context.res = bucket.get_object(
-        'test_object', response_content_type='video/mp4; charset=utf8')
+        'test_object', response_content_type='video/mp4; charset=utf8'
+    )
 
 
 @then(u'get object content type is "video/mp4; charset=utf8"')
@@ -120,7 +124,8 @@ def step_impl(context):
     context.res = bucket.options_object(
         'test_object',
         access_control_request_method='GET',
-        origin='qingcloud.com')
+        origin='qingcloud.com'
+    )
 
 
 @then(u'options object status code is 200')

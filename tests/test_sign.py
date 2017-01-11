@@ -58,64 +58,87 @@ class SignTestCase(unittest.TestCase):
 
     def test_get_canonicalized_resource(self):
         canonicalized_resource = self.test_req.get_canonicalized_resource()
-        self.assertEqual(canonicalized_resource,
-                         '/test_bucket/test_object.json')
+        self.assertEqual(
+            canonicalized_resource, '/test_bucket/test_object.json'
+        )
 
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
-        self.assertEqual(authorization,
-                         'FiEPRBMzn0++U6RagdRMdeLheoipezsZGHoLBw3G9uo=')
+        self.assertEqual(
+            authorization, 'FiEPRBMzn0++U6RagdRMdeLheoipezsZGHoLBw3G9uo='
+        )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
-        self.assertEqual(authorization,
-                         'AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D')
+        self.assertEqual(
+            authorization, 'AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D'
+        )
 
     def test_sign(self):
         req = self.test_req.sign()
-        self.assertEquals(req.body, ('{'
-                                     '"test_elements_1": "test_val", '
-                                     '"test_elements_2": "test_val", '
-                                     '"test_elements_empty": ""'
-                                     '}'))
+        self.assertEquals(
+            req.body, (
+                '{'
+                '"test_elements_1": "test_val", '
+                '"test_elements_2": "test_val", '
+                '"test_elements_empty": ""'
+                '}'
+            )
+        )
         self.assertEqual(req.headers['Content-Length'], '89')
         self.assertEqual(req.headers['Content-Type'], 'application/json')
         self.assertEqual(req.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(req.headers['Host'], 'pek3a.qingstor.com')
         self.assertEqual(
-            req.headers['User-Agent'],
-            ('qingstor-sdk-python/{sdk_version}  '
-             '(Python v{python_version}; {system})').format(
-                 sdk_version=__version__,
-                 python_version=platform.python_version(),
-                 system=sys.platform))
+            req.headers['User-Agent'], (
+                'qingstor-sdk-python/{sdk_version}  '
+                '(Python v{python_version}; {system})'
+            ).format(
+                sdk_version=__version__,
+                python_version=platform.python_version(),
+                system=sys.platform
+            )
+        )
         self.assertEqual(req.method, 'GET')
-        self.assertEqual(req.url,
-                         ('https://pek3a.qingstor.com:443'
-                          '/test_bucket/test_object.json'
-                          '?test_params_1=test_val&test_params_2=test_val'))
+        self.assertEqual(
+            req.url, (
+                'https://pek3a.qingstor.com:443'
+                '/test_bucket/test_object.json'
+                '?test_params_1=test_val&test_params_2=test_val'
+            )
+        )
 
     def test_query_sign(self):
         req = self.test_req.sign_query(100)
-        self.assertEquals(req.body, ('{'
-                                     '"test_elements_1": "test_val", '
-                                     '"test_elements_2": "test_val", '
-                                     '"test_elements_empty": ""'
-                                     '}'))
+        self.assertEquals(
+            req.body, (
+                '{'
+                '"test_elements_1": "test_val", '
+                '"test_elements_2": "test_val", '
+                '"test_elements_empty": ""'
+                '}'
+            )
+        )
         self.assertEqual(req.headers['Content-Length'], '89')
         self.assertEqual(req.headers['Content-Type'], 'application/json')
         self.assertEqual(req.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(req.headers['Host'], 'pek3a.qingstor.com')
         self.assertEqual(
-            req.headers['User-Agent'],
-            ('qingstor-sdk-python/{sdk_version}  '
-             '(Python v{python_version}; {system})').format(
-                 sdk_version=__version__,
-                 python_version=platform.python_version(),
-                 system=sys.platform))
+            req.headers['User-Agent'], (
+                'qingstor-sdk-python/{sdk_version}  '
+                '(Python v{python_version}; {system})'
+            ).format(
+                sdk_version=__version__,
+                python_version=platform.python_version(),
+                system=sys.platform
+            )
+        )
         self.assertEqual(req.method, 'GET')
-        self.assertEqual(req.url, (
-            'https://pek3a.qingstor.com:443/test_bucket/test_object.json?'
-            'test_params_1=test_val&test_params_2=test_val'
-            '&signature=AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D'
-            '&access_key_id=ACCESS_KEY_ID&expires=100'))
+        self.assertEqual(
+            req.url, (
+                'https://pek3a.qingstor.com:443/test_bucket/test_object.json?'
+                'test_params_1=test_val&test_params_2=test_val'
+                '&signature=AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D'
+                '&access_key_id=ACCESS_KEY_ID&expires=100'
+            )
+        )

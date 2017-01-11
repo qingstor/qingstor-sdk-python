@@ -53,25 +53,28 @@ class BuildTestCase(unittest.TestCase):
         self.assertEqual(test_headers['Host'], 'pek3a.qingstor.com')
         self.assertEqual(test_headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(
-            test_headers['User-Agent'],
-            ('qingstor-sdk-python/{sdk_version}  '
-             '(Python v{python_version}; {system})').format(
-                 sdk_version=__version__,
-                 python_version=platform.python_version(),
-                 system=sys.platform))
+            test_headers['User-Agent'], (
+                'qingstor-sdk-python/{sdk_version}  '
+                '(Python v{python_version}; {system})'
+            ).format(
+                sdk_version=__version__,
+                python_version=platform.python_version(),
+                system=sys.platform
+            )
+        )
         self.assertEqual(test_headers['Content-Type'], 'application/json')
 
     def test_parse_request_body(self):
         test_body, is_json = self.test_builder.parse_request_body()
         self.assertEqual(
             test_body,
-            json.dumps(
-                {
-                    'test_elements_1': 'test_val',
-                    'test_elements_2': 'test_val',
-                    'test_elements_empty': '',
-                },
-                sort_keys=True))
+            json.dumps({
+                'test_elements_1': 'test_val',
+                'test_elements_2': 'test_val',
+                'test_elements_empty': '',
+            },
+                       sort_keys=True)
+        )
         self.assertEqual(is_json, True)
 
     def test_parse_request_properties(self):
@@ -82,32 +85,46 @@ class BuildTestCase(unittest.TestCase):
 
     def test_parss_request_uri(self):
         test_uri = self.test_builder.parse_request_uri()
-        self.assertEqual(test_uri, (
-            'https://pek3a.qingstor.com:443'
-            '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
-            '?test_params_1=test_val&test_params_2=test_val'))
+        self.assertEqual(
+            test_uri, (
+                'https://pek3a.qingstor.com:443'
+                '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+                '?test_params_1=test_val&test_params_2=test_val'
+            )
+        )
 
     def test_parse(self):
         self.maxDiff = None
         test_parse = self.test_builder.parse()
-        self.assertEquals(test_parse.data, ('{'
-                                            '"test_elements_1": "test_val", '
-                                            '"test_elements_2": "test_val", '
-                                            '"test_elements_empty": ""'
-                                            '}'))
+        self.assertEquals(
+            test_parse.data, (
+                '{'
+                '"test_elements_1": "test_val", '
+                '"test_elements_2": "test_val", '
+                '"test_elements_empty": ""'
+                '}'
+            )
+        )
         self.assertEqual(test_parse.headers['Host'], 'pek3a.qingstor.com')
-        self.assertEqual(test_parse.headers['Date'],
-                         'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(
-            test_parse.headers['User-Agent'],
-            ('qingstor-sdk-python/{sdk_version}  '
-             '(Python v{python_version}; {system})').format(
-                 sdk_version=__version__,
-                 python_version=platform.python_version(),
-                 system=sys.platform))
+            test_parse.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT'
+        )
+        self.assertEqual(
+            test_parse.headers['User-Agent'], (
+                'qingstor-sdk-python/{sdk_version}  '
+                '(Python v{python_version}; {system})'
+            ).format(
+                sdk_version=__version__,
+                python_version=platform.python_version(),
+                system=sys.platform
+            )
+        )
         self.assertEqual(test_parse.headers['Content-Type'], 'application/json')
         self.assertEquals(test_parse.method, 'GET')
-        self.assertEquals(test_parse.url, (
-            'https://pek3a.qingstor.com:443'
-            '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
-            '?test_params_1=test_val&test_params_2=test_val'))
+        self.assertEquals(
+            test_parse.url, (
+                'https://pek3a.qingstor.com:443'
+                '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+                '?test_params_1=test_val&test_params_2=test_val'
+            )
+        )

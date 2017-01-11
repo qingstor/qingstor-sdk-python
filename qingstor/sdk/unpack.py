@@ -26,8 +26,8 @@ class Unpacker(dict):
         super(Unpacker, self).__init__()
         self.res = res
         self.status_code = res.status_code
-        self.logger = logging.getLogger('qingstor-sdk')
-        self.logger.debug('%s: %s' % ('status_code', self.status_code))
+        self.logger = logging.getLogger("qingstor-sdk")
+        self.logger.debug("%s: %s" % ("status_code", self.status_code))
         self.unpack_response_body()
 
     @property
@@ -40,12 +40,12 @@ class Unpacker(dict):
 
     def unpack_response_body(self):
         header = self.res.headers
-        if self.res.ok and header['Content-type'] == 'application/json':
+        if self.res.ok and header["Content-type"] == "application/json":
             data = self.res.json()
             if data:
                 for (k, v) in data.items():
                     self[k] = v
-                    self.logger.debug('%s: %s' % (k, v))
+                    self.logger.debug("%s: %s" % (k, v))
 
     def iter_content(self, chunk_size=CHUNK_SIZE, decode_unicode=False):
         return self.res.iter_content(chunk_size, decode_unicode)

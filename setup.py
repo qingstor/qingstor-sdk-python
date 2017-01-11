@@ -7,10 +7,7 @@ from qingstor.sdk import __version__
 
 ROOT = os.path.dirname(__file__)
 
-requires = [
-    'requests',
-    'PyYAML'
-]
+requires = ['requests', 'PyYAML']
 
 setup(
     name='qingstor-sdk',
@@ -21,9 +18,9 @@ setup(
     url='https://github.com/yunify/qingstor-sdk-python',
     author_email='sdk_group@yunify.com',
     scripts=[],
-    packages = find_packages('.'),
-    namespace_packages = ['qingstor'],
-    package_dir = {'sdk': 'qingstor'},
+    packages=find_packages('.'),
+    namespace_packages=['qingstor'],
+    package_dir={'sdk': 'qingstor'},
     include_package_data=True,
     install_requires=requires,
     license="Apache License 2.0",

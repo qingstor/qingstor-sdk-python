@@ -12,7 +12,8 @@ from qingstor.sdk.service.qingstor import QingStor
 config = Config().load_user_config()
 qingstor = QingStor(config)
 test_config_file_path = path.abspath(
-    path.join(path.dirname(__file__), path.pardir))
+    path.join(path.dirname(__file__), path.pardir)
+)
 with open(test_config_file_path + '/test_config.yaml') as f:
     test = yaml.load(f)
     f.close()
@@ -81,13 +82,15 @@ def step_impl(context):
     bucket.put_object('object_0')
     bucket.put_object('object_1')
     bucket.put_object('object_2')
-    context.res = bucket.delete_multiple_objects(objects=[{
-        'key': 'object_0'
-    }, {
-        'key': 'object_1'
-    }, {
-        'key': 'object_2'
-    }])
+    context.res = bucket.delete_multiple_objects(
+        objects=[{
+            'key': 'object_0'
+        }, {
+            'key': 'object_1'
+        }, {
+            'key': 'object_2'
+        }]
+    )
 
 
 @then(u'delete multiple objects code is 200')

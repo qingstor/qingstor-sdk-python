@@ -41,7 +41,7 @@ class {{$service.Name | camelCase}}():
             total=self.config.connection_retries,
             backoff_factor=1,
             status_forcelist=[500, 502, 503, 504])
-        self.client.mount(self.config.protocol+'://', HTTPAdapter(max_retries=retries))
+        self.client.mount(self.config.protocol+"://", HTTPAdapter(max_retries=retries))
 
     {{- range $_, $operation := $service.Operations}}
     {{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}
@@ -49,8 +49,8 @@ class {{$service.Name | camelCase}}():
 
     def Bucket(self, bucket_name, zone):
         properties = {
-            'bucket-name' : bucket_name,
-            'zone' : zone
+            "bucket-name" : bucket_name,
+            "zone" : zone
         }
         client = self.client
         return Bucket(self.config, properties, client)
