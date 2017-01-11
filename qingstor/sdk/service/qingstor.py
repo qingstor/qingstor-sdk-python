@@ -34,28 +34,30 @@ class QingStor():
         retries = Retry(
             total=self.config.connection_retries,
             backoff_factor=1,
-            status_forcelist=[500, 502, 503, 504])
+            status_forcelist=[500, 502, 503, 504]
+        )
         self.client.mount(
-            self.config.protocol + '://', HTTPAdapter(max_retries=retries))
+            self.config.protocol + "://", HTTPAdapter(max_retries=retries)
+        )
 
-    def list_buckets_request(self, location=''):
+    def list_buckets_request(self, location=""):
         operation = {
-            'API': 'ListBuckets',
-            'Method': 'GET',
-            'URI': '/',
-            'Headers': {
-                'Host': self.config.host,
-                'Location': location,
+            "API": "ListBuckets",
+            "Method": "GET",
+            "URI": "/",
+            "Headers": {
+                "Host": self.config.host,
+                "Location": location,
             },
-            'Params': {},
-            'Elements': {},
-            'Properties': {},
-            'Body': None
+            "Params": {},
+            "Elements": {},
+            "Properties": {},
+            "Body": None
         }
         self.list_buckets_validate(operation)
         return Request(self.config, operation)
 
-    def list_buckets(self, location=''):
+    def list_buckets(self, location=""):
         req = self.list_buckets_request(location=location)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -65,6 +67,6 @@ class QingStor():
         pass
 
     def Bucket(self, bucket_name, zone):
-        properties = {'bucket-name': bucket_name, 'zone': zone}
+        properties = {"bucket-name": bucket_name, "zone": zone}
         client = self.client
         return Bucket(self.config, properties, client)

@@ -23,8 +23,9 @@ class ParameterRequiredError(Exception):
         self.parent_name = parent_name
 
     def __str__(self):
-        return ''.join(
-            [self.parameter_name, ' is required in ', self.parent_name])
+        return "".join(
+            [self.parameter_name, " is required in ", self.parent_name]
+        )
 
 
 class ParameterValueNotAllowedError(Exception):
@@ -35,7 +36,8 @@ class ParameterValueNotAllowedError(Exception):
         self.allowed_values = allowed_values
 
     def __str__(self):
-        return ''.join([
-            self.parameter_name, ' value ', self.parameter_value,
-            ' is not allowed, should be one of ', ', '.join(self.allowed_values)
+        return "".join([
+            self.parameter_name, " value ", self.parameter_value,
+            " is not allowed, should be one of ",
+            ", ".join(self.allowed_values)
         ])

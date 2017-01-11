@@ -13,7 +13,8 @@ from qingstor.sdk.service.qingstor import QingStor
 config = Config().load_user_config()
 qingstor = QingStor(config)
 test_config_file_path = path.abspath(
-    path.join(path.dirname(__file__), path.pardir))
+    path.join(path.dirname(__file__), path.pardir)
+)
 with open(test_config_file_path + '/test_config.yaml') as f:
     test = yaml.load(f)
     f.close()

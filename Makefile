@@ -26,7 +26,7 @@ generate:
 		--service=qingstor --service-api-version=latest \
 		--spec="./specs" --template="./template" --output="./qingstor/sdk/service"
 	rm ./qingstor/sdk/service/object.py
-	yapf -i -r ./qingstor ./tests ./scenarios --style google
+	yapf -i -r ./qingstor ./tests ./scenarios
 	@echo "ok"
 
 update:
