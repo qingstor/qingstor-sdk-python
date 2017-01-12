@@ -23,16 +23,16 @@ List buckets
 ``` python
 output = qingstor.list_buckets()
 
-// Print the HTTP status code.
-// Example: 200
+# Print the HTTP status code.
+# Example: 200
 print(output.status_code)
 
-// Print the bucket count.
-// Example: 5
+# Print the bucket count.
+# Example: 5
 print(output['count'])
 
-// Print the name of first bucket.
-// Example: 'test-bucket'
+# Print the name of first bucket.
+# Example: 'test-bucket'
 print(output['buckets'][0]['name'])
 ```
 
@@ -47,12 +47,12 @@ List objects in the bucket
 ``` python
 output = bucket.list_objects()
 
-// Print the HTTP status code.
-// Example: 200
+# Print the HTTP status code.
+# Example: 200
 print(output.status_code)
 
-// Print the key count.
-// Example: 7
+# Print the key count.
+# Example: 7
 print(len(output['keys']))
 ```
 
@@ -69,8 +69,8 @@ output = bucket.put_acl(acl=[
     }
 ])
 
-// Print the HTTP status code.
-// Example: 200
+# Print the HTTP status code.
+# Example: 200
 print(output.status_code)
 ```
 
@@ -82,8 +82,8 @@ with open('/tmp/sdk_bin') as f:
         'example_key', body=f
     )
 
-// Print the HTTP status code.
-// Example: 201
+# Print the HTTP status code.
+# Example: 201
 print(output.status_code)
 
 ```
@@ -93,8 +93,8 @@ Delete object
 ``` python
 output = bucket.delete_object('example_key')
 
-// Print the HTTP status code.
-// Example: 204
+# Print the HTTP status code.
+# Example: 204
 print(output.status_code)
 ```
 
@@ -106,12 +106,12 @@ output = bucket.initiate_multipart_upload(
 	content_type: 'video/quicktime',
 )
 
-// Print the HTTP status code.
-// Example: 200
+# Print the HTTP status code.
+# Example: 200
 print(output.status_code)
 
-// Print the upload ID.
-// Example: '9d37dd6ccee643075ca4e597ad65655c'
+# Print the upload ID.
+# Example: '9d37dd6ccee643075ca4e597ad65655c'
 print(output['upload_id'])
 ```
 
@@ -127,8 +127,8 @@ with open('/tmp/file0', 'rb') as file0:
             body=file0,
         )
 
-// Print the HTTP status code.
-// Example: 201
+# Print the HTTP status code.
+# Example: 201
 print(output.status_code)
 
 with open('/tmp/file1', 'rb') as file1:
@@ -139,8 +139,8 @@ with open('/tmp/file1', 'rb') as file1:
         body=file1,
     )
 
-// Print the HTTP status code.
-// Example: 201
+# Print the HTTP status code.
+# Example: 201
 print(output.status_code)
 
 with open('/tmp/file2', 'rb') as file2:
@@ -151,8 +151,8 @@ with open('/tmp/file2', 'rb') as file2:
         body=file2,
     )
 
-// Print the HTTP status code.
-// Example: 201
+# Print the HTTP status code.
+# Example: 201
 print(output.status_code)
 ```
 
@@ -169,8 +169,8 @@ output = bucket.complete_multipart_upload(
     }
 )
 
-// Print the HTTP status code.
-// Example: 200
+# Print the HTTP status code.
+# Example: 200
 print(output.status_code)
 ```
 
@@ -182,7 +182,7 @@ output = bucket.abort_multipart_upload(
     upload_id:  'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 )
 
-// Print the error message.
-// Example: 400
+# Print the error message.
+# Example: 400
 print(output.status_code)
 ```
