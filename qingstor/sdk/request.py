@@ -106,7 +106,6 @@ class Request:
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
-        print(string_to_sign)
         if is_python2:
             h = hmac.new(self.secret_access_key, digestmod=sha256)
             h.update(string_to_sign)
