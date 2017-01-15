@@ -176,10 +176,14 @@
         {{- if eq $service "Object"}},object_key{{end -}}
         {{- if $hasInput}},{{end -}}
         {{- template "OperationInitParams" passThrough $service $operation -}}):
+        {{- $uri := $operation.Request.URI}}
+        {{- $uri := replace $uri "{" "<" -1}}
+        {{- $uri := replace $uri "}" ">" -1}}
+        {{- $uri := dashConnected $uri}}
         operation = {
             "API": "{{$operation.ID}}",
             "Method" : "{{$operation.Request.Method}}",
-            "URI" : "{{$operation.Request.URI}}",
+            "URI" : "{{$uri}}",
             "Headers": {
                 {{- if ne $service "QingStor" -}}
                 "Host": "".join([self.properties["zone"],".",self.config.host]),
