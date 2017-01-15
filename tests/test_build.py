@@ -26,7 +26,7 @@ class BuildTestCase(unittest.TestCase):
             },
             'Params': {
                 'test_params_1': 'test_val',
-                'test_params_2': 'test_val',
+                'test_params_2': '中文测试',
                 'test_params_empty': '',
             },
             'Elements': {
@@ -46,7 +46,7 @@ class BuildTestCase(unittest.TestCase):
     def test_parse_request_params(self):
         test_params = self.test_builder.parse_request_params()
         self.assertEqual(test_params['test_params_1'], 'test_val')
-        self.assertEqual(test_params['test_params_2'], 'test_val')
+        self.assertEqual(test_params['test_params_2'], '中文测试')
 
     def test_parse_request_headers(self):
         test_headers = self.test_builder.parse_request_headers()
@@ -89,7 +89,7 @@ class BuildTestCase(unittest.TestCase):
             test_uri, (
                 'https://pek3a.qingstor.com:443'
                 '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
-                '?test_params_1=test_val&test_params_2=test_val'
+                '?test_params_1=test_val&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
             )
         )
 
@@ -125,6 +125,6 @@ class BuildTestCase(unittest.TestCase):
             test_parse.url, (
                 'https://pek3a.qingstor.com:443'
                 '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
-                '?test_params_1=test_val&test_params_2=test_val'
+                '?test_params_1=test_val&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
             )
         )
