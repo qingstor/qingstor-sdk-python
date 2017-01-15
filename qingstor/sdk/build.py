@@ -152,7 +152,7 @@ class Builder:
         if len(parsed_params):
             params_parts = list()
             for (k, v) in parsed_params.items():
-                params_parts.append("%s=%s" % (k, v))
+                params_parts.append("%s=%s" % (k, quote(v, safe="")))
             params_parts = sorted(params_parts)
             joined = "&".join(params_parts)
             if joined:
