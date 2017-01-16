@@ -22,6 +22,8 @@ class BuildTestCase(unittest.TestCase):
             'Headers': {
                 'Host': 'pek3a.qingstor.com',
                 'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
+                'x-qs-test-header1': 'test_val',
+                'x-qs-test-header2': '中文测试',
                 'test_empty_header': '',
             },
             'Params': {
@@ -31,7 +33,7 @@ class BuildTestCase(unittest.TestCase):
             },
             'Elements': {
                 'test_elements_1': 'test_val',
-                'test_elements_2': 'test_val',
+                'test_elements_2': '中文测试',
                 'test_elements_empty': '',
             },
             'Properties': {
@@ -63,6 +65,8 @@ class BuildTestCase(unittest.TestCase):
             )
         )
         self.assertEqual(test_headers['Content-Type'], 'application/json')
+        self.assertEqual(test_headers['x-qs-test-header1'], 'test_val')
+        self.assertEqual(test_headers['x-qs-test-header2'], '中文测试')
 
     def test_parse_request_body(self):
         test_body, is_json = self.test_builder.parse_request_body()
@@ -70,7 +74,7 @@ class BuildTestCase(unittest.TestCase):
             test_body,
             json.dumps({
                 'test_elements_1': 'test_val',
-                'test_elements_2': 'test_val',
+                'test_elements_2': '中文测试',
                 'test_elements_empty': '',
             },
                        sort_keys=True)
@@ -96,11 +100,12 @@ class BuildTestCase(unittest.TestCase):
     def test_parse(self):
         self.maxDiff = None
         test_parse = self.test_builder.parse()
+        print(test_parse.data)
         self.assertEquals(
             test_parse.data, (
                 '{'
                 '"test_elements_1": "test_val", '
-                '"test_elements_2": "test_val", '
+                '"test_elements_2": "\\u4e2d\\u6587\\u6d4b\\u8bd5", '
                 '"test_elements_empty": ""'
                 '}'
             )
