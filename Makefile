@@ -35,12 +35,6 @@ update:
 
 unit:
 	@echo "run unit test"
-	nosetests
-	@echo "ok"
-
-tox:
-	@echo "run unit test in multi python version"
-	@echo "please do pyenv local before run this script"
 	tox
 	@echo "ok"
 
