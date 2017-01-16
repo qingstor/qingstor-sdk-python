@@ -23,7 +23,7 @@ from hashlib import sha256
 from requests.utils import quote, urlparse, urlunparse
 
 from .build import Builder
-from .constant import is_python2, is_python3
+from .compat import is_python2, is_python3
 
 
 class Request:

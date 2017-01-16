@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import platform
 import sys
@@ -19,22 +21,24 @@ class SignTestCase(unittest.TestCase):
             'Headers': {
                 'Host': 'pek3a.qingstor.com',
                 'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
+                'x-qs-test-header1': 'test',
+                'x-qs-test-header2': '中文测试',
                 'test_empty_header': '',
             },
             'Params': {
                 'test_params_1': 'test_val',
-                'test_params_2': 'test_val',
+                'test_params_2': '中文测试',
                 'test_params_empty': '',
             },
             'Elements': {
                 'test_elements_1': 'test_val',
-                'test_elements_2': 'test_val',
+                'test_elements_2': '中文测试',
                 'test_elements_empty': '',
             },
             'Properties': {
                 'zone': 'pek3a',
                 'bucket-name': 'test_bucket',
-                'object-key': 'test_object.json',
+                'object-key': '中文测试.json',
             },
             'Body': None,
         }
@@ -54,24 +58,24 @@ class SignTestCase(unittest.TestCase):
 
     def test_get_canonicalized_headers(self):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
-        self.assertEqual(canonicalized_headers, '')
+        self.assertEqual(canonicalized_headers, 'x-qs-test-header1:test\nx-qs-test-header2:中文测试\n')
 
     def test_get_canonicalized_resource(self):
         canonicalized_resource = self.test_req.get_canonicalized_resource()
         self.assertEqual(
-            canonicalized_resource, '/test_bucket/test_object.json'
+            canonicalized_resource, '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
         )
 
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
         self.assertEqual(
-            authorization, 'FiEPRBMzn0++U6RagdRMdeLheoipezsZGHoLBw3G9uo='
+            authorization, 'W6mQuLW3YEXeiOn8CbVWZyuAj8JH0By77ntIwT4tX2E='
         )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, 'AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D'
+            authorization, 'zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
         )
 
     def test_sign(self):
@@ -80,12 +84,12 @@ class SignTestCase(unittest.TestCase):
             req.body, (
                 '{'
                 '"test_elements_1": "test_val", '
-                '"test_elements_2": "test_val", '
+                '"test_elements_2": "\\u4e2d\\u6587\\u6d4b\\u8bd5", '
                 '"test_elements_empty": ""'
                 '}'
             )
         )
-        self.assertEqual(req.headers['Content-Length'], '89')
+        self.assertEqual(req.headers['Content-Length'], '105')
         self.assertEqual(req.headers['Content-Type'], 'application/json')
         self.assertEqual(req.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(req.headers['Host'], 'pek3a.qingstor.com')
@@ -102,9 +106,10 @@ class SignTestCase(unittest.TestCase):
         self.assertEqual(req.method, 'GET')
         self.assertEqual(
             req.url, (
-                'https://pek3a.qingstor.com:443'
-                '/test_bucket/test_object.json'
-                '?test_params_1=test_val&test_params_2=test_val'
+                'https://pek3a.qingstor.com:443/test_bucket/'
+                '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+                '?test_params_1=test_val'
+                '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
             )
         )
 
@@ -114,12 +119,12 @@ class SignTestCase(unittest.TestCase):
             req.body, (
                 '{'
                 '"test_elements_1": "test_val", '
-                '"test_elements_2": "test_val", '
+                '"test_elements_2": "\\u4e2d\\u6587\\u6d4b\\u8bd5", '
                 '"test_elements_empty": ""'
                 '}'
             )
         )
-        self.assertEqual(req.headers['Content-Length'], '89')
+        self.assertEqual(req.headers['Content-Length'], '105')
         self.assertEqual(req.headers['Content-Type'], 'application/json')
         self.assertEqual(req.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(req.headers['Host'], 'pek3a.qingstor.com')
@@ -136,9 +141,11 @@ class SignTestCase(unittest.TestCase):
         self.assertEqual(req.method, 'GET')
         self.assertEqual(
             req.url, (
-                'https://pek3a.qingstor.com:443/test_bucket/test_object.json?'
-                'test_params_1=test_val&test_params_2=test_val'
-                '&signature=AmmCf9NgkURPxkWiQLuVlonw%2BUK6uhjn%2BsznXdff8A4%3D'
+                'https://pek3a.qingstor.com:443/test_bucket/'
+                '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json?'
+                'test_params_1=test_val'
+                '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
+                '&signature=zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )

@@ -15,4 +15,9 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
-CHUNK_SIZE = 32 * 1024 * 1024
+import sys
+
+_ver = sys.version_info
+
+is_python2 = (_ver[0] == 2)
+is_python3 = (_ver[0] == 3)
