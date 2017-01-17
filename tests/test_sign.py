@@ -58,7 +58,11 @@ class SignTestCase(unittest.TestCase):
 
     def test_get_canonicalized_headers(self):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
-        self.assertEqual(canonicalized_headers, 'x-qs-test-header1:test\nx-qs-test-header2:中文测试\n')
+        self.assertEqual(
+            canonicalized_headers,
+            'x-qs-test-header1:test\n'
+            'x-qs-test-header2:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
+        )
 
     def test_get_canonicalized_resource(self):
         canonicalized_resource = self.test_req.get_canonicalized_resource()
@@ -69,13 +73,13 @@ class SignTestCase(unittest.TestCase):
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
         self.assertEqual(
-            authorization, 'W6mQuLW3YEXeiOn8CbVWZyuAj8JH0By77ntIwT4tX2E='
+            authorization, 'j+c8pI+iYMLIiwxTuE1h3xUgGT1JpWKVBy2jnmdpJt8='
         )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, 'zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
+            authorization, '4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
         )
 
     def test_sign(self):
@@ -145,7 +149,7 @@ class SignTestCase(unittest.TestCase):
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json?'
                 'test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
-                '&signature=zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
+                '&signature=4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )

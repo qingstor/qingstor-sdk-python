@@ -66,7 +66,7 @@ class BuildTestCase(unittest.TestCase):
         )
         self.assertEqual(test_headers['Content-Type'], 'application/json')
         self.assertEqual(test_headers['x-qs-test-header1'], 'test_val')
-        self.assertEqual(test_headers['x-qs-test-header2'], '中文测试')
+        self.assertEqual(test_headers['x-qs-test-header2'], '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95')
 
     def test_parse_request_body(self):
         test_body, is_json = self.test_builder.parse_request_body()
