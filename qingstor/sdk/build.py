@@ -15,6 +15,8 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import sys
 import json
 import base64
@@ -28,6 +30,7 @@ from requests import Request as Req
 from requests.utils import quote, urlparse
 
 from . import __version__
+from .compat import is_python2, is_python3
 
 
 class Builder:
@@ -72,12 +75,20 @@ class Builder:
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
                 if v != "" and v != {} and v is not None:
-                    parsed_headers[k] = quote(v, safe="")
+                    if is_python2:
+                        parsed_headers[k] = quote(v.encode("utf-8"))
+                    elif is_python3:
+                        parsed_headers[k] = quote(v)
 
             # Handle header Date
-            parsed_headers["Date"] = self.operation["Headers"].get(
-                "Date", strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
-            )
+            if is_python2:
+                parsed_headers["Date"] = self.operation["Headers"].get(
+                    "Date", strftime("%a, %d %b %Y %H:%M:%S GMT".encode("utf-8"), gmtime())
+                )
+            elif is_python3:
+                parsed_headers["Date"] = self.operation["Headers"].get(
+                    "Date", strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
+                )
 
             # Handle header User-Agent
             parsed_headers["User-Agent"] = (
@@ -144,15 +155,22 @@ class Builder:
         request_uri = self.operation["URI"]
         if len(properties):
             for (k, v) in properties.items():
-                endpoint = endpoint.replace("<%s>" % k, quote(v, safe=""))
-                request_uri = request_uri.replace("<%s>" % k, quote(v, safe=""))
+                if is_python2:
+                    endpoint = endpoint.replace("<%s>" % k, quote(v.encode("utf-8")))
+                    request_uri = request_uri.replace("<%s>" % k, quote(v.encode("utf-8")))
+                elif is_python3:
+                    endpoint = endpoint.replace("<%s>" % k, quote(v))
+                    request_uri = request_uri.replace("<%s>" % k, quote(v))
         parsed_uri = endpoint + request_uri
 
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             params_parts = list()
             for (k, v) in parsed_params.items():
-                params_parts.append("%s=%s" % (k, quote(v, safe="")))
+                if is_python2:
+                    params_parts.append("%s=%s" % (k, quote(v.encode("utf-8"))))
+                elif is_python3:
+                    params_parts.append("%s=%s" % (k, quote(v)))
             params_parts = sorted(params_parts)
             joined = "&".join(params_parts)
             if joined:

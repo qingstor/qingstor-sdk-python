@@ -15,6 +15,8 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import hmac
 import base64
 import logging
@@ -107,13 +109,19 @@ class Request:
         ])
         self.logger.debug(string_to_sign)
         if is_python2:
-            h = hmac.new(self.secret_access_key, digestmod=sha256)
-            h.update(string_to_sign)
+            h = hmac.new(
+                str(self.secret_access_key),
+                str(string_to_sign),
+                digestmod=sha256
+            )
             signature = base64.b64encode(h.digest()).strip()
             return signature
         elif is_python3:
-            h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
-            h.update(string_to_sign.encode())
+            h = hmac.new(
+                self.secret_access_key.encode("utf-8"),
+                string_to_sign.encode("utf-8"),
+                digestmod=sha256
+            )
             signature = base64.b64encode(h.digest()).strip().decode()
             return signature
 
@@ -125,14 +133,20 @@ class Request:
         ])
         self.logger.debug(string_to_sign)
         if is_python2:
-            h = hmac.new(self.secret_access_key, digestmod=sha256)
-            h.update(string_to_sign)
-            signature = quote(base64.b64encode(h.digest()).strip(), safe="")
+            h = hmac.new(
+                str(self.secret_access_key),
+                str(string_to_sign),
+                digestmod=sha256
+            )
+            signature = quote(base64.b64encode(h.digest()).strip())
             return signature
         elif is_python3:
-            h = hmac.new(self.secret_access_key.encode(), digestmod=sha256)
-            h.update(string_to_sign.encode())
-            signature = quote(base64.b64encode(h.digest()).strip(), safe="")
+            h = hmac.new(
+                self.secret_access_key.encode(),
+                string_to_sign.encode(),
+                digestmod=sha256
+            )
+            signature = quote(base64.b64encode(h.digest()).strip())
             return signature
 
     def is_sub_resource(self, key):
