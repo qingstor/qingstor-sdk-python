@@ -72,7 +72,7 @@ class Builder:
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
                 if v != "" and v != {} and v is not None:
-                    parsed_headers[k] = v
+                    parsed_headers[k] = quote(v, safe="")
 
             # Handle header Date
             parsed_headers["Date"] = self.operation["Headers"].get(
