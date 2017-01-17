@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import json
 import platform
 import sys
@@ -59,15 +61,15 @@ class SignTestCase(unittest.TestCase):
     def test_get_canonicalized_headers(self):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
         self.assertEqual(
-            canonicalized_headers,
-            'x-qs-test-header1:test\n'
+            canonicalized_headers, 'x-qs-test-header1:test\n'
             'x-qs-test-header2:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
         )
 
     def test_get_canonicalized_resource(self):
         canonicalized_resource = self.test_req.get_canonicalized_resource()
         self.assertEqual(
-            canonicalized_resource, '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+            canonicalized_resource,
+            '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
         )
 
     def test_get_authorization(self):

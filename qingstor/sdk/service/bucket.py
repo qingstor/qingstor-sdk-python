@@ -15,6 +15,8 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 from ..unpack import Unpacker
 from ..request import Request
 from ..error import ParameterRequiredError, ParameterValueNotAllowedError
