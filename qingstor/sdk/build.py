@@ -75,15 +75,15 @@ class Builder:
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
                 if v != "" and v != {} and v is not None:
-                    if is_python2:
-                        parsed_headers[k] = quote(v.encode("utf-8"))
-                    elif is_python3:
-                        parsed_headers[k] = quote(v)
+                    parsed_headers[k] = v
 
             # Handle header Date
             if is_python2:
                 parsed_headers["Date"] = self.operation["Headers"].get(
-                    "Date", strftime("%a, %d %b %Y %H:%M:%S GMT".encode("utf-8"), gmtime())
+                    "Date",
+                    strftime(
+                        "%a, %d %b %Y %H:%M:%S GMT".encode("utf-8"), gmtime()
+                    )
                 )
             elif is_python3:
                 parsed_headers["Date"] = self.operation["Headers"].get(
@@ -156,11 +156,15 @@ class Builder:
         if len(properties):
             for (k, v) in properties.items():
                 if is_python2:
-                    endpoint = endpoint.replace("<%s>" % k, quote(v.encode("utf-8")))
-                    request_uri = request_uri.replace("<%s>" % k, quote(v.encode("utf-8")))
+                    endpoint = endpoint.replace(
+                        "<%s>" % k, quote(unicode(v).encode("utf-8"))
+                    )
+                    request_uri = request_uri.replace(
+                        "<%s>" % k, quote(unicode(v).encode("utf-8"))
+                    )
                 elif is_python3:
-                    endpoint = endpoint.replace("<%s>" % k, quote(v))
-                    request_uri = request_uri.replace("<%s>" % k, quote(v))
+                    endpoint = endpoint.replace("<%s>" % k, quote(str(v)))
+                    request_uri = request_uri.replace("<%s>" % k, quote(str(v)))
         parsed_uri = endpoint + request_uri
 
         parsed_params = self.parse_request_params()
@@ -168,9 +172,11 @@ class Builder:
             params_parts = list()
             for (k, v) in parsed_params.items():
                 if is_python2:
-                    params_parts.append("%s=%s" % (k, quote(v.encode("utf-8"))))
+                    params_parts.append(
+                        "%s=%s" % (k, quote(unicode(v).encode("utf-8")))
+                    )
                 elif is_python3:
-                    params_parts.append("%s=%s" % (k, quote(v)))
+                    params_parts.append("%s=%s" % (k, quote(str(v))))
             params_parts = sorted(params_parts)
             joined = "&".join(params_parts)
             if joined:

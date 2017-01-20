@@ -92,7 +92,10 @@ class Request:
                 if self.is_sub_resource(i.split("=")[0]):
                     if len(i.split("=")) > 1:
                         k, v = i.split("=")
-                        keys.append("%s=%s" % (k, quote(v, safe="")))
+                        if is_python2:
+                            keys.append("%s=%s" % (k, quote(unicode(v))))
+                        elif is_python3:
+                            keys.append("%s=%s" % (k, quote(str(v))))
                     else:
                         keys.append(i)
             keys = sorted(keys)
@@ -108,22 +111,13 @@ class Request:
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
-        if is_python2:
-            h = hmac.new(
-                str(self.secret_access_key),
-                str(string_to_sign),
-                digestmod=sha256
-            )
-            signature = base64.b64encode(h.digest()).strip()
-            return signature
-        elif is_python3:
-            h = hmac.new(
-                self.secret_access_key.encode("utf-8"),
-                string_to_sign.encode("utf-8"),
-                digestmod=sha256
-            )
-            signature = base64.b64encode(h.digest()).strip().decode()
-            return signature
+        h = hmac.new(
+            self.secret_access_key.encode("utf-8"),
+            string_to_sign.encode("utf-8"),
+            digestmod=sha256
+        )
+        signature = base64.b64encode(h.digest()).strip().decode()
+        return signature
 
     def get_query_signature(self, expires):
         string_to_sign = "".join([
@@ -132,22 +126,13 @@ class Request:
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
-        if is_python2:
-            h = hmac.new(
-                str(self.secret_access_key),
-                str(string_to_sign),
-                digestmod=sha256
-            )
-            signature = quote(base64.b64encode(h.digest()).strip())
-            return signature
-        elif is_python3:
-            h = hmac.new(
-                self.secret_access_key.encode(),
-                string_to_sign.encode(),
-                digestmod=sha256
-            )
-            signature = quote(base64.b64encode(h.digest()).strip())
-            return signature
+        h = hmac.new(
+            self.secret_access_key.encode("utf-8"),
+            string_to_sign.encode("utf-8"),
+            digestmod=sha256
+        )
+        signature = quote(base64.b64encode(h.digest()).strip())
+        return signature
 
     def is_sub_resource(self, key):
         keys_map = [
