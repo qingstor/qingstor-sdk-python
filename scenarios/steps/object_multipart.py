@@ -26,12 +26,10 @@ init_multipart_res = None
 list_multipart_res = None
 
 
-@when(u'initiate multipart upload with key "test_object_multipart"')
-def step_impl(context):
+@when(u'initiate multipart upload with key "{key}"')
+def step_impl(context, key):
     global init_multipart_res
-    init_multipart_res = bucket.initiate_multipart_upload(
-        'test_object_multipart'
-    )
+    init_multipart_res = bucket.initiate_multipart_upload(key)
 
 
 @then(u'initiate multipart upload status code is 200')
@@ -39,12 +37,12 @@ def step_impl(context):
     assert_that(init_multipart_res.status_code).is_equal_to(200)
 
 
-@when(u'upload the first part')
-def step_impl(context):
+@when(u'upload the first part with key "{key}"')
+def step_impl(context, key):
     system('dd if=/dev/zero of=/tmp/sdk_bin_part_0 bs=1048576 count=5')
     with open('/tmp/sdk_bin_part_0') as f:
         context.res = bucket.upload_multipart(
-            'test_object_multipart', 0, init_multipart_res['upload_id'], body=f
+            key, 0, init_multipart_res['upload_id'], body=f
         )
         f.close()
 
@@ -54,12 +52,12 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(201)
 
 
-@when(u'upload the second part')
-def step_impl(context):
+@when(u'upload the second part with key "{key}"')
+def step_impl(context, key):
     system('dd if=/dev/zero of=/tmp/sdk_bin_part_1 bs=1048576 count=5')
     with open('/tmp/sdk_bin_part_1') as f:
         context.res = bucket.upload_multipart(
-            'test_object_multipart', 1, init_multipart_res['upload_id'], body=f
+            key, 1, init_multipart_res['upload_id'], body=f
         )
         f.close()
 
@@ -69,12 +67,12 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(201)
 
 
-@when(u'upload the third part')
-def step_impl(context):
+@when(u'upload the third part with key "{key}"')
+def step_impl(context, key):
     system('dd if=/dev/zero of=/tmp/sdk_bin_part_2 bs=1048576 count=5')
     with open('/tmp/sdk_bin_part_2') as f:
         context.res = bucket.upload_multipart(
-            'test_object_multipart', 2, init_multipart_res['upload_id'], body=f
+            key, 2, init_multipart_res['upload_id'], body=f
         )
         f.close()
 
@@ -84,11 +82,11 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(201)
 
 
-@when(u'list multipart')
-def step_impl(context):
+@when(u'list multipart with key "{key}"')
+def step_impl(context, key):
     global list_multipart_res
     list_multipart_res = bucket.list_multipart(
-        'test_object_multipart', upload_id=init_multipart_res['upload_id']
+        key, upload_id=init_multipart_res['upload_id']
     )
 
 
@@ -102,10 +100,10 @@ def step_impl(context):
     assert_that(list_multipart_res['count']).is_equal_to(3)
 
 
-@when(u'complete multipart upload')
-def step_impl(context):
+@when(u'complete multipart upload with key "{key}"')
+def step_impl(context, key):
     context.res = bucket.complete_multipart_upload(
-        'test_object_multipart',
+        key,
         upload_id=init_multipart_res['upload_id'],
         etag='"4072783b8efb99a9e5817067d68f61c6"',
         object_parts=list_multipart_res['object_parts']
@@ -117,10 +115,10 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(201)
 
 
-@when(u'abort multipart upload')
-def step_impl(context):
+@when(u'abort multipart upload with key "{key}"')
+def step_impl(context, key):
     context.res = bucket.abort_multipart_upload(
-        'test_object_multipart', upload_id=init_multipart_res['upload_id']
+        key, upload_id=init_multipart_res['upload_id']
     )
 
 
@@ -129,9 +127,9 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(400)
 
 
-@when(u'delete the multipart object')
-def step_impl(context):
-    context.res = bucket.delete_object('test_object_multipart')
+@when(u'delete the multipart object with key "{key}"')
+def step_impl(context, key):
+    context.res = bucket.delete_object(key)
 
 
 @then(u'delete the multipart object status code is 204')
