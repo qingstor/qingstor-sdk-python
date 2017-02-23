@@ -335,6 +335,43 @@ class Bucket():
     def head_bucket_validate(op):
         pass
 
+    def list_multipart_uploads_request(
+            self, delimiter="", limit=None, marker="", prefix=""
+    ):
+        operation = {
+            "API": "ListMultipartUploads",
+            "Method": "GET",
+            "URI": "/<bucket-name>?uploads",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {
+                "delimiter": delimiter,
+                "limit": limit,
+                "marker": marker,
+                "prefix": prefix,
+            },
+            "Elements": {},
+            "Properties": self.properties,
+            "Body": None
+        }
+        self.list_multipart_uploads_validate(operation)
+        return Request(self.config, operation)
+
+    def list_multipart_uploads(
+            self, delimiter="", limit=None, marker="", prefix=""
+    ):
+        req = self.list_multipart_uploads_request(
+            delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
+        )
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def list_multipart_uploads_validate(op):
+        pass
+
     def list_objects_request(
             self, delimiter="", limit=None, marker="", prefix=""
     ):
