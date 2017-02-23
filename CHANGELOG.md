@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2017-02-24
+
+### Added
+
+- Add list multipart uploads API
+
+### Fixed
+
+- Fix request uri not quote correctly
+- Fix REAEME.md missing error
+
 ## [2.0.3] - 2017-01-21
 
 ### Fixed
@@ -63,6 +74,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.1.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.3...2.1.0
 [2.0.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.0...2.0.1
