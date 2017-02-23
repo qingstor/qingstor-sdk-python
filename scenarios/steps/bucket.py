@@ -119,9 +119,23 @@ def step_impl(context):
 def step_impl(context):
     another_bucket = qingstor.Bucket(test['bucket_name'] + '1', test['zone'])
     context.res = another_bucket.delete()
-    print(context.res.content)
 
 
 @then(u'delete bucket status code is 204')
 def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(204)
+
+
+@given(u'an object created by Initiate Multipart Upload')
+def step_impl(context):
+    bucket.initiate_multipart_upload("list_multipart_uploads")
+
+
+@when(u'list multipart uploads')
+def step_impl(context):
+    context.res = bucket.list_multipart_uploads()
+
+
+@then(u'list multipart uploads count is 1')
+def step_impl(context):
+    assert_that(len(context.res["uploads"])).is_equal_to(1)
