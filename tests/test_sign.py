@@ -62,7 +62,7 @@ class SignTestCase(unittest.TestCase):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
         self.assertEqual(
             canonicalized_headers, 'x-qs-test-header1:test\n'
-            'x-qs-test-header2:中文测试\n'
+            'x-qs-test-header2:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
         )
 
     def test_get_canonicalized_resource(self):
@@ -75,13 +75,13 @@ class SignTestCase(unittest.TestCase):
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
         self.assertEqual(
-            authorization, 'W6mQuLW3YEXeiOn8CbVWZyuAj8JH0By77ntIwT4tX2E='
+            authorization, 'j+c8pI+iYMLIiwxTuE1h3xUgGT1JpWKVBy2jnmdpJt8='
         )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, 'zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
+            authorization, '4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
         )
 
     def test_sign(self):
@@ -120,7 +120,8 @@ class SignTestCase(unittest.TestCase):
         )
 
     def test_query_sign(self):
-        req = self.test_req.sign_query(100)
+        self.maxDiff = None
+        req = Request(self.test_config, self.test_op).sign_query(100)
         self.assertEquals(
             req.body, (
                 '{'
@@ -148,10 +149,10 @@ class SignTestCase(unittest.TestCase):
         self.assertEqual(
             req.url, (
                 'https://pek3a.qingstor.com:443/test_bucket/'
-                '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json?'
-                'test_params_1=test_val'
+                '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+                '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
-                '&signature=zIrGPREgYEVSLFRXuBX3od9URy21HXZAY4FR%2Bv3PYbs%3D'
+                '&signature=4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )

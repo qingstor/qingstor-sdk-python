@@ -22,10 +22,8 @@ import base64
 import logging
 from hashlib import sha256
 
-from requests.utils import quote, urlparse, urlunparse
-
+from requests.utils import quote, unquote, urlparse, urlunparse
 from .build import Builder
-from .compat import is_python2, is_python3
 
 
 class Request:
@@ -43,21 +41,32 @@ class Request:
         self.req.headers["Authorization"] = "".join(
             ["QS ", self.access_key_id, ":", self.get_authorization()]
         )
-        return self.req.prepare()
+        self.logger.debug(self.req.headers["Authorization"])
+        prepared = self.req.prepare()
+        scheme, netloc, path, params, query, fragment = urlparse(
+            prepared.url, allow_fragments=False
+        )
+        path = quote(unquote(path))
+        prepared.url = urlunparse(
+            (scheme, netloc, path, params, query, fragment)
+        )
+        return prepared
 
     def sign_query(self, expires):
-        parsed_uri = urlparse(self.req.url)
-        scheme, netloc, path, params, query, fragment = parsed_uri
+        prepared = self.req.prepare()
+        scheme, netloc, path, params, query, fragment = urlparse(
+            prepared.url, allow_fragments=False
+        )
+        path = quote(unquote(path))
         query = "&".join([
             query, "signature=%s" % self.get_query_signature(expires),
             "access_key_id=%s" % self.access_key_id,
             "expires=%s" % str(expires)
         ])
-        logging.debug(query)
-        self.req.url = urlunparse(
-            (scheme, netloc, path, params, query, fragment)
-        )
-        return self.req.prepare()
+        prepared.url = urlunparse(
+            (scheme, netloc, path, params, "", fragment)
+        ) + "?" + query
+        return prepared
 
     def get_content_md5(self):
         content_md5 = self.req.headers.get("Content-MD5", "")
@@ -84,7 +93,7 @@ class Request:
         return canonicalized_headers
 
     def get_canonicalized_resource(self):
-        parsed_uri = urlparse(self.req.url)
+        parsed_uri = urlparse(self.req.url, allow_fragments=False)
         path, query = parsed_uri.path, parsed_uri.query
         keys = list()
         if query:
@@ -92,16 +101,14 @@ class Request:
                 if self.is_sub_resource(i.split("=")[0]):
                     if len(i.split("=")) > 1:
                         k, v = i.split("=")
-                        if is_python2:
-                            keys.append("%s=%s" % (k, quote(unicode(v))))
-                        elif is_python3:
-                            keys.append("%s=%s" % (k, quote(str(v))))
+                        keys.append("%s=%s" % (k, v))
                     else:
                         keys.append(i)
             keys = sorted(keys)
         canonicalized_resource = path
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)
+        self.logger.debug(canonicalized_resource)
         return canonicalized_resource
 
     def get_authorization(self):
