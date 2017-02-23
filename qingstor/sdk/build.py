@@ -66,16 +66,29 @@ class Builder:
         parsed_params = dict()
         if "Params" in self.operation:
             for (k, v) in self.operation["Params"].items():
-                if v != "" and v != {} and v is not None:
-                    parsed_params[k] = v
+                if v != "" and v is not None:
+                    if is_python2:
+                        parsed_params[k] = quote(unicode(v).encode("utf-8"))
+                    elif is_python3:
+                        parsed_params[k] = quote(str(v))
+
         return parsed_params
 
     def parse_request_headers(self):
         parsed_headers = dict()
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
-                if v != "" and v != {} and v is not None:
-                    parsed_headers[k] = v
+                if v != "" and v is not None:
+                    if k[:5].lower() == "x-qs-":
+                        k = k.lower()
+                        if is_python2:
+                            parsed_headers[k] = quote(
+                                unicode(v).encode("utf-8")
+                            )
+                        elif is_python3:
+                            parsed_headers[k] = quote(str(v))
+                    else:
+                        parsed_headers[k] = v
 
             # Handle header Date
             if is_python2:
@@ -130,14 +143,19 @@ class Builder:
         elif "Elements" in self.operation and self.operation["Elements"]:
             parsed_body = json.dumps(self.operation["Elements"], sort_keys=True)
             is_json = True
+
         return parsed_body, is_json
 
     def parse_request_properties(self):
         parsed_properties = dict()
         if "Properties" in self.operation:
             for (k, v) in self.operation["Properties"].items():
-                if v != "" and v != {} and v is not None:
-                    parsed_properties[k] = v
+                if v != "" and v is not None:
+                    if is_python2:
+                        parsed_properties[k] = quote(unicode(v).encode("utf-8"))
+                    elif is_python3:
+                        parsed_properties[k] = quote(str(v))
+
         return parsed_properties
 
     def parse_request_uri(self):
@@ -155,28 +173,15 @@ class Builder:
         request_uri = self.operation["URI"]
         if len(properties):
             for (k, v) in properties.items():
-                if is_python2:
-                    endpoint = endpoint.replace(
-                        "<%s>" % k, quote(unicode(v).encode("utf-8"))
-                    )
-                    request_uri = request_uri.replace(
-                        "<%s>" % k, quote(unicode(v).encode("utf-8"))
-                    )
-                elif is_python3:
-                    endpoint = endpoint.replace("<%s>" % k, quote(str(v)))
-                    request_uri = request_uri.replace("<%s>" % k, quote(str(v)))
+                endpoint = endpoint.replace("<%s>" % k, v)
+                request_uri = request_uri.replace("<%s>" % k, v)
         parsed_uri = endpoint + request_uri
 
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             params_parts = list()
             for (k, v) in parsed_params.items():
-                if is_python2:
-                    params_parts.append(
-                        "%s=%s" % (k, quote(unicode(v).encode("utf-8")))
-                    )
-                elif is_python3:
-                    params_parts.append("%s=%s" % (k, quote(str(v))))
+                params_parts.append("%s=%s" % (k, v))
             params_parts = sorted(params_parts)
             joined = "&".join(params_parts)
             if joined:
