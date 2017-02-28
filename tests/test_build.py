@@ -50,7 +50,9 @@ class BuildTestCase(unittest.TestCase):
     def test_parse_request_params(self):
         test_params = self.test_builder.parse_request_params()
         self.assertEqual(test_params['test_params_1'], 'test_val')
-        self.assertEqual(test_params['test_params_2'], '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95')
+        self.assertEqual(
+            test_params['test_params_2'], '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
+        )
 
     def test_parse_request_headers(self):
         test_headers = self.test_builder.parse_request_headers()
@@ -68,7 +70,10 @@ class BuildTestCase(unittest.TestCase):
         )
         self.assertEqual(test_headers['Content-Type'], 'application/json')
         self.assertEqual(test_headers['x-qs-test-header1'], 'test_val')
-        self.assertEqual(test_headers['x-qs-test-header2'], '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95')
+        self.assertEqual(
+            test_headers['x-qs-test-header2'],
+            '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
+        )
 
     def test_parse_request_body(self):
         test_body, is_json = self.test_builder.parse_request_body()
@@ -87,7 +92,10 @@ class BuildTestCase(unittest.TestCase):
         test_properties = self.test_builder.parse_request_properties()
         self.assertEqual(test_properties['zone'], 'pek3a')
         self.assertEqual(test_properties['bucket-name'], 'test_bucket')
-        self.assertEqual(test_properties['object-key'], '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json')
+        self.assertEqual(
+            test_properties['object-key'],
+            '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
+        )
 
     def test_parss_request_uri(self):
         test_uri = self.test_builder.parse_request_uri()
