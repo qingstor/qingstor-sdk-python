@@ -55,18 +55,19 @@ class Request:
     def sign_query(self, expires):
         del self.req.headers["Content-Type"]
         prepared = self.req.prepare()
-        scheme, netloc, path, params, query, fragment = urlparse(
+        scheme, netloc, path, params, req_query, fragment = urlparse(
             prepared.url, allow_fragments=False
         )
         path = quote(unquote(path))
-        query = "&".join([
-            query, "signature=%s" % self.get_query_signature(expires),
+        query = [
+            req_query, "signature=%s" % self.get_query_signature(expires),
             "access_key_id=%s" % self.access_key_id,
             "expires=%s" % str(expires)
-        ])
-        prepared.url = urlunparse(
-            (scheme, netloc, path, params, "", fragment)
-        ) + "?" + query
+        ]
+        if not req_query:
+            query.pop(0)
+        prepared.url = urlunparse((scheme, netloc, path, params, "", fragment)
+                                  ) + "?" + "&".join(query)
         return prepared
 
     def get_content_md5(self):
