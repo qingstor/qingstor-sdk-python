@@ -53,6 +53,7 @@ class Request:
         return prepared
 
     def sign_query(self, expires):
+        del self.req.headers["Content-Type"]
         prepared = self.req.prepare()
         scheme, netloc, path, params, query, fragment = urlparse(
             prepared.url, allow_fragments=False
@@ -128,9 +129,9 @@ class Request:
 
     def get_query_signature(self, expires):
         string_to_sign = "".join([
-            self.req.method + "\n", self.get_content_md5() + "\n",
-            self.get_content_type() + "\n", str(expires) + "\n",
-            self.get_canonicalized_headers(), self.get_canonicalized_resource()
+            self.req.method + "\n", self.get_content_md5() + "\n", "\n",
+            str(expires) + "\n", self.get_canonicalized_headers(),
+            self.get_canonicalized_resource()
         ])
         self.logger.debug(string_to_sign)
         h = hmac.new(
