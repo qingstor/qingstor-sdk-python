@@ -43,7 +43,10 @@ class Unpacker(dict):
     def unpack_response_body(self):
         header = self.res.headers
         if self.res.ok and header["Content-type"] == "application/json":
-            data = self.res.json()
+            try:
+                data = self.res.json()
+            except ValueError:
+                data = None
             if data:
                 for (k, v) in data.items():
                     self[k] = v
