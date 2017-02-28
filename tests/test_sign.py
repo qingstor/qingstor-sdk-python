@@ -81,7 +81,7 @@ class SignTestCase(unittest.TestCase):
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, '4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
+            authorization, 'm13TmltT9KoloQTPXnZHZiXuaTx53cauTyYdzD0Z9xA%3D'
         )
 
     def test_sign(self):
@@ -132,7 +132,6 @@ class SignTestCase(unittest.TestCase):
             )
         )
         self.assertEqual(req.headers['Content-Length'], '105')
-        self.assertEqual(req.headers['Content-Type'], 'application/json')
         self.assertEqual(req.headers['Date'], 'Wed, 10 Dec 2014 17:20:31 GMT')
         self.assertEqual(req.headers['Host'], 'pek3a.qingstor.com')
         self.assertEqual(
@@ -152,7 +151,7 @@ class SignTestCase(unittest.TestCase):
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
-                '&signature=4ufUYUZmkuaHePvDTz3kmJoL6mG8GxWeD6%2BmvLI8U4s%3D'
+                '&signature=m13TmltT9KoloQTPXnZHZiXuaTx53cauTyYdzD0Z9xA%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )
