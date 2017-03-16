@@ -1,13 +1,8 @@
 # QingStor SDK for Python
 
-<span style="display: inline-block">
-[![Build Status](https://travis-ci.org/yunify/qingstor-sdk-python.svg?branch=master)]
-(https://travis-ci.org/yunify/qingstor-sdk-python)
-[![API Reference](http://img.shields.io/badge/api-reference-green.svg)]
-(http://docs.qingcloud.com/qingstor/)
-[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)]
-(https://github.com/yunify/qingstor-sdk-python/blob/master/LICENSE)
-</span>
+[![Build Status](https://travis-ci.org/yunify/qingstor-sdk-python.svg?branch=master)](https://travis-ci.org/yunify/qingstor-sdk-python)
+[![API Reference](http://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor/)
+[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-python/blob/master/LICENSE)
 
 The official QingStor SDK for the Python programming language.
 
