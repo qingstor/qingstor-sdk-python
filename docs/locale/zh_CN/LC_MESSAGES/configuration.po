@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-30 22:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../configuration.rst:4
+msgid "Configuration Guide"
+msgstr "配置指南"
+
+#: ../../configuration.rst:7
+msgid "Summary"
+msgstr "概要"
+
+#: ../../configuration.rst:9
+msgid ""
+"This SDK uses a class called \"Config\" to store and manage "
+"configuration, read comments of public functions in `\"config.py\" "
+"<https://github.com/yunify/qingstor-sdk-python/blob/master/config.py>`__ "
+"for details."
+msgstr "本 SDK 使用 ``Config`` 类来处理个管理配置。"
+
+#: ../../configuration.rst:14
+msgid ""
+"Except for Access Key, you can also configure the API endpoint for "
+"private cloud usage scenario. All available configurable items are listed"
+" in the default configuration file."
+msgstr "除了 Access Key， 你也可以配置 API 端点以适应私有云使用场景。所有可用的配置项都已在默认配置文件中列出。"
+
+#: ../../configuration.rst:18
+msgid "**Default Configuration File:**"
+msgstr "**默认配置文件：**"
+
+#: ../../configuration.rst:36
+msgid "Usage"
+msgstr "用法"
+
+#: ../../configuration.rst:38
+msgid ""
+"Just create a config structure instance with your API Access Key, and "
+"initialize services."
+msgstr "只需使用您的 API 访问密钥创建一个配置结构实例，并初始化服务"
+
+#: ../../configuration.rst:42
+msgid "Code Snippet"
+msgstr "代码片段"
+
+#: ../../configuration.rst:44
+msgid "Create default configuration"
+msgstr "创建默认的配置"
+
+#: ../../configuration.rst:50
+msgid "Create configuration from Access Key"
+msgstr "使用 Access Key 创建配置"
+
+#: ../../configuration.rst:60
+msgid "Load user configuration"
+msgstr "加载用户配置"
+
+#: ../../configuration.rst:66
+msgid "Load configuration from config file"
+msgstr "从配置文件加载配置"
+
+#: ../../configuration.rst:72
+msgid "Change API endpoint"
+msgstr "修改 API 端点"

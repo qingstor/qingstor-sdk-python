@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-31 19:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../index.rst:2
+msgid "qingstor-sdk: SDK for QingStor"
+msgstr ""
+
+#: ../../index.rst:4
+msgid "Release v\\ |version|. (:ref:`Installation <install>`)"
+msgstr ""
+
+#: ../../index.rst:15
+msgid ""
+"**qingstor-sdk** is the official QingStor SDK for the Python programming "
+"language, compatible with Python 2.6, 2.7 and 3.4+ versions."
+msgstr ""
+
+#: ../../index.rst:36
+msgid "User Guide"
+msgstr ""
+
+#: ../../index.rst:38
+msgid ""
+"This part of the documentation, which is mostly prose, begins with some "
+"background information about qingstor-sdk, then focuses on step-by-step "
+"instructions for getting the most out of qingstor-sdk."
+msgstr ""
+
+#: ../../index.rst:46
+msgid "Config Documentation"
+msgstr ""
+
+#: ../../index.rst:48
+msgid ""
+"If you are looking for information on config, this part of the "
+"documentation is for you."
+msgstr ""
+
+#: ../../index.rst:57
+msgid "API Documentation"
+msgstr ""
+
+#: ../../index.rst:59
+msgid ""
+"If you are looking for information on a specific function, class, or "
+"method, this part of the documentation is for you."
+msgstr ""
+
+#~ msgid "Welcome to qingstor-sdk's documentation!"
+#~ msgstr ""
+
+#~ msgid "Indices and tables"
+#~ msgstr ""
+
+#~ msgid ":ref:`genindex`"
+#~ msgstr ""
+
+#~ msgid ":ref:`modindex`"
+#~ msgstr ""
+
+#~ msgid ":ref:`search`"
+#~ msgstr ""
+
+#~ msgid "Installation"
+#~ msgstr ""
+
+#~ msgid "Install SDK"
+#~ msgstr ""
+
+#~ msgid "install with pip::"
+#~ msgstr ""
+
+#~ msgid "install from source::"
+#~ msgstr ""
+
+#~ msgid "Your can visit :ref:`Installation <install>` for more infomation."
+#~ msgstr ""
+
+#~ msgid "Uninstall SDK"
+#~ msgstr ""
+

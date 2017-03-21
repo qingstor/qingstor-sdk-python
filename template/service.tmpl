@@ -31,9 +31,17 @@ from ..request import Request
 from ..unpack import Unpacker
 
 
-# {{$service.Name | camelCase}} provides {{$service.Name}} Service API (API Version {{$service.APIVersion}})
+class {{$service.Name | camelCase}}:
+    """{{$service.Name | camelCase}} provides {{$service.Name}} Service API (API Version {{$service.APIVersion}})
 
-class {{$service.Name | camelCase}}():
+    Parameters:
+        config (Config): Config that initializes a QingStor service
+
+    Attributes:
+        config (Config): Config that initializes a QingStor service
+        client (requests.Session): Client that sends requests
+
+    """
 
     def __init__(self, config):
         self.config = config
@@ -49,6 +57,16 @@ class {{$service.Name | camelCase}}():
     {{- end}}
 
     def Bucket(self, bucket_name, zone):
+        """Create a Bucket instance will QingStor service
+
+        Parameters:
+            bucket_name (str): Bucket's name
+            zone (str): Zone's name
+
+        Returns:
+            Bucket: A Bucket instance
+
+        """
         properties = {
             "bucket-name" : bucket_name,
             "zone" : zone

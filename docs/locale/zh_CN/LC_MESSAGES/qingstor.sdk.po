@@ -1,0 +1,463 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-30 22:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../qingstor.sdk.rst:2
+msgid "qingstor.sdk package"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:5
+msgid "Subpackages"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:12
+msgid "Submodules"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:15
+msgid "qingstor.sdk.build module"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:1 qingstor.sdk.config.Config:1
+#: qingstor.sdk.request.Request:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:1
+msgid "Build request with operation"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder qingstor.sdk.config.Config
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.request.Request qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign_query qingstor.sdk.unpack.Unpacker
+#: qingstor.sdk.unpack.Unpacker.iter_content
+msgid "Parameters"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:3 qingstor.sdk.request.Request:3
+msgid "Config that initializes a QingStor service"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:5 qingstor.sdk.request.Request:5
+msgid "operation built by input"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:10
+msgid "*Config* -- Config that initializes a QingStor service"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:14
+msgid "*dict* -- operation built by input"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:18 qingstor.sdk.request.Request:22
+#: qingstor.sdk.unpack.Unpacker:16
+msgid "*Logger* -- qingstor-sdk logger"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse:1
+msgid "Parse request operation to build a Request Req"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse
+#: qingstor.sdk.build.Builder.parse_request_body
+#: qingstor.sdk.build.Builder.parse_request_headers
+#: qingstor.sdk.build.Builder.parse_request_params
+#: qingstor.sdk.build.Builder.parse_request_properties
+#: qingstor.sdk.build.Builder.parse_request_uri
+#: qingstor.sdk.config.Config.get_user_config_file_path
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.config.Config.load_default_config
+#: qingstor.sdk.config.Config.load_user_config
+#: qingstor.sdk.request.Request.get_authorization
+#: qingstor.sdk.request.Request.get_canonicalized_headers
+#: qingstor.sdk.request.Request.get_canonicalized_resource
+#: qingstor.sdk.request.Request.get_content_md5
+#: qingstor.sdk.request.Request.get_content_type
+#: qingstor.sdk.request.Request.get_date
+#: qingstor.sdk.request.Request.get_query_signature
+#: qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign qingstor.sdk.request.Request.sign_query
+msgid "Returns"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse:3
+msgid "a Request req built with Builder"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse
+#: qingstor.sdk.build.Builder.parse_request_body
+#: qingstor.sdk.build.Builder.parse_request_headers
+#: qingstor.sdk.build.Builder.parse_request_params
+#: qingstor.sdk.build.Builder.parse_request_properties
+#: qingstor.sdk.build.Builder.parse_request_uri
+#: qingstor.sdk.config.Config.get_user_config_file_path
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.config.Config.load_default_config
+#: qingstor.sdk.config.Config.load_user_config
+#: qingstor.sdk.request.Request.get_authorization
+#: qingstor.sdk.request.Request.get_canonicalized_headers
+#: qingstor.sdk.request.Request.get_canonicalized_resource
+#: qingstor.sdk.request.Request.get_content_md5
+#: qingstor.sdk.request.Request.get_content_type
+#: qingstor.sdk.request.Request.get_date
+#: qingstor.sdk.request.Request.get_query_signature
+#: qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign qingstor.sdk.request.Request.sign_query
+msgid "Return type"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_body:1
+msgid "Parse request operation's body"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_body:3
+msgid ""
+"a tuple with two objects::      (         str or file: parsed body from "
+"request operation         bool: True if body's content is json else False"
+"     )"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_body:5
+msgid "a tuple with two objects::"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_headers:1
+msgid "Parse request operation's headers"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_headers:3
+msgid "parsed headers from request operation"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_params:1
+msgid "Parse request operation's params"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_params:3
+msgid "parsed params from request operation"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_properties:1
+msgid "Parse request operation's properties"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_properties:3
+msgid "parsed properties from request operation"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_uri:1
+msgid "Parse request operation's uri"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse_request_uri:3
+msgid "parsed uri from request operation"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:23
+msgid "qingstor.sdk.compat module"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:31
+msgid "qingstor.sdk.config module"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:1
+msgid "Process config data"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:3
+msgid "user's access_key_id"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:5
+msgid "user's secret_access_key"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:10 qingstor.sdk.request.Request:14
+msgid "*str* -- user's access_key_id"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:14 qingstor.sdk.request.Request:18
+msgid "*str* -- user's secret_access_key"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:18
+msgid "*str* -- user's request host"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:22
+msgid "*int* -- user's request port"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:26
+msgid "*str* -- user's request protocol"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:30
+msgid "*int* -- user's request retry times"
+msgstr ""
+
+#: of qingstor.sdk.config.Config:34
+msgid "*str* -- user's log_level"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.get_user_config_file_path:1
+msgid "Get user config file path"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.get_user_config_file_path:3
+msgid "user's absolute config file path"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.install_default_user_config:1
+msgid "Install default user config"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_data:1
+msgid "Load config from data"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_data:3
+msgid "input data for config"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_data:6
+msgid "a Config instance with data loaded"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:1
+msgid "Load config from filepath"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:3
+msgid "input file path for config"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:6
+msgid "a Config instance with specified file path data loaded"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_default_config:1
+msgid "Load default config"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_default_config:3
+msgid "default Config instance"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_user_config:1
+msgid "Load user config"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.load_user_config:3
+msgid "user Config instance"
+msgstr ""
+
+#: of qingstor.sdk.config.Config.set_log_level:1
+msgid "Set log_level"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:39
+msgid "qingstor.sdk.constant module"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:47
+msgid "qingstor.sdk.error module"
+msgstr ""
+
+#: of qingstor.sdk.error.ParameterRequiredError:1
+#: qingstor.sdk.error.ParameterValueNotAllowedError:1
+msgid "Bases: :class:`Exception`"
+msgstr ""
+
+#: of qingstor.sdk.error.ParameterRequiredError:1
+msgid "Rasied while Required parameter not input"
+msgstr ""
+
+#: of qingstor.sdk.error.ParameterValueNotAllowedError:1
+msgid "Rasied while input not allowed parameter value"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:55
+msgid "qingstor.sdk.request module"
+msgstr ""
+
+#: of qingstor.sdk.request.Request:1
+msgid "Request which can sign and be sent"
+msgstr ""
+
+#: of qingstor.sdk.request.Request:10
+msgid "*Req* -- Req built bt Builder"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_authorization:1
+msgid "Get signature authorization by operation"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_authorization:3
+#: qingstor.sdk.request.Request.get_query_signature:3
+msgid "signature string"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_canonicalized_headers:1
+msgid "Get canonicalized headers from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_canonicalized_headers:3
+msgid "canonicalized headers from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_canonicalized_resource:1
+msgid "Get canonicalized resource from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_canonicalized_resource:3
+msgid "canonicalized resource from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_content_md5:1
+msgid "Get content md5 from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_content_md5:3
+msgid "content md5 from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_content_type:1
+msgid "Get content type from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_content_type:3
+msgid "content type from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_date:1
+msgid "Get date from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_date:3
+msgid "date from header"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.get_query_signature:1
+msgid "Get query signature authorization by operation"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.is_sub_resource:1
+msgid "Judge whether the key is a sub resource"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.is_sub_resource:3
+msgid "the key need to be judged"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.is_sub_resource:6
+msgid "True is the key is a sub resource else False"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.sign:1
+msgid "Sign a request"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.sign:3
+#: qingstor.sdk.request.Request.sign_query:6
+msgid "request that signed and prepared"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.sign_query:1
+msgid "Sign a request will query_sign"
+msgstr ""
+
+#: of qingstor.sdk.request.Request.sign_query:3
+msgid "a unix timestamp that defined when will this query sign expired"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:63
+msgid "qingstor.sdk.unpack module"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker:1
+msgid "Bases: :class:`dict`"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker:1
+msgid "Unpack a request.Response for user"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker:3
+msgid "a request.Response from server"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker:8
+msgid "*request.Response* -- a request.Response from server"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker:12
+msgid "*int* -- the response's status_code"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.content:1
+msgid "*str* -- the response's content"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.headers:1
+msgid "*dict* -- the response's headers"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.iter_content:1
+msgid "iter the content with chunk_size"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.iter_content:3
+msgid "the chunk size used in every iter"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.iter_content:5
+msgid "decode unicode or not"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.iter_content
+msgid "Yields"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.iter_content:8
+msgid "*str* -- The next chunk from content"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.unpack_response_body:1
+msgid "Unpack the response's body"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.unpack_response_body
+msgid "raises"
+msgstr ""
+
+#: of qingstor.sdk.unpack.Unpacker.unpack_response_body:3
+msgid ":exc:`ValueError` -- If the data should by json but it's empty"
+msgstr ""
+
+#: ../../qingstor.sdk.rst:72
+msgid "Module contents"
+msgstr ""
+

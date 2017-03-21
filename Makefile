@@ -47,3 +47,9 @@ build: clean
 	@echo "build sdist and bdist_wheel"
 	python setup.py sdist bdist_wheel --universal
 	@echo "ok"
+
+doc:
+	@echo "build docs"
+	$(MAKE) api -C docs
+	$(MAKE) html -C docs
+	@echo "ok"

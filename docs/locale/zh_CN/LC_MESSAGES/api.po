@@ -1,0 +1,1706 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-31 16:05+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../api.rst:4
+msgid "Developer Interface"
+msgstr "开发者接口"
+
+#: ../../api.rst:8
+msgid "This part of the documentation covers all the interfaces of qingstor-sdk."
+msgstr "这部分文档涵盖了 qingstor-sdk 的所有接口。"
+
+#: ../../api.rst:11
+msgid "Main Interface"
+msgstr "主要接口"
+
+#: ../../api.rst:13
+msgid "All of QingStor' functionality can be accessed by these methods."
+msgstr "所有的 QingStor 功能都可以通过这些方法进行访问"
+
+#: ../../api.rst:16
+msgid "QingStor Service API"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder:1 qingstor.sdk.config.Config:1
+#: qingstor.sdk.request.Request:1 qingstor.sdk.service.bucket.Bucket:1
+#: qingstor.sdk.service.qingstor.QingStor:1
+msgid "Bases: :class:`object`"
+msgstr "基类： :class:`object`"
+
+#: of qingstor.sdk.service.qingstor.QingStor:1
+msgid "QingStor provides QingStor Service API (API Version 2016-01-06)"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder qingstor.sdk.config.Config
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.request.Request qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign_query qingstor.sdk.service.bucket.Bucket
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_object
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request
+#: qingstor.sdk.service.bucket.Bucket.delete_object_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_validate
+#: qingstor.sdk.service.bucket.Bucket.get_acl_validate
+#: qingstor.sdk.service.bucket.Bucket.get_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.get_object
+#: qingstor.sdk.service.bucket.Bucket.get_object_request
+#: qingstor.sdk.service.bucket.Bucket.get_object_validate
+#: qingstor.sdk.service.bucket.Bucket.get_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_validate
+#: qingstor.sdk.service.bucket.Bucket.head_object
+#: qingstor.sdk.service.bucket.Bucket.head_object_request
+#: qingstor.sdk.service.bucket.Bucket.head_object_validate
+#: qingstor.sdk.service.bucket.Bucket.head_validate
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.list_multipart
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_validate
+#: qingstor.sdk.service.bucket.Bucket.list_objects
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request
+#: qingstor.sdk.service.bucket.Bucket.list_objects_validate
+#: qingstor.sdk.service.bucket.Bucket.options_object
+#: qingstor.sdk.service.bucket.Bucket.options_object_request
+#: qingstor.sdk.service.bucket.Bucket.options_object_validate
+#: qingstor.sdk.service.bucket.Bucket.put_acl
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request
+#: qingstor.sdk.service.bucket.Bucket.put_acl_validate
+#: qingstor.sdk.service.bucket.Bucket.put_cors
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request
+#: qingstor.sdk.service.bucket.Bucket.put_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.put_object
+#: qingstor.sdk.service.bucket.Bucket.put_object_request
+#: qingstor.sdk.service.bucket.Bucket.put_object_validate
+#: qingstor.sdk.service.bucket.Bucket.put_policy
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request
+#: qingstor.sdk.service.bucket.Bucket.put_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.put_validate
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_validate
+#: qingstor.sdk.service.qingstor.QingStor
+#: qingstor.sdk.service.qingstor.QingStor.Bucket
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_validate
+msgid "Parameters"
+msgstr "参数"
+
+#: of qingstor.sdk.build.Builder:3 qingstor.sdk.request.Request:3
+#: qingstor.sdk.service.bucket.Bucket:3
+#: qingstor.sdk.service.qingstor.QingStor:3
+msgid "Config that initializes a QingStor service"
+msgstr "用于初始化一个 QingStor 服务的配置"
+
+#: of qingstor.sdk.build.Builder:10 qingstor.sdk.service.bucket.Bucket:12
+#: qingstor.sdk.service.qingstor.QingStor:8
+msgid "*Config* -- Config that initializes a QingStor service"
+msgstr "*配置* -- 用于初始化一个 QingStor 服务的配置"
+
+#: of qingstor.sdk.service.bucket.Bucket:20
+#: qingstor.sdk.service.qingstor.QingStor:12
+msgid "*requests.Session* -- Client that sends requests"
+msgstr "*requests.Session* -- 用于发送请求的客户端"
+
+#: of qingstor.sdk.service.qingstor.QingStor.Bucket:1
+msgid "Create a Bucket instance will QingStor service"
+msgstr "使用 QingStor 服务创建一个存储空间实例"
+
+#: of qingstor.sdk.service.qingstor.QingStor.Bucket:3
+msgid "Bucket's name"
+msgstr "存储空间的名字"
+
+#: of qingstor.sdk.service.qingstor.QingStor.Bucket:5
+msgid "Zone's name"
+msgstr "区域的名字"
+
+#: of qingstor.sdk.build.Builder.parse
+#: qingstor.sdk.build.Builder.parse_request_body
+#: qingstor.sdk.build.Builder.parse_request_headers
+#: qingstor.sdk.build.Builder.parse_request_params
+#: qingstor.sdk.build.Builder.parse_request_properties
+#: qingstor.sdk.build.Builder.parse_request_uri
+#: qingstor.sdk.config.Config.get_user_config_file_path
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.config.Config.load_default_config
+#: qingstor.sdk.config.Config.load_user_config
+#: qingstor.sdk.request.Request.get_authorization
+#: qingstor.sdk.request.Request.get_canonicalized_headers
+#: qingstor.sdk.request.Request.get_canonicalized_resource
+#: qingstor.sdk.request.Request.get_content_md5
+#: qingstor.sdk.request.Request.get_content_type
+#: qingstor.sdk.request.Request.get_date
+#: qingstor.sdk.request.Request.get_query_signature
+#: qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign qingstor.sdk.request.Request.sign_query
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.delete
+#: qingstor.sdk.service.bucket.Bucket.delete_cors
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_request
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request
+#: qingstor.sdk.service.bucket.Bucket.delete_object
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request
+#: qingstor.sdk.service.bucket.Bucket.delete_policy
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_request
+#: qingstor.sdk.service.bucket.Bucket.delete_request
+#: qingstor.sdk.service.bucket.Bucket.get_acl
+#: qingstor.sdk.service.bucket.Bucket.get_acl_request
+#: qingstor.sdk.service.bucket.Bucket.get_cors
+#: qingstor.sdk.service.bucket.Bucket.get_cors_request
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.get_object
+#: qingstor.sdk.service.bucket.Bucket.get_object_request
+#: qingstor.sdk.service.bucket.Bucket.get_policy
+#: qingstor.sdk.service.bucket.Bucket.get_policy_request
+#: qingstor.sdk.service.bucket.Bucket.get_statistics
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_request
+#: qingstor.sdk.service.bucket.Bucket.head
+#: qingstor.sdk.service.bucket.Bucket.head_object
+#: qingstor.sdk.service.bucket.Bucket.head_object_request
+#: qingstor.sdk.service.bucket.Bucket.head_request
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request
+#: qingstor.sdk.service.bucket.Bucket.list_objects
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request
+#: qingstor.sdk.service.bucket.Bucket.options_object
+#: qingstor.sdk.service.bucket.Bucket.options_object_request
+#: qingstor.sdk.service.bucket.Bucket.put
+#: qingstor.sdk.service.bucket.Bucket.put_acl
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request
+#: qingstor.sdk.service.bucket.Bucket.put_cors
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.put_object
+#: qingstor.sdk.service.bucket.Bucket.put_object_request
+#: qingstor.sdk.service.bucket.Bucket.put_policy
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request
+#: qingstor.sdk.service.bucket.Bucket.put_request
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request
+#: qingstor.sdk.service.qingstor.QingStor.Bucket
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request
+msgid "Returns"
+msgstr "返回"
+
+#: of qingstor.sdk.service.qingstor.QingStor.Bucket:8
+msgid "A Bucket instance"
+msgstr "一个存储空间实例"
+
+#: of qingstor.sdk.build.Builder.parse
+#: qingstor.sdk.build.Builder.parse_request_body
+#: qingstor.sdk.build.Builder.parse_request_headers
+#: qingstor.sdk.build.Builder.parse_request_params
+#: qingstor.sdk.build.Builder.parse_request_properties
+#: qingstor.sdk.build.Builder.parse_request_uri
+#: qingstor.sdk.config.Config.get_user_config_file_path
+#: qingstor.sdk.config.Config.load_config_from_data
+#: qingstor.sdk.config.Config.load_config_from_filepath
+#: qingstor.sdk.config.Config.load_default_config
+#: qingstor.sdk.config.Config.load_user_config
+#: qingstor.sdk.request.Request.get_authorization
+#: qingstor.sdk.request.Request.get_canonicalized_headers
+#: qingstor.sdk.request.Request.get_canonicalized_resource
+#: qingstor.sdk.request.Request.get_content_md5
+#: qingstor.sdk.request.Request.get_content_type
+#: qingstor.sdk.request.Request.get_date
+#: qingstor.sdk.request.Request.get_query_signature
+#: qingstor.sdk.request.Request.is_sub_resource
+#: qingstor.sdk.request.Request.sign qingstor.sdk.request.Request.sign_query
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.delete
+#: qingstor.sdk.service.bucket.Bucket.delete_cors
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_request
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request
+#: qingstor.sdk.service.bucket.Bucket.delete_object
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request
+#: qingstor.sdk.service.bucket.Bucket.delete_policy
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_request
+#: qingstor.sdk.service.bucket.Bucket.delete_request
+#: qingstor.sdk.service.bucket.Bucket.get_acl
+#: qingstor.sdk.service.bucket.Bucket.get_acl_request
+#: qingstor.sdk.service.bucket.Bucket.get_cors
+#: qingstor.sdk.service.bucket.Bucket.get_cors_request
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.get_object
+#: qingstor.sdk.service.bucket.Bucket.get_object_request
+#: qingstor.sdk.service.bucket.Bucket.get_policy
+#: qingstor.sdk.service.bucket.Bucket.get_policy_request
+#: qingstor.sdk.service.bucket.Bucket.get_statistics
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_request
+#: qingstor.sdk.service.bucket.Bucket.head
+#: qingstor.sdk.service.bucket.Bucket.head_object
+#: qingstor.sdk.service.bucket.Bucket.head_object_request
+#: qingstor.sdk.service.bucket.Bucket.head_request
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request
+#: qingstor.sdk.service.bucket.Bucket.list_objects
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request
+#: qingstor.sdk.service.bucket.Bucket.options_object
+#: qingstor.sdk.service.bucket.Bucket.options_object_request
+#: qingstor.sdk.service.bucket.Bucket.put
+#: qingstor.sdk.service.bucket.Bucket.put_acl
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request
+#: qingstor.sdk.service.bucket.Bucket.put_cors
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request
+#: qingstor.sdk.service.bucket.Bucket.put_object
+#: qingstor.sdk.service.bucket.Bucket.put_object_request
+#: qingstor.sdk.service.bucket.Bucket.put_policy
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request
+#: qingstor.sdk.service.bucket.Bucket.put_request
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request
+#: qingstor.sdk.service.qingstor.QingStor.Bucket
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request
+msgid "Return type"
+msgstr "返回类型"
+
+#: of qingstor.sdk.service.qingstor.QingStor.list_buckets:1
+msgid "Send list_buckets_request"
+msgstr "发出 list_buckets 请求"
+
+#: of qingstor.sdk.service.qingstor.QingStor.list_buckets:3
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request:3
+msgid "Limits results to buckets that in the location"
+msgstr "限定存储空间的区域"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload:8
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:18
+#: qingstor.sdk.service.bucket.Bucket.delete:5
+#: qingstor.sdk.service.bucket.Bucket.delete_cors:5
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror:5
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:10
+#: qingstor.sdk.service.bucket.Bucket.delete_object:6
+#: qingstor.sdk.service.bucket.Bucket.delete_policy:5
+#: qingstor.sdk.service.bucket.Bucket.get_acl:5
+#: qingstor.sdk.service.bucket.Bucket.get_cors:5
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror:5
+#: qingstor.sdk.service.bucket.Bucket.get_object:34
+#: qingstor.sdk.service.bucket.Bucket.get_policy:5
+#: qingstor.sdk.service.bucket.Bucket.get_statistics:5
+#: qingstor.sdk.service.bucket.Bucket.head:5
+#: qingstor.sdk.service.bucket.Bucket.head_object:20
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:14
+#: qingstor.sdk.service.bucket.Bucket.list_multipart:12
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:12
+#: qingstor.sdk.service.bucket.Bucket.list_objects:12
+#: qingstor.sdk.service.bucket.Bucket.options_object:12
+#: qingstor.sdk.service.bucket.Bucket.put:5
+#: qingstor.sdk.service.bucket.Bucket.put_acl:6
+#: qingstor.sdk.service.bucket.Bucket.put_cors:6
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror:6
+#: qingstor.sdk.service.bucket.Bucket.put_object:42
+#: qingstor.sdk.service.bucket.Bucket.put_policy:6
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:20
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets:6
+msgid "Server Response that unpacked."
+msgstr "解析后的服务器端响应"
+
+#: of qingstor.sdk.service.qingstor.QingStor.list_buckets:9
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/service/get.html"
+msgstr ""
+
+#: of qingstor.sdk.service.qingstor.QingStor.list_buckets_request:1
+msgid "Build request for list_buckets"
+msgstr "创建 list_buckets 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request:8
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:18
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_request:5
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request:5
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:10
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request:6
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_request:5
+#: qingstor.sdk.service.bucket.Bucket.delete_request:5
+#: qingstor.sdk.service.bucket.Bucket.get_acl_request:5
+#: qingstor.sdk.service.bucket.Bucket.get_cors_request:5
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_request:5
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:34
+#: qingstor.sdk.service.bucket.Bucket.get_policy_request:5
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_request:5
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:20
+#: qingstor.sdk.service.bucket.Bucket.head_request:5
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:14
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:12
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:12
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:12
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:12
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request:6
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request:6
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request:6
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:42
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request:6
+#: qingstor.sdk.service.bucket.Bucket.put_request:5
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:20
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_request:6
+msgid "A Request that not signed."
+msgstr "尚未签名的请求"
+
+#: of qingstor.sdk.service.qingstor.QingStor.list_buckets_validate:1
+msgid "Validate request input for list_buckets"
+msgstr "检查 list_buckets 请求输入"
+
+#: of qingstor.sdk.build.Builder:5 qingstor.sdk.request.Request:5
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate:3
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_object_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_validate:3
+#: qingstor.sdk.service.bucket.Bucket.delete_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_acl_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_cors_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_object_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_policy_validate:3
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_validate:3
+#: qingstor.sdk.service.bucket.Bucket.head_object_validate:3
+#: qingstor.sdk.service.bucket.Bucket.head_validate:3
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate:3
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate:3
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_validate:3
+#: qingstor.sdk.service.bucket.Bucket.list_objects_validate:3
+#: qingstor.sdk.service.bucket.Bucket.options_object_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_acl_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_cors_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_object_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_policy_validate:3
+#: qingstor.sdk.service.bucket.Bucket.put_validate:3
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_validate:3
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_validate:3
+msgid "operation built by input"
+msgstr "通过输入创建的操作"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_object_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.delete_validate
+#: qingstor.sdk.service.bucket.Bucket.get_acl_validate
+#: qingstor.sdk.service.bucket.Bucket.get_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.get_object_validate
+#: qingstor.sdk.service.bucket.Bucket.get_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_validate
+#: qingstor.sdk.service.bucket.Bucket.head_object_validate
+#: qingstor.sdk.service.bucket.Bucket.head_validate
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_validate
+#: qingstor.sdk.service.bucket.Bucket.list_objects_validate
+#: qingstor.sdk.service.bucket.Bucket.options_object_validate
+#: qingstor.sdk.service.bucket.Bucket.put_acl_validate
+#: qingstor.sdk.service.bucket.Bucket.put_cors_validate
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate
+#: qingstor.sdk.service.bucket.Bucket.put_object_validate
+#: qingstor.sdk.service.bucket.Bucket.put_policy_validate
+#: qingstor.sdk.service.bucket.Bucket.put_validate
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_validate
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_validate
+msgid "raises"
+msgstr "抛出异常"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate:6
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_object_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_validate:6
+#: qingstor.sdk.service.bucket.Bucket.delete_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_acl_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_cors_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_object_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_policy_validate:6
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_validate:6
+#: qingstor.sdk.service.bucket.Bucket.head_object_validate:6
+#: qingstor.sdk.service.bucket.Bucket.head_validate:6
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate:6
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate:6
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_validate:6
+#: qingstor.sdk.service.bucket.Bucket.list_objects_validate:6
+#: qingstor.sdk.service.bucket.Bucket.options_object_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_acl_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_cors_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_object_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_policy_validate:6
+#: qingstor.sdk.service.bucket.Bucket.put_validate:6
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_validate:6
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_validate:6
+msgid ":exc:`ParameterRequiredError` -- Parameter required not input."
+msgstr ":exc:`ParameterRequiredError` -- 必须的参数未输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate:7
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_object_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_validate:7
+#: qingstor.sdk.service.bucket.Bucket.delete_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_acl_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_cors_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_object_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_policy_validate:7
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_validate:7
+#: qingstor.sdk.service.bucket.Bucket.head_object_validate:7
+#: qingstor.sdk.service.bucket.Bucket.head_validate:7
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate:7
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate:7
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_validate:7
+#: qingstor.sdk.service.bucket.Bucket.list_objects_validate:7
+#: qingstor.sdk.service.bucket.Bucket.options_object_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_acl_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_cors_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_object_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_policy_validate:7
+#: qingstor.sdk.service.bucket.Bucket.put_validate:7
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_validate:7
+#: qingstor.sdk.service.qingstor.QingStor.list_buckets_validate:7
+msgid ":exc:`ParameterValueNotAllowedError` -- Parameter has not allowed value."
+msgstr ":exc:`ParameterValueNotAllowedError` -- 参数中含有不允许的输入"
+
+#: ../../api.rst:24
+msgid "QingStor Bucket and Object API"
+msgstr "QingStor 存储空间和对象接口"
+
+#: of qingstor.sdk.service.bucket.Bucket:1
+msgid "Bucket can access bucket and object level api"
+msgstr "Bucket 类可以访问存储空间和对象级别的接口"
+
+#: of qingstor.sdk.service.bucket.Bucket:5
+msgid "Properties including bucket_name and zone"
+msgstr "包含 bucket_name 和 zone 属性"
+
+#: of qingstor.sdk.service.bucket.Bucket:7
+msgid "Client that sends requests"
+msgstr "用于发送请求的客户端"
+
+#: of qingstor.sdk.service.bucket.Bucket:16
+msgid "*dict* -- Properties including bucket_name and zone"
+msgstr "*dict* -- 包含 bucket_name 和 zone 属性"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload:1
+msgid "Send abort_multipart_upload_request"
+msgstr "发送 abort_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload:3
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request:3
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:3
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:3
+#: qingstor.sdk.service.bucket.Bucket.delete_object:3
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_object:3
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:3
+#: qingstor.sdk.service.bucket.Bucket.head_object:3
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:3
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:3
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:3
+#: qingstor.sdk.service.bucket.Bucket.list_multipart:3
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:3
+#: qingstor.sdk.service.bucket.Bucket.options_object:3
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:3
+#: qingstor.sdk.service.bucket.Bucket.put_object:3
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:3
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:3
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:3
+msgid "Object key name"
+msgstr "对象名"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload:5
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request:5
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:13
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:13
+#: qingstor.sdk.service.bucket.Bucket.list_multipart:9
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:9
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:17
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:17
+msgid "Object multipart upload ID"
+msgstr "对象分段上传 ID"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload:11
+#: qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request:11
+msgid "https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_request:1
+msgid "Build request for abort_multipart_upload"
+msgstr "创建 abort_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.abort_multipart_upload_validate:1
+msgid "Validate request input for abort_multipart_upload"
+msgstr "检查 abort_multipart_upload 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:1
+msgid "Send complete_multipart_upload_request"
+msgstr "发送 complete_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:5
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:5
+msgid "MD5sum of the object part"
+msgstr "分段对象的 MD5sum"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:7
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:7
+#: qingstor.sdk.service.bucket.Bucket.get_object:15
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:15
+#: qingstor.sdk.service.bucket.Bucket.head_object:13
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:13
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:7
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:7
+#: qingstor.sdk.service.bucket.Bucket.put_object:15
+#: qingstor.sdk.service.bucket.Bucket.put_object:29
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:15
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:29
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:9
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:9
+msgid "Encryption algorithm of the object"
+msgstr "对象的加密算法"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:9
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:9
+#: qingstor.sdk.service.bucket.Bucket.get_object:17
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:17
+#: qingstor.sdk.service.bucket.Bucket.head_object:15
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:15
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:9
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:9
+#: qingstor.sdk.service.bucket.Bucket.put_object:17
+#: qingstor.sdk.service.bucket.Bucket.put_object:31
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:17
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:31
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:11
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:11
+msgid "Encryption key of the object"
+msgstr "对象的加密密钥"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:11
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:11
+#: qingstor.sdk.service.bucket.Bucket.get_object:19
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:19
+#: qingstor.sdk.service.bucket.Bucket.head_object:17
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:17
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:11
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:11
+#: qingstor.sdk.service.bucket.Bucket.put_object:19
+#: qingstor.sdk.service.bucket.Bucket.put_object:33
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:19
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:33
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:13
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:13
+msgid "MD5sum of encryption key"
+msgstr "加密密钥的 MD5sum"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:15
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:15
+msgid "Object parts"
+msgstr "分段对象"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload:21
+#: qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:21
+msgid "https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_request:1
+msgid "Build request for complete_multipart_upload"
+msgstr "创建 complete_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.complete_multipart_upload_validate:1
+msgid "Validate request input for complete_multipart_upload"
+msgstr "检查 complete_multipart_upload 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete:1
+msgid "Send delete_request"
+msgstr "发送 delete 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete:3
+#: qingstor.sdk.service.bucket.Bucket.delete_cors:3
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_request:3
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror:3
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request:3
+#: qingstor.sdk.service.bucket.Bucket.delete_policy:3
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_request:3
+#: qingstor.sdk.service.bucket.Bucket.delete_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_acl:3
+#: qingstor.sdk.service.bucket.Bucket.get_acl_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_cors:3
+#: qingstor.sdk.service.bucket.Bucket.get_cors_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror:3
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_policy:3
+#: qingstor.sdk.service.bucket.Bucket.get_policy_request:3
+#: qingstor.sdk.service.bucket.Bucket.get_statistics:3
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_request:3
+#: qingstor.sdk.service.bucket.Bucket.head:3
+#: qingstor.sdk.service.bucket.Bucket.head_request:3
+#: qingstor.sdk.service.bucket.Bucket.put:3
+#: qingstor.sdk.service.bucket.Bucket.put_request:3
+msgid "Parameters:"
+msgstr "参数："
+
+#: of qingstor.sdk.service.bucket.Bucket.delete:8
+#: qingstor.sdk.service.bucket.Bucket.delete_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/delete.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_cors:1
+msgid "Send delete_cors_request"
+msgstr "发送 delete_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_cors:8
+#: qingstor.sdk.service.bucket.Bucket.delete_cors_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_cors_request:1
+msgid "Build request for delete_cors"
+msgstr "创建 delete_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_cors_validate:1
+msgid "Validate request input for delete_cors"
+msgstr "检查 delete_cors 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_external_mirror:1
+msgid "Send delete_external_mirror_request"
+msgstr "发送 delete_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_external_mirror:8
+#: qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_external_mirror_request:1
+msgid "Build request for delete_external_mirror"
+msgstr "创建 delete_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_external_mirror_validate:1
+msgid "Validate request input for delete_external_mirror"
+msgstr "检查 delete_external_mirror 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:1
+msgid "Send delete_multiple_objects_request"
+msgstr "发送 delete_multiple_objects 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:3
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:3
+#: qingstor.sdk.service.bucket.Bucket.put_object:7
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:7
+msgid "Object MD5sum"
+msgstr "对象 MD5sum"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:5
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:5
+msgid "A list of keys to delete"
+msgstr "待删除的对象列表"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:7
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:7
+msgid "Whether to return the list of deleted objects"
+msgstr "是否返回删除成功的对象列表"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects:13
+#: qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:13
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_request:1
+msgid "Build request for delete_multiple_objects"
+msgstr "创建 delete_multiple_objects 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_multiple_objects_validate:1
+msgid "Validate request input for delete_multiple_objects"
+msgstr "检查 delete_multiple_objects 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_object:1
+msgid "Send delete_object_request"
+msgstr "发送 delete_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_object:9
+#: qingstor.sdk.service.bucket.Bucket.delete_object_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/object/delete.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_object_request:1
+msgid "Build request for delete_object"
+msgstr "创建 delete_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_object_validate:1
+msgid "Validate request input for delete_object"
+msgstr "检查 delete_object 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_policy:1
+msgid "Send delete_policy_request"
+msgstr "发送 delete_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_policy:8
+#: qingstor.sdk.service.bucket.Bucket.delete_policy_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_policy_request:1
+msgid "Build request for delete_policy"
+msgstr "创建 delete_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_policy_validate:1
+msgid "Validate request input for delete_policy"
+msgstr "检查 delete_policy 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_request:1
+msgid "Build request for delete"
+msgstr "创建 delete 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.delete_validate:1
+msgid "Validate request input for delete"
+msgstr "检查 delete 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_acl:1
+msgid "Send get_acl_request"
+msgstr "发送 get_acl 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_acl:8
+#: qingstor.sdk.service.bucket.Bucket.get_acl_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_acl_request:1
+msgid "Build request for get_acl"
+msgstr "创建 get_acl 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_acl_validate:1
+msgid "Validate request input for get_acl"
+msgstr "检查 get_acl 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_cors:1
+msgid "Send get_cors_request"
+msgstr "发送 get_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_cors:8
+#: qingstor.sdk.service.bucket.Bucket.get_cors_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_cors_request:1
+msgid "Build request for get_cors"
+msgstr "创建 get_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_cors_validate:1
+msgid "Validate request input for get_cors"
+msgstr "检查 get_cors 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_external_mirror:1
+msgid "Send get_external_mirror_request"
+msgstr "发送 get_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_external_mirror:8
+#: qingstor.sdk.service.bucket.Bucket.get_external_mirror_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_external_mirror_request:1
+msgid "Build request for get_external_mirror"
+msgstr "创建 get_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_external_mirror_validate:1
+msgid "Validate request input for get_external_mirror"
+msgstr "检查 get_external_mirror 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:1
+msgid "Send get_object_request"
+msgstr "发送 get_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:5
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:5
+#: qingstor.sdk.service.bucket.Bucket.head_object:5
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:5
+msgid "Check whether the ETag matches"
+msgstr "检查 ETag 是否相符"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:7
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:7
+#: qingstor.sdk.service.bucket.Bucket.head_object:7
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:7
+msgid "Check whether the object has been modified"
+msgstr "检查对象是否被修改过"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:9
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:9
+#: qingstor.sdk.service.bucket.Bucket.head_object:9
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:9
+msgid "Check whether the ETag does not match"
+msgstr "检查 ETag 是否不同"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:11
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:11
+#: qingstor.sdk.service.bucket.Bucket.head_object:11
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:11
+msgid "Check whether the object has not been modified"
+msgstr "检查对象是否没有被修改过"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:13
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:13
+msgid "Specified range of the object"
+msgstr "指定对象的 Range"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:21
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:21
+msgid "Specified the Cache-Control response header"
+msgstr "指定 Cache-Control 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:23
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:23
+msgid "Specified the Content-Disposition response header"
+msgstr "指定 Content-Disposition 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:25
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:25
+msgid "Specified the Content-Encoding response header"
+msgstr "指定 Content-Encoding 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:27
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:27
+msgid "Specified the Content-Language response header"
+msgstr "指定 Content-Language 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:29
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:29
+msgid "Specified the Content-Type response header"
+msgstr "指定 Content-Type 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:31
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:31
+msgid "Specified the Expires response header"
+msgstr "指定 Expires 响应头"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object:37
+#: qingstor.sdk.service.bucket.Bucket.get_object_request:37
+msgid "https://docs.qingcloud.com/qingstor/api/object/get.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object_request:1
+msgid "Build request for get_object"
+msgstr "创建 get_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_object_validate:1
+msgid "Validate request input for get_object"
+msgstr "检查 get_object 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_policy:1
+msgid "Send get_policy_request"
+msgstr "发送 get_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_policy:8
+#: qingstor.sdk.service.bucket.Bucket.get_policy_request:8
+msgid "https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_policy_request:1
+msgid "Build request for get_policy"
+msgstr "创建 get_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_policy_validate:1
+msgid "Validate request input for get_policy"
+msgstr "检查 get_policy 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_statistics:1
+msgid "Send get_statistics_request"
+msgstr "发送 get_statistics 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_statistics:8
+#: qingstor.sdk.service.bucket.Bucket.get_statistics_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.get_statistics_request:1
+msgid "Build request for get_statistics"
+msgstr "创建 get_statistics 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.get_statistics_validate:1
+msgid "Validate request input for get_statistics"
+msgstr "检查 get_statistics 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.head:1
+msgid "Send head_request"
+msgstr "发送 head_request 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.head:8
+#: qingstor.sdk.service.bucket.Bucket.head_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/head.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.head_object:1
+msgid "Send head_object_request"
+msgstr "发送 head_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.head_object:23
+#: qingstor.sdk.service.bucket.Bucket.head_object_request:23
+msgid "https://docs.qingcloud.com/qingstor/api/object/head.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.head_object_request:1
+msgid "Build request for head_object"
+msgstr "创建 head_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.head_object_validate:1
+msgid "Validate request input for head_object"
+msgstr "检查 head_object 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.head_request:1
+msgid "Build request for head"
+msgstr "创建 head 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.head_validate:1
+msgid "Validate request input for head"
+msgstr "检查 head 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:1
+msgid "Send initiate_multipart_upload_request"
+msgstr "发送 initiate_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:5
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:5
+#: qingstor.sdk.service.bucket.Bucket.put_object:9
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:9
+msgid "Object content type"
+msgstr "对象的类型"
+
+#: of qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload:17
+#: qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:17
+msgid "https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_request:1
+msgid "Build request for initiate_multipart_upload"
+msgstr "创建 initiate_multipart_upload 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.initiate_multipart_upload_validate:1
+msgid "Validate request input for initiate_multipart_upload"
+msgstr "检查 initiate_multipart_upload 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart:1
+msgid "Send list_multipart_request"
+msgstr "发送 list_multipart 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart:5
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:5
+msgid "Limit results count"
+msgstr "限定此次返回结果的最大数量"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart:7
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:7
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart:15
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:15
+msgid "Object multipart upload part number"
+msgstr "分段序号"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart:15
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_request:15
+msgid "https://docs.qingcloud.com/qingstor/api/object/list_multipart.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_request:1
+msgid "Build request for list_multipart"
+msgstr "创建 list_multipart 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:1
+msgid "Send list_multipart_uploads_request"
+msgstr "发送 list_multipart_uploads 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:3
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:3
+#: qingstor.sdk.service.bucket.Bucket.list_objects:3
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:3
+msgid "Put all keys that share a common prefix into a list"
+msgstr "限定返回的 object key 必须以 prefix 作为前缀"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:5
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:5
+#: qingstor.sdk.service.bucket.Bucket.list_objects:5
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:5
+msgid "Results count limit"
+msgstr "限定返回的最大数量"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:7
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:7
+#: qingstor.sdk.service.bucket.Bucket.list_objects:7
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:7
+msgid "Limit results to keys that start at this marker"
+msgstr "设定结果从 marker 之后按字母排序的第一个开始返回"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:9
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:9
+#: qingstor.sdk.service.bucket.Bucket.list_objects:9
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:9
+msgid "Limits results to keys that begin with the prefix"
+msgstr "限定返回的 object key 必须以 prefix 作为前缀"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads:15
+#: qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:15
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_request:1
+msgid "Build request for list_multipart_uploads"
+msgstr "创建 list_multipart_uploads 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_uploads_validate:1
+msgid "Validate request input for list_multipart_uploads"
+msgstr "检查 list_multipart_uploads 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_multipart_validate:1
+msgid "Validate request input for list_multipart"
+msgstr "检查 list_multipart 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_objects:1
+msgid "Send list_objects_request"
+msgstr "发送 list_objects 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_objects:15
+#: qingstor.sdk.service.bucket.Bucket.list_objects_request:15
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/get.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.list_objects_request:1
+msgid "Build request for list_objects"
+msgstr "创建 list_objects 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.list_objects_validate:1
+msgid "Validate request input for list_objects"
+msgstr "检查 list_objects 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object:1
+msgid "Send options_object_request"
+msgstr "发送 options_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object:5
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:5
+msgid "Request headers"
+msgstr "请求 Headers"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object:7
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:7
+msgid "Request method"
+msgstr "请求 Method"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object:9
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:9
+msgid "Request origin"
+msgstr "请求 Origin"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object:15
+#: qingstor.sdk.service.bucket.Bucket.options_object_request:15
+msgid "https://docs.qingcloud.com/qingstor/api/object/options.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object_request:1
+msgid "Build request for options_object"
+msgstr "创建 options_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.options_object_validate:1
+msgid "Validate request input for options_object"
+msgstr "检查 options_object 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put:1
+msgid "Send put_request"
+msgstr "发送 put_request 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put:8
+#: qingstor.sdk.service.bucket.Bucket.put_request:8
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/put.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_acl:1
+msgid "Send put_acl_request"
+msgstr "发送 put_acl 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_acl:3
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request:3
+msgid "Bucket ACL rules"
+msgstr "存储空间 ACL 规则"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_acl:9
+#: qingstor.sdk.service.bucket.Bucket.put_acl_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_acl_request:1
+msgid "Build request for put_acl"
+msgstr "创建 put_acl 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_acl_validate:1
+msgid "Validate request input for put_acl"
+msgstr "检查 put_acl 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_cors:1
+msgid "Send put_cors_request"
+msgstr "发送 put_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_cors:3
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request:3
+msgid "Bucket CORS rules"
+msgstr "存储空间 CORS 规则"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_cors:9
+#: qingstor.sdk.service.bucket.Bucket.put_cors_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_cors_request:1
+msgid "Build request for put_cors"
+msgstr "创建 put_cors 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_cors_validate:1
+msgid "Validate request input for put_cors"
+msgstr "检查 put_cors 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_external_mirror:1
+msgid "Send put_external_mirror_request"
+msgstr "发送 put_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_external_mirror:3
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request:3
+msgid "Source site url"
+msgstr "源站链接"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_external_mirror:9
+#: qingstor.sdk.service.bucket.Bucket.put_external_mirror_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_external_mirror_request:1
+msgid "Build request for put_external_mirror"
+msgstr "创建 put_external_mirror 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_external_mirror_validate:1
+msgid "Validate request input for put_external_mirror"
+msgstr "检查 put_external_mirror 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:1
+msgid "Send put_object_request"
+msgstr "发送 put_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:5
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:5
+msgid "Object content size"
+msgstr "对象实体的大小"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:11
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:11
+msgid ""
+"Used to indicate that particular server behaviors are required by the "
+"client"
+msgstr ""
+"用于表示特定的服务器行为是由客户端决定的"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:13
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:13
+msgid "Copy source, format (/<bucket-name>/<object-key>)"
+msgstr "复制源，格式 (/<bucket-name>/<object-key>)"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:21
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:21
+msgid "Check whether the copy source matches"
+msgstr "检查复制源是否匹配"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:23
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:23
+msgid "Check whether the copy source has been modified"
+msgstr "检查复制源是否被修改"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:25
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:25
+msgid "Check whether the copy source does not match"
+msgstr "检查复制源是否不匹配"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:27
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:27
+msgid "Check whether the copy source has not been modified"
+msgstr "检查复制源是否没有被修改过"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:35
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:35
+msgid "Check whether fetch target object has not been modified"
+msgstr "检查抓取目标对象是否没有被修改"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:37
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:37
+msgid "Fetch source, should be a valid url"
+msgstr "抓取源，必须是一个有效的 URL"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:39
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:39
+msgid "Move source, format (/<bucket-name>/<object-key>)"
+msgstr "移动源，格式 (/<bucket-name>/<object-key>)"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object:45
+#: qingstor.sdk.service.bucket.Bucket.put_object_request:45
+msgid "https://docs.qingcloud.com/qingstor/api/object/put.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object_request:1
+msgid "Build request for put_object"
+msgstr "创建 put_object 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_object_validate:1
+msgid "Validate request input for put_object"
+msgstr "检查 put_object 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_policy:1
+msgid "Send put_policy_request"
+msgstr "发送 put_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_policy:3
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request:3
+msgid "Bucket policy statement"
+msgstr "存储空间访问策略"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_policy:9
+#: qingstor.sdk.service.bucket.Bucket.put_policy_request:9
+msgid "https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.put_policy_request:1
+msgid "Build request for put_policy"
+msgstr "创建 put_policy 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_policy_validate:1
+msgid "Validate request input for put_policy"
+msgstr "检查 put_policy 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_request:1
+msgid "Build request for put"
+msgstr "创建 put 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.put_validate:1
+msgid "Validate request input for put"
+msgstr "检查 put 请求输入"
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart:1
+msgid "Send upload_multipart_request"
+msgstr "发送 upload_multipart 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart:5
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:5
+msgid "Object multipart content length"
+msgstr "分段对象实体大小"
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart:7
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:7
+msgid "Object multipart content MD5sum"
+msgstr "分段对象实体 MD5sum"
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart:23
+#: qingstor.sdk.service.bucket.Bucket.upload_multipart_request:23
+msgid "https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html"
+msgstr ""
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart_request:1
+msgid "Build request for upload_multipart"
+msgstr "创建 upload_multipart 请求"
+
+#: of qingstor.sdk.service.bucket.Bucket.upload_multipart_validate:1
+msgid "Validate request input for upload_multipart"
+msgstr "检查 upload_multipart 请求输入"
+
+#: ../../api.rst:32
+msgid "Lower-Level Classes"
+msgstr "底层类"
+
+#: ../../api.rst:35
+msgid "Build Class"
+msgstr "Build 类"
+
+#: of qingstor.sdk.build.Builder:1
+msgid "Build request with operation"
+msgstr "使用操作创建请求"
+
+#: of qingstor.sdk.build.Builder:14
+msgid "*dict* -- operation built by input"
+msgstr "*dict* -- 通过输入创建的操作"
+
+#: of qingstor.sdk.build.Builder:18 qingstor.sdk.request.Request:22
+msgid "*Logger* -- qingstor-sdk logger"
+msgstr ""
+
+#: of qingstor.sdk.build.Builder.parse:1
+msgid "Parse request operation to build a Request Req"
+msgstr "解析请求操作以创建一个请求"
+
+#: of qingstor.sdk.build.Builder.parse:3
+msgid "a Request req built with Builder"
+msgstr "使用 Builder 创建的请求"
+
+#: of qingstor.sdk.build.Builder.parse_request_body:1
+msgid "Parse request operation's body"
+msgstr "解析请求操作的 Body"
+
+#: of qingstor.sdk.build.Builder.parse_request_body:3
+msgid ""
+"a tuple with two objects::      (         str or file: parsed body from "
+"request operation         bool: True if body's content is json else False"
+"     )"
+msgstr ""
+"有两个对象的元组::      (         字符串或文件: 解析后的 Body "
+"         布尔值: 如果Body类型是 json 则为真，否则则为假"
+"     )"
+
+#: of qingstor.sdk.build.Builder.parse_request_body:5
+msgid "a tuple with two objects::"
+msgstr "有两个对象的元组"
+
+#: of qingstor.sdk.build.Builder.parse_request_headers:1
+msgid "Parse request operation's headers"
+msgstr "解析请求操作的 Headers"
+
+#: of qingstor.sdk.build.Builder.parse_request_headers:3
+msgid "parsed headers from request operation"
+msgstr "从请求操作解析出的 Headers"
+
+#: of qingstor.sdk.build.Builder.parse_request_params:1
+msgid "Parse request operation's params"
+msgstr "解析请求操作的 Params"
+
+#: of qingstor.sdk.build.Builder.parse_request_params:3
+msgid "parsed params from request operation"
+msgstr "从请求操作解析出的 Params"
+
+#: of qingstor.sdk.build.Builder.parse_request_properties:1
+msgid "Parse request operation's properties"
+msgstr "解析请求操作的 Properties"
+
+#: of qingstor.sdk.build.Builder.parse_request_properties:3
+msgid "parsed properties from request operation"
+msgstr "从请求操作解析出的 Properties"
+
+#: of qingstor.sdk.build.Builder.parse_request_uri:1
+msgid "Parse request operation's uri"
+msgstr "解析请求操作的 Uri"
+
+#: of qingstor.sdk.build.Builder.parse_request_uri:3
+msgid "parsed uri from request operation"
+msgstr "从请求操作解析出的 Uri"
+
+#: ../../api.rst:43
+msgid "Request Class"
+msgstr "Request 类"
+
+#: of qingstor.sdk.request.Request:1
+msgid "Request which can sign and be sent"
+msgstr "能被签名和发送的请求"
+
+#: of qingstor.sdk.request.Request:10
+msgid "*Req* -- Req built bt Builder"
+msgstr "*Req* -- 使用 Builder 创建的请求"
+
+#: of qingstor.sdk.config.Config:10 qingstor.sdk.request.Request:14
+msgid "*str* -- user's access_key_id"
+msgstr "*字符串* -- 用户的 access_key_id"
+
+#: of qingstor.sdk.config.Config:14 qingstor.sdk.request.Request:18
+msgid "*str* -- user's secret_access_key"
+msgstr "*字符串* -- 用户的 secret_access_key"
+
+#: of qingstor.sdk.request.Request.get_authorization:1
+msgid "Get signature authorization by operation"
+msgstr "从操作中获取签名"
+
+#: of qingstor.sdk.request.Request.get_authorization:3
+#: qingstor.sdk.request.Request.get_query_signature:3
+msgid "signature string"
+msgstr "签名串"
+
+#: of qingstor.sdk.request.Request.get_canonicalized_headers:1
+msgid "Get canonicalized headers from header"
+msgstr "从 Header 中获取 canonicalized headers"
+
+#: of qingstor.sdk.request.Request.get_canonicalized_headers:3
+msgid "canonicalized headers from header"
+msgstr "canonicalized headers"
+
+#: of qingstor.sdk.request.Request.get_canonicalized_resource:1
+msgid "Get canonicalized resource from header"
+msgstr "从 Header 中获取 canonicalized resource"
+
+#: of qingstor.sdk.request.Request.get_canonicalized_resource:3
+msgid "canonicalized resource from header"
+msgstr "canonicalized resource"
+
+#: of qingstor.sdk.request.Request.get_content_md5:1
+msgid "Get content md5 from header"
+msgstr "从 Header 中获取 content md5"
+
+#: of qingstor.sdk.request.Request.get_content_md5:3
+msgid "content md5 from header"
+msgstr "content md5"
+
+#: of qingstor.sdk.request.Request.get_content_type:1
+msgid "Get content type from header"
+msgstr "从 Header 中获取 content type"
+
+#: of qingstor.sdk.request.Request.get_content_type:3
+msgid "content type from header"
+msgstr "content type"
+
+#: of qingstor.sdk.request.Request.get_date:1
+msgid "Get date from header"
+msgstr "从 Header 中获取 date"
+
+#: of qingstor.sdk.request.Request.get_date:3
+msgid "date from header"
+msgstr "date"
+
+#: of qingstor.sdk.request.Request.get_query_signature:1
+msgid "Get query signature authorization by operation"
+msgstr "从操作中获取参数签名"
+
+#: of qingstor.sdk.request.Request.is_sub_resource:1
+msgid "Judge whether the key is a sub resource"
+msgstr "判断指定 Key 是不是子资源"
+
+#: of qingstor.sdk.request.Request.is_sub_resource:3
+msgid "the key need to be judged"
+msgstr "需要被判断的 Key"
+
+#: of qingstor.sdk.request.Request.is_sub_resource:6
+msgid "True is the key is a sub resource else False"
+msgstr "如果指定 Key 是子资源则为真，否则则为假"
+
+#: of qingstor.sdk.request.Request.sign:1
+msgid "Sign a request"
+msgstr "签名一个请求"
+
+#: of qingstor.sdk.request.Request.sign:3
+#: qingstor.sdk.request.Request.sign_query:6
+msgid "request that signed and prepared"
+msgstr "已经被签名和准备好的请求"
+
+#: of qingstor.sdk.request.Request.sign_query:1
+msgid "Sign a request will query_sign"
+msgstr "使用参数签名来签名一个请求"
+
+#: of qingstor.sdk.request.Request.sign_query:3
+msgid "a unix timestamp that defined when will this query sign expired"
+msgstr "签名过期时间，该时间为 Unix Time (也称为 Epoch Time), 表示方法是自历元(1970-01-01 00:00, The Epoch) 之后的秒数, 类型为整数。在过期时间之后到达的请求将被 QingStor 拒绝"
+
+#: ../../api.rst:51
+msgid "Unpack Class"
+msgstr "Unpack 类"
+
+#: ../../api.rst:59
+msgid "Config Class"
+msgstr "Config 类"
+
+#: of qingstor.sdk.config.Config:1
+msgid "Process config data"
+msgstr "解析配置数据"
+
+#: of qingstor.sdk.config.Config:3
+msgid "user's access_key_id"
+msgstr "用户的 access_key_id"
+
+#: of qingstor.sdk.config.Config:5
+msgid "user's secret_access_key"
+msgstr "用户的 secret_access_key"
+
+#: of qingstor.sdk.config.Config:18
+msgid "*str* -- user's request host"
+msgstr "*字符串* -- 用户的请求主机名"
+
+#: of qingstor.sdk.config.Config:22
+msgid "*int* -- user's request port"
+msgstr "*整数* -- 用户的请求端口"
+
+#: of qingstor.sdk.config.Config:26
+msgid "*str* -- user's request protocol"
+msgstr "*字符串* -- 用户的请求协议"
+
+#: of qingstor.sdk.config.Config:30
+msgid "*int* -- user's request retry times"
+msgstr "*整数* -- 用户的请求重试次数"
+
+#: of qingstor.sdk.config.Config:34
+msgid "*str* -- user's log_level"
+msgstr "*字符串* -- 用户的日志级别"
+
+#: of qingstor.sdk.config.Config.get_user_config_file_path:1
+msgid "Get user config file path"
+msgstr "获取用户的配置文件地址"
+
+#: of qingstor.sdk.config.Config.get_user_config_file_path:3
+msgid "user's absolute config file path"
+msgstr "用户的绝对配置文件地址"
+
+#: of qingstor.sdk.config.Config.install_default_user_config:1
+msgid "Install default user config"
+msgstr "安装默认的配置文件"
+
+#: of qingstor.sdk.config.Config.load_config_from_data:1
+msgid "Load config from data"
+msgstr "从数据中加载配置"
+
+#: of qingstor.sdk.config.Config.load_config_from_data:3
+msgid "input data for config"
+msgstr "配置文件的输入数据"
+
+#: of qingstor.sdk.config.Config.load_config_from_data:6
+msgid "a Config instance with data loaded"
+msgstr "数据加载完毕的配置文件实例"
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:1
+msgid "Load config from filepath"
+msgstr "从文件地址加载配置文件"
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:3
+msgid "input file path for config"
+msgstr "配置文件的输入文件地址"
+
+#: of qingstor.sdk.config.Config.load_config_from_filepath:6
+msgid "a Config instance with specified file path data loaded"
+msgstr "指定文件地址的配置文件实例"
+
+#: of qingstor.sdk.config.Config.load_default_config:1
+msgid "Load default config"
+msgstr "加载默认配置"
+
+#: of qingstor.sdk.config.Config.load_default_config:3
+msgid "default Config instance"
+msgstr "默认配置实例"
+
+#: of qingstor.sdk.config.Config.load_user_config:1
+msgid "Load user config"
+msgstr "加载用户配置"
+
+#: of qingstor.sdk.config.Config.load_user_config:3
+msgid "user Config instance"
+msgstr "用户配置实例"
+
+#: of qingstor.sdk.config.Config.set_log_level:1
+msgid "Set log_level"
+msgstr "设置日志级别"
+
+#: ../../api.rst:67
+msgid "Exceptions"
+msgstr "异常"
+
+#: of qingstor.sdk.error.ParameterRequiredError:1
+msgid "Rasied while Required parameter not input"
+msgstr "当必须的参数没有输入时抛出异常"
+
+#: of qingstor.sdk.error.ParameterValueNotAllowedError:1
+msgid "Rasied while input not allowed parameter value"
+msgstr "当输入不允许的参数值时抛出异常"
+
+#~ msgid "Bases: :class:`dict`"
+#~ msgstr ""
+
+#~ msgid "Unpack a request.Response for user"
+#~ msgstr ""
+
+#~ msgid "a request.Response from server"
+#~ msgstr ""
+
+#~ msgid "*request.Response* -- a request.Response from server"
+#~ msgstr ""
+
+#~ msgid "*int* -- the response's status_code"
+#~ msgstr ""
+
+#~ msgid "*str* -- the response's content"
+#~ msgstr ""
+
+#~ msgid "*dict* -- the response's headers"
+#~ msgstr ""
+
+#~ msgid "iter the content with chunk_size"
+#~ msgstr ""
+
+#~ msgid "the chunk size used in every iter"
+#~ msgstr ""
+
+#~ msgid "decode unicode or not"
+#~ msgstr ""
+
+#~ msgid "Yields"
+#~ msgstr ""
+
+#~ msgid "*str* -- The next chunk from content"
+#~ msgstr ""
+
+#~ msgid "Unpack the response's body"
+#~ msgstr ""
+
+#~ msgid ":exc:`ValueError` -- If the data should by json but it's empty"
+#~ msgstr ""

@@ -1,8 +1,8 @@
 # QingStor SDK for Python
 
 [![Build Status](https://travis-ci.org/yunify/qingstor-sdk-python.svg?branch=master)](https://travis-ci.org/yunify/qingstor-sdk-python)
-[![API Reference](http://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor/)
-[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-python/blob/master/LICENSE)
+[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor/)
+[![License](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-python/blob/master/LICENSE)
 
 The official QingStor SDK for the Python programming language.
 
@@ -10,7 +10,7 @@ The official QingStor SDK for the Python programming language.
 
 ### Installation
 
-Refer to the [Installation Guide](docs/installation.md), and have this SDK installed.
+Refer to the [Installation Guide](https://qingstor-sdk-python.readthedocs.io/en/latest/installation.html#install), and have this SDK installed.
 
 ### Preparation
 
@@ -29,8 +29,8 @@ Now you are ready to code. You can read the detailed guides in the list below to
 
 Checkout our [releases](https://github.com/yunify/qingstor-sdk-python/releases) and [change log](https://github.com/yunify/qingstor-sdk-python/blob/master/CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
 
-- [Configuration Guide](docs/configuration.md)
-- [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
+- [Configuration Guide](https://qingstor-sdk-python.readthedocs.io/en/latest/configuration.html)
+- [QingStor Service Usage Guide](https://qingstor-sdk-python.readthedocs.io/en/latest/user/quick_start.html)
 
 ___Quick Start Code Example:___
 
@@ -62,6 +62,7 @@ print(output.content)
 
 ## Reference Documentations
 
+- [QingStor SDK Python Documentation][https://qingstor-sdk-python.readthedocs.io/en/latest/]
 - [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
 - [QingStor Guide](https://docs.qingcloud.com/qingstor/guide/index.html)
 - [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)

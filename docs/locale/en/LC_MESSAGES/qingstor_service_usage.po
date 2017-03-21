@@ -1,0 +1,381 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-30 21:40+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../qingstor_service_usage.rst:2
+msgid "Python SDK"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:4
+msgid "qingstor-sdk 适用于 Python 2.6， 2.7 以及 3.4+ 版本。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:7
+msgid "安装"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:9
+msgid "**安装 SDK**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:11
+msgid "通过 pip 安装::"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:15
+msgid "通过 easy\\_install 安装::"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:19
+msgid "通过源码安装::"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:25
+msgid "**卸载 SDK**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:32
+msgid "快速开始"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:34
+msgid ""
+"在开始使用 SDK 之前，请确认您已经了解\\ `青云 QingStor 对象存储基本概念 "
+"<https://docs.qingcloud.com/qingstor/api/common/overview.html>`__ ，如 "
+"Zone，Service，Bucket，Object 等。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:38
+msgid "**准备工作**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:40
+msgid ""
+"为了能够使用 SDK，您需要先在我们的控制台申请 `API密钥 "
+"<https://console.qingcloud.com/access_keys/>`_ ， 包括 ``API密钥ID ( "
+"access_key_id )`` 和 ``API密钥的私钥 ( secret_access_key )`` 。 ``API密钥ID`` "
+"将作为参数包含在每一个请求中发送；而 ``API密钥的私钥`` 负责生成请求串的签名， ``API密钥的私钥`` 需要被妥善保管，请勿外传。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:47
+msgid "**配置文件**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:49
+msgid ""
+"在使用 SDK 之前，我们需要创建一个本地的配置文件。配置文件默认放在 ``~/.qingstor/config.yaml`` ，也可以在初始化 "
+"SDK 时通过调用 ``load_config_from_filepath()`` 方法来指定具体的位置。 配置文件同时支持 ``host`` ，"
+" ``port`` 等参数的配置，只需要添加对应配置项即可，全部的可配置项如下:"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:66
+msgid "**初始化服务**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:68
+msgid "首先我们需要初始化一个 QingStor Service 来调用 QingStor 提供的各项服务："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:78 ../../qingstor_service_usage.rst:92
+#: ../../qingstor_service_usage.rst:108 ../../qingstor_service_usage.rst:131
+msgid "上面代码中出现的对象："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:80
+msgid "``config`` 对象承载了用户的认证信息及配置。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:81
+msgid "``service`` 对象用于操作 QingStor 对象存储服务，可以创建一个 Bucket 对象或者使用所有 Service 级别的 API。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:84
+msgid "**创建一个 Bucket**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:86
+msgid "首先我们需要初始化一个 Bucket 对象来对 Bucket 进行操作："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:94
+msgid "bucket 对象用于操作 Bucket，可以使用所有 Bucket 和 Object 级别的 API。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:97
+msgid "对象创建完毕后，我们需要执行真正的创建 Bucket 操作："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:104 ../../qingstor_service_usage.rst:126
+#: ../../qingstor_service_usage.rst:155 ../../qingstor_service_usage.rst:176
+#: ../../qingstor_service_usage.rst:191 ../../qingstor_service_usage.rst:206
+#: ../../qingstor_service_usage.rst:221 ../../qingstor_service_usage.rst:239
+#: ../../qingstor_service_usage.rst:262 ../../qingstor_service_usage.rst:284
+#: ../../qingstor_service_usage.rst:300 ../../qingstor_service_usage.rst:317
+#: ../../qingstor_service_usage.rst:334 ../../qingstor_service_usage.rst:357
+msgid "上面代码中出现的函数："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:106
+msgid "bucket.put() 在 ``pek3a`` 区域创建一个名为 ``test`` 的 Bucket。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:110
+msgid "resp 对象是 bucket.put() 函数的返回体。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:111
+msgid ""
+"status\\_code 是 resp 对象的一个属性，表示本次操作服务器返回的状态码。在请求返回的结果中，HTTP 状态码(status "
+"code)会表明处理完成后的状态，它符合 HTTP 规范所规定的语义。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:116
+msgid "**获取账户下的 Bucket 列表**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:118
+msgid "之前我们创建了一个 Bucket ，接下来我们将会示范如何获取账户下所有 Buckets"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:128
+msgid ""
+"`service.list\\_buckets() "
+"<https://docs.qingcloud.com/qingstor/api/service/get.html>`__ "
+"列出当前使用的账户所拥有的所有 Buckets。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:133
+msgid "resp 对象是 service.list\\_buckets() 函数的返回体。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:135
+msgid ""
+"在服务器端返回 content-type 类型为 application-json 时， sdk将会尝试解析返回体并将各个键加入 resp 对象。"
+" 此时您可以使用 dict 一样来操作 resp 对象。 在本样例中，resp 对象中拥有的内容可以参考\\ `GET Service "
+"<https://docs.qingcloud.com/qingstor/api/service/get.html>`__"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:141
+msgid "**上传一个 Object**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:143
+msgid "接下来我们将会演示如何在 Bucket 中上传一个 Object ："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:157 ../../qingstor_service_usage.rst:193
+msgid "tempfile.NamedTemporaryFile() 创建了一个临时文件。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:158
+msgid ""
+"`bucket.put\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/put.html>`__ 向 Bucket "
+"上传一个 Object。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:160
+msgid ""
+"第一个参数表示 Object 的 Key，Object Key 是该 Object 在 QingStor 对象存储系统对应 Bucket "
+"中具有唯一性的标识，相当于本地存储系统中的文件名。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:163
+msgid "body 表示本次上传的 Object 的内容， 他的值可以是字符串也可以是任意的文件对象。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:166
+msgid "**列出 Bucket 中的 Objects**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:168
+msgid "之前我们在 Bucket 上传了一个 Object，接下来我们将会演示如何如何列出 Bucket 中的 Objects："
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:178
+msgid ""
+"`bucket.list\\_objects() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/get.html>`__ 列出 bucket 中的"
+" objects。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:181
+msgid "**下载一个 Object**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:194
+msgid ""
+"`bucket.get\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/get.html>`__ 获取一个 Object。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:196
+msgid "resp.iter\\_content() 自动迭代 Object 的内容，以减少内存占用，提高性能。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:199
+msgid "**检查一个 Object 的状态**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:208
+msgid ""
+"`bucket.head\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/head.html>`__ 查看一个 Object"
+" 的状态，返回对象的 status\\_code 符合 HTTP 规范所规定的语义，比如： 200 表示文件状态正常，可以进行下载或删除等操作； "
+"404 表示文件不存在等。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:213
+msgid "**删除一个 Object**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:215
+msgid "接下来我们将会演示如何删除一个 object。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:223
+msgid ""
+"`bucket.delete\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/delete.html>`__ 删除一个 "
+"Object。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:226
+msgid "**初始化一个分段上传**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:228
+msgid ""
+"QingStor 对象存储支持对文件进行分段上传，最大支持 10,000 段，每段大小最大可达 "
+"5G，一方面帮助用户将大文件在尽可能短的时间内上传，另一方面允许用户存储最大至 50TB 的文件。下面我们将会演示如何使用 QingStor "
+"对象存储的分段上传接口。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:241
+msgid ""
+"`bucket.initiate\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/initiate_multipart_upload.html>`__"
+" 初始化一个分段上传，该请求会返回一个Upload ID，后续在上传分段时，在请求参数中附加该 Upload ID，则表明分段属于同一个对象。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:246
+msgid "**上传一个分段**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:264
+msgid ""
+"tempfile.NamedTemporaryFile(), f.seek(), f.write(), f.flush() 等函数创建了一个大小为"
+" 5MB 的临时文件"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:266
+msgid ""
+"`bucket.upload\\_multipart() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html>`__"
+" 用于上传一个分段，除最后一个分段以外，其它分段最小为 4M，每个分段最大为 1G。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:269
+msgid "upload\\_id 参数是初始化分段上传时返回的 Upload ID，拥有相同 Upload ID 的分段上传属于同一个对象。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:271
+msgid "part\\_number 参数是分段序号，合并时需按照序号从小到大顺序。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:273
+msgid "**列出已经上传的分段**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:286
+msgid ""
+"`bucket.list\\_multipart() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/list_multipart.html>`__"
+" 用于列出已经上传的分段信息。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:289
+msgid "**完成一个分段上传**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:302
+msgid ""
+"`bucket.complete\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/complete_multipart_upload.html>`__"
+" 用于结束此分段上传，从而获得一个完整的对象。在未调用此接口时，分段上传处于未完成的状态，此时调用 GET 请求获得该对象会返回错误。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:305
+msgid "object\\_parts 指定需要合并的 part\\_number , 需按照序号从小到大顺序。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:307
+msgid "**取消一个分段上传**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:319
+msgid ""
+"`bucket.abort\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/abort_multipart_upload.html>`__"
+" 终止分段上传，并删除已经上传的分段。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:322
+msgid "**获取 Bucket 的访问控制列表**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:324
+msgid ""
+"QingStor 对象存储支持存储空间访问控制列表 (Bucket ACL), "
+"为存储空间级别的访问控制，用户可将存储空间的读、写、或读写权限开放给单个或多个 QingCloud 用户。下面我们将会演示如何通过 API "
+"接口来获取和设置 Bucket ACL 。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:336
+msgid ""
+"`bucket.get\\_acl() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/acl/get_acl.html>`__ "
+"获取存储空间的访问控制列表 (Access Control List)。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:339
+msgid "**设置 Bucket 的访问控制列表**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:359
+msgid ""
+"`bucket.put\\_acl() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/acl/put_acl.html>`__ "
+"设置存储空间的访问控制列表 (Access Control List)。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:361
+msgid "acl 参数用于设置 Bucket 的 ACL ，本样例向所有青云QingCloud 用户赋予了该 Bucket 的只读权限。"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:364
+msgid "**更多操作**"
+msgstr ""
+
+#: ../../qingstor_service_usage.rst:366
+msgid ""
+"所有的API调用接口均与上面的示例相似，您可以访问\\ `青云QingStor 对象存储 API 文档 "
+"<https://docs.qingcloud.com/qingstor/api/index.html>`__ 来了解更多讯息。"
+msgstr ""
+

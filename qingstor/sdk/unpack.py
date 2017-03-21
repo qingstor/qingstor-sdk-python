@@ -23,6 +23,17 @@ from .constant import CHUNK_SIZE
 
 
 class Unpacker(dict):
+    """Unpack a request.Response for user
+
+    Parameters:
+        res (request.Response): a request.Response from server
+
+    Attributes:
+        res (request.Response): a request.Response from server
+        status_code (int): the response's status_code
+        logger (Logger): qingstor-sdk logger
+
+    """
     def __init__(self, res):
         super(Unpacker, self).__init__()
         self.res = res
@@ -33,13 +44,21 @@ class Unpacker(dict):
 
     @property
     def headers(self):
+        """dict: the response's headers"""
         return self.res.headers
 
     @property
     def content(self):
+        """str: the response's content"""
         return self.res.content
 
     def unpack_response_body(self):
+        """Unpack the response's body
+
+        Raises:
+            ValueError: If the data should by json but it's empty
+
+        """
         try:
             data = self.res.json()
         except ValueError:
@@ -49,5 +68,16 @@ class Unpacker(dict):
                 self[k] = v
                 self.logger.debug("%s: %s" % (k, v))
 
+
     def iter_content(self, chunk_size=CHUNK_SIZE, decode_unicode=False):
+        """iter the content with chunk_size
+
+        Parameters:
+            chunk_size (int): the chunk size used in every iter
+            decode_unicode (bool): decode unicode or not
+
+        Yields:
+            str: The next chunk from content
+
+        """
         return self.res.iter_content(chunk_size, decode_unicode)

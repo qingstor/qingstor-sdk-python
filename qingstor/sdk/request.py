@@ -27,6 +27,19 @@ from .build import Builder
 
 
 class Request:
+    """Request which can sign and be sent
+
+    Parameters:
+        config (Config): Config that initializes a QingStor service
+        operation (dict): operation built by input
+
+    Attributes:
+        req (Req): Req built bt Builder
+        access_key_id (str): user's access_key_id
+        secret_access_key (str): user's secret_access_key
+        logger (Logger): qingstor-sdk logger
+
+    """
 
     def __init__(self, config, operation):
         self.req = Builder(config, operation).parse()
@@ -38,9 +51,15 @@ class Request:
         return "<Request %s>" % self.req.method
 
     def sign(self):
-        self.req.headers["Authorization"] = "".join([
-            "QS ", self.access_key_id, ":", self.get_authorization()
-        ])
+        """Sign a request
+
+        Returns:
+            requests.PreparedRequest: request that signed and prepared
+
+        """
+        self.req.headers["Authorization"] = "".join(
+            ["QS ", self.access_key_id, ":", self.get_authorization()]
+        )
         self.logger.debug(self.req.headers["Authorization"])
         prepared = self.req.prepare()
         scheme, netloc, path, params, query, fragment = urlparse(
@@ -53,6 +72,15 @@ class Request:
         return prepared
 
     def sign_query(self, expires):
+        """Sign a request will query_sign
+
+        Parameters:
+            expires (int): a unix timestamp that defined when will this query sign expired
+
+        Returns:
+            requests.PreparedRequest: request that signed and prepared
+
+        """
         del self.req.headers["Content-Type"]
         prepared = self.req.prepare()
         scheme, netloc, path, params, req_query, fragment = urlparse(
@@ -71,18 +99,42 @@ class Request:
         return prepared
 
     def get_content_md5(self):
+        """Get content md5 from header
+
+        Returns:
+            str: content md5 from header
+
+        """
         content_md5 = self.req.headers.get("Content-MD5", "")
         return content_md5
 
     def get_content_type(self):
+        """Get content type from header
+
+        Returns:
+            str: content type from header
+
+        """
         content_type = self.req.headers.get("Content-Type", "")
         return content_type
 
     def get_date(self):
+        """Get date from header
+
+        Returns:
+            str: date from header
+
+        """
         date = self.req.headers.get("Date", "")
         return date
 
     def get_canonicalized_headers(self):
+        """Get canonicalized headers from header
+
+        Returns:
+            list: canonicalized headers from header
+
+        """
         headers = self.req.headers
         keys = list()
         for (k, v) in headers.items():
@@ -95,6 +147,12 @@ class Request:
         return canonicalized_headers
 
     def get_canonicalized_resource(self):
+        """Get canonicalized resource from header
+
+        Returns:
+            str: canonicalized resource from header
+
+        """
         parsed_uri = urlparse(self.req.url, allow_fragments=False)
         path, query = parsed_uri.path, parsed_uri.query
         keys = list()
@@ -114,6 +172,12 @@ class Request:
         return canonicalized_resource
 
     def get_authorization(self):
+        """Get signature authorization by operation
+
+        Returns:
+            str: signature string
+
+        """
         string_to_sign = "".join([
             self.req.method + "\n", self.get_content_md5() + "\n",
             self.get_content_type() + "\n", self.get_date() + "\n",
@@ -129,6 +193,12 @@ class Request:
         return signature
 
     def get_query_signature(self, expires):
+        """Get query signature authorization by operation
+
+        Returns:
+            str: signature string
+
+        """
         string_to_sign = "".join([
             self.req.method + "\n", self.get_content_md5() + "\n", "\n",
             str(expires) + "\n", self.get_canonicalized_headers(),
@@ -144,6 +214,15 @@ class Request:
         return signature
 
     def is_sub_resource(self, key):
+        """Judge whether the key is a sub resource
+
+        Parameters:
+            key (str): the key need to be judged
+
+        Returns:
+            bool: True is the key is a sub resource else False
+
+        """
         keys_map = [
             "acl", "cors", "delete", "mirror", "part_number", "policy", "stats",
             "upload_id", "uploads"

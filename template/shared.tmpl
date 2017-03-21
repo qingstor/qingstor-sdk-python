@@ -144,8 +144,29 @@
 {{- $customizedTypes := index . 2}}
 
 {{- $request := $operation.Request}}
+    {{$opID := replace $operation.ID "Bucket" "" -1}}
     @staticmethod
-    def {{$operation.ID | snakeCase}}_validate(op):
+    {{- if ne $service "QingStor"}}
+    def {{$opID | snakeCase }}_validate(op):
+    {{- end}}
+    {{- if eq $service "QingStor"}}
+    def {{$operation.ID | snakeCase }}_validate(op):
+    {{- end}}
+    {{- if ne $service "QingStor"}}
+        """Validate request input for {{$opID | snakeCase }}
+        {{- end}}
+        {{- if eq $service "QingStor"}}
+        """Validate request input for {{$operation.ID | snakeCase }}
+        {{- end}}
+
+        Parameters:
+            op (dict): operation built by input
+
+        Raises:
+            ParameterRequiredError: Parameter required not input.
+            ParameterValueNotAllowedError: Parameter has not allowed value.
+
+        """
         {{- $x := passThrough "op[\"Params\"]" $request.Params $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
         {{- $x := passThrough "op[\"Headers\"]" $request.Headers $customizedTypes ""}}
@@ -176,6 +197,34 @@
         {{- if eq $service "Object"}},object_key{{end -}}
         {{- if $hasInput}},{{end -}}
         {{- template "OperationInitParams" passThrough $service $operation -}}):
+        {{- if ne $service "QingStor"}}
+        """Build request for {{$opID | snakeCase }}
+        {{- end}}
+        {{- if eq $service "QingStor"}}
+        """Build request for {{$operation.ID | snakeCase }}
+        {{- end}}
+
+        Parameters:
+            {{- if eq $service "Object"}}
+            object_key (string): Object key name
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Headers.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Params.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Elements.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+
+        Returns:
+            Request: A Request that not signed.
+
+        See Also:
+           {{$operation.DocumentationURL}}
+
+        """
         {{- $uri := $operation.Request.URI}}
         {{- $uri := replace $uri "{" "<" -1}}
         {{- $uri := replace $uri "}" ">" -1}}
@@ -216,7 +265,12 @@
         {{- if eq $service "Object"}}
         operation["Properties"]["object-key"] = object_key
         {{- end}}
+        {{- if ne $service "QingStor"}}
+        self.{{$opID | snakeCase }}_validate(operation)
+        {{- end}}
+        {{- if eq $service "QingStor"}}
         self.{{$operation.ID | snakeCase }}_validate(operation)
+        {{- end}}
         return Request(self.config, operation)
 {{- end}}
 
@@ -241,6 +295,34 @@
         {{- if eq $service "Object"}},object_key{{end -}}
         {{- if $hasInput}},{{end -}}
         {{- template "OperationInitParams" passThrough $service $operation -}}):
+        {{- if ne $service "QingStor"}}
+        """Send {{$opID | snakeCase }}_request
+        {{- end}}
+        {{- if eq $service "QingStor"}}
+        """Send {{$operation.ID | snakeCase }}_request
+        {{- end}}
+
+        Parameters:
+            {{- if eq $service "Object"}}
+            object_key (string): Object key name
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Headers.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Params.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+            {{- range $id, $property := $operation.Request.Elements.Properties}}
+            {{$property.Name| snakeCase}} ({{$property.Type}}): {{$property.Description}}
+            {{- end}}
+
+        Returns:
+            Unpacker: Server Response that unpacked.
+
+        See Also:
+           {{$operation.DocumentationURL}}
+
+        """
         {{- if ne $service "QingStor" }}
         req = self.{{$opID | snakeCase }}_request(
         {{- end}}
