@@ -38,9 +38,9 @@ class Request:
         return "<Request %s>" % self.req.method
 
     def sign(self):
-        self.req.headers["Authorization"] = "".join(
-            ["QS ", self.access_key_id, ":", self.get_authorization()]
-        )
+        self.req.headers["Authorization"] = "".join([
+            "QS ", self.access_key_id, ":", self.get_authorization()
+        ])
         self.logger.debug(self.req.headers["Authorization"])
         prepared = self.req.prepare()
         scheme, netloc, path, params, query, fragment = urlparse(

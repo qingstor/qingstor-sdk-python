@@ -25,9 +25,9 @@ class ParameterRequiredError(Exception):
         self.parent_name = parent_name
 
     def __str__(self):
-        return "".join(
-            [self.parameter_name, " is required in ", self.parent_name]
-        )
+        return "".join([
+            self.parameter_name, " is required in ", self.parent_name
+        ])
 
 
 class ParameterValueNotAllowedError(Exception):

@@ -162,9 +162,9 @@ class Builder:
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
         port = str(self.config.port)
-        endpoint = "".join(
-            [self.config.protocol, "://", self.config.host, ":", port]
-        )
+        endpoint = "".join([
+            self.config.protocol, "://", self.config.host, ":", port
+        ])
         if zone != "":
             endpoint = "".join([
                 self.config.protocol, "://", zone, ".", self.config.host, ":",
