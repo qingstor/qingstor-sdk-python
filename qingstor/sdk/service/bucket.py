@@ -608,8 +608,6 @@ class Bucket():
                     )
             if x["id"] and not x["id"]:
                 raise ParameterRequiredError("id", "statement")
-            if "resource" not in x and not x["resource"]:
-                raise ParameterRequiredError("resource", "statement")
             if "user" not in x and not x["user"]:
                 raise ParameterRequiredError("user", "statement")
             pass
