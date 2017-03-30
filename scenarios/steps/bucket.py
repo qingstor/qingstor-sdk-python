@@ -126,7 +126,7 @@ def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(204)
 
 
-@given(u'an object created by Initiate Multipart Upload')
+@given(u'an object created by initiate multipart upload')
 def step_impl(context):
     bucket.initiate_multipart_upload("list_multipart_uploads")
 
