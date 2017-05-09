@@ -128,7 +128,9 @@ def step_impl(context):
 
 @given(u'an object created by initiate multipart upload')
 def step_impl(context):
-    bucket.initiate_multipart_upload("list_multipart_uploads")
+    context.init_resp = bucket.initiate_multipart_upload(
+        "list_multipart_uploads"
+    )
 
 
 @when(u'list multipart uploads')
@@ -138,4 +140,17 @@ def step_impl(context):
 
 @then(u'list multipart uploads count is 1')
 def step_impl(context):
+    assert_that(len(context.res["uploads"])).is_equal_to(1)
+
+
+@when(u'list multipart uploads with prefix')
+def step_impl(context):
+    context.res = bucket.list_multipart_uploads(prefix="list_multipart_uploads")
+
+
+@then(u'list multipart uploads with prefix count is 1')
+def step_impl(context):
+    bucket.abort_multipart_upload(
+        "list_multipart_uploads", context.init_resp["upload_id"]
+    )
     assert_that(len(context.res["uploads"])).is_equal_to(1)

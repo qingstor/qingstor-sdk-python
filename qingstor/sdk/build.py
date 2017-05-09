@@ -27,7 +27,7 @@ import mimetypes
 from time import strftime, gmtime
 
 from requests import Request as Req
-from requests.utils import quote, urlparse
+from requests.utils import quote, urlparse, urlunparse
 
 from . import __version__
 from .compat import is_python2, is_python3
@@ -176,14 +176,17 @@ class Builder:
                 endpoint = endpoint.replace("<%s>" % k, v)
                 request_uri = request_uri.replace("<%s>" % k, v)
         parsed_uri = endpoint + request_uri
-
         parsed_params = self.parse_request_params()
         if len(parsed_params):
-            params_parts = list()
+            scheme, netloc, path, params, req_query, fragment = urlparse(
+                parsed_uri, allow_fragments=False
+            )
+            query = [req_query]
             for (k, v) in parsed_params.items():
-                params_parts.append("%s=%s" % (k, v))
-            params_parts = sorted(params_parts)
-            joined = "&".join(params_parts)
-            if joined:
-                parsed_uri += "?" + joined
+                query.append("%s=%s" % (k, v))
+            if not req_query:
+                query.pop(0)
+            parsed_uri = urlunparse(
+                (scheme, netloc, path, params, "", fragment)
+            ) + "?" + "&".join(query)
         return parsed_uri
