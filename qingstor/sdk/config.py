@@ -106,3 +106,4 @@ class Config:
             config_data = yaml.load(f)
             self.load_config_from_data(config_data)
             f.close()
+        return self
