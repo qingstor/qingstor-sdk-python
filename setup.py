@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+from sys import version_info
 
 from setuptools import setup, find_packages
 from qingstor.sdk import __version__
@@ -8,6 +9,9 @@ from qingstor.sdk import __version__
 ROOT = os.path.dirname(__file__)
 
 requires = ['requests', 'PyYAML']
+
+if version_info[:3] < (2, 7, 9):
+    requires[0] = "requests[security]"
 
 setup(
     name='qingstor-sdk',
