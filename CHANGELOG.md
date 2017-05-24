@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.2] - 2017-05-24
+
+### Fixed
+
+- Fix load_config_from_filepath not return self
+- Fix 40x and 50x response not handle right
+- Fix SSL Warnings with old python versions
+- Fix request query not sorted
+- Fix url query not handled correctly bug
+- Fix resource is not mandatory in policy statement
+
 ## [2.1.1] - 2017-02-28
 
 ### Fixed
@@ -82,6 +93,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.1.2]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.3...2.1.0
 [2.0.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.2...2.0.3
