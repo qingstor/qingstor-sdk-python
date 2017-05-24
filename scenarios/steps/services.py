@@ -2,14 +2,18 @@
 
 from __future__ import unicode_literals
 
+from os import path
+
 from assertpy import assert_that
 from behave import *
 
 from qingstor.sdk.config import Config
 from qingstor.sdk.service.qingstor import QingStor
 
-config = Config().load_user_config()
-
+test_config_file_path = path.abspath(
+    path.join(path.dirname(__file__), path.pardir)
+)
+config = Config().load_config_from_filepath(test_config_file_path + "/config.yaml")
 
 @when(u'initialize QingStor service')
 def step_impl(context):
