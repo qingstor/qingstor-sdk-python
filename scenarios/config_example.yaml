@@ -1,0 +1,7 @@
+access_key_id: 'your_access_key'
+secret_access_key: 'your_secret_access_key'
+host: 'qingstor.com'
+port: 443
+protocol: 'https'
+connection_retries: 3
+log_level: 'debug'
