@@ -188,5 +188,5 @@ class Builder:
                 query.pop(0)
             parsed_uri = urlunparse(
                 (scheme, netloc, path, params, "", fragment)
-            ) + "?" + "&".join(query)
+            ) + "?" + "&".join(sorted(query))
         return parsed_uri
