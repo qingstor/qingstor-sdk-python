@@ -23,7 +23,6 @@ from .constant import CHUNK_SIZE
 
 
 class Unpacker(dict):
-
     def __init__(self, res):
         super(Unpacker, self).__init__()
         self.res = res
@@ -41,16 +40,14 @@ class Unpacker(dict):
         return self.res.content
 
     def unpack_response_body(self):
-        header = self.res.headers
-        if self.res.ok and header["Content-type"] == "application/json":
-            try:
-                data = self.res.json()
-            except ValueError:
-                data = None
-            if data:
-                for (k, v) in data.items():
-                    self[k] = v
-                    self.logger.debug("%s: %s" % (k, v))
+        try:
+            data = self.res.json()
+        except ValueError:
+            data = None
+        if data:
+            for (k, v) in data.items():
+                self[k] = v
+                self.logger.debug("%s: %s" % (k, v))
 
     def iter_content(self, chunk_size=CHUNK_SIZE, decode_unicode=False):
         return self.res.iter_content(chunk_size, decode_unicode)
