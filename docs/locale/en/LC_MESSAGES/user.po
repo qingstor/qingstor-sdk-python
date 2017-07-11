@@ -1,0 +1,415 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-31 19:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../user/quick_start.rst:2
+msgid "Quick Start"
+msgstr ""
+
+#: ../../user/quick_start.rst:4
+msgid ""
+"Before using qingstor-sdk, please confirm that you already know `QingStor"
+" Object Storage basic concepts "
+"<https://docs.qingcloud.com/qingstor/api/common/overview.html>`_ , such "
+"as  ``Zone``, ``Serivce``, ``Bucket``, ``Object`` and so on."
+msgstr ""
+
+#: ../../user/quick_start.rst:7
+msgid "Preparing Work"
+msgstr ""
+
+#: ../../user/quick_start.rst:9
+msgid ""
+"In order to use qingstor-sdk, you need to apply `API Key "
+"<https://console.qingcloud.com/access_keys/>`_ first in our console which"
+" including ``access_key_id`` and ``secret_access_key``."
+msgstr ""
+
+#: ../../user/quick_start.rst:11
+msgid ""
+"``access_key_id`` will be sent as params in every request, and "
+"``secret_access_key`` is used to generate request signature. "
+"``secret_access_key`` need to be properly kept, do not rumor."
+msgstr ""
+
+#: ../../user/quick_start.rst:14
+msgid "Configuration"
+msgstr ""
+
+#: ../../user/quick_start.rst:16
+msgid ""
+"Before use qingstor-sdk, we need to create a local configuration. "
+"Configuration is placed at ``~/.qingstor/config.yaml`` by default, you "
+"can also specify a specific location by calling the "
+"``load_config_from_filepath()`` method when the SDK is initialized."
+msgstr ""
+
+#: ../../user/quick_start.rst:18
+msgid ""
+"The configuration file also supports config ``host``, ``port`` and other "
+"parameters, you only need to add the corresponding configuration items, "
+"all the configurable items are as follows::"
+msgstr ""
+
+#: ../../user/quick_start.rst:30
+msgid "Initialize Service"
+msgstr ""
+
+#: ../../user/quick_start.rst:32
+msgid ""
+"First we need to initialize a QingStor Service to call services that "
+"QingStor provided:"
+msgstr ""
+
+#: ../../user/quick_start.rst:42 ../../user/quick_start.rst:56
+#: ../../user/quick_start.rst:92
+msgid "The object that appear in the above code:"
+msgstr ""
+
+#: ../../user/quick_start.rst:44
+msgid ""
+"``config`` object carries the user's authentication information and "
+"configuration."
+msgstr ""
+
+#: ../../user/quick_start.rst:45
+msgid ""
+"``service`` object is used to manipulate the QingStor Object Storage "
+"service, you can use it to create a Bucket object or use all service-"
+"level APIs."
+msgstr ""
+
+#: ../../user/quick_start.rst:48
+msgid "Create a Bucket"
+msgstr ""
+
+#: ../../user/quick_start.rst:50
+msgid "First we need to initialize a Bucket object to operate on the bucket:"
+msgstr ""
+
+#: ../../user/quick_start.rst:58
+msgid ""
+"``bucket`` object is used to manipulate the bucket and can use all of the"
+" bucket and object levels API."
+msgstr ""
+
+#: ../../user/quick_start.rst:60
+msgid "After the object is created, we need to actually create the bucket:"
+msgstr ""
+
+#: ../../user/quick_start.rst:67 ../../user/quick_start.rst:87
+#: ../../user/quick_start.rst:113 ../../user/quick_start.rst:131
+#: ../../user/quick_start.rst:147 ../../user/quick_start.rst:162
+#: ../../user/quick_start.rst:177 ../../user/quick_start.rst:194
+#: ../../user/quick_start.rst:216 ../../user/quick_start.rst:237
+#: ../../user/quick_start.rst:254 ../../user/quick_start.rst:271
+#: ../../user/quick_start.rst:286 ../../user/quick_start.rst:310
+msgid "The functions that appear in the above code:"
+msgstr ""
+
+#: ../../user/quick_start.rst:69
+msgid "``bucket.put()`` will create a ``test`` bucket in ``pek3a``"
+msgstr ""
+
+#: ../../user/quick_start.rst:71
+msgid "The object that appears in the above code:"
+msgstr ""
+
+#: ../../user/quick_start.rst:73
+msgid "resp object is the response of bucket.put()"
+msgstr ""
+
+#: ../../user/quick_start.rst:74
+msgid ""
+"status\\_code is a property of the resp object that indicates the status "
+"code returned by this operating server. In the result of the request "
+"return, the HTTP status code indicates the status of the processing, "
+"which conforms to the semantics specified by the HTTP specification."
+msgstr ""
+
+#: ../../user/quick_start.rst:77
+msgid "Get Buckets under accounts"
+msgstr ""
+
+#: ../../user/quick_start.rst:79
+msgid ""
+"Before we created a Bucket, then we will demonstrate how to get all the "
+"Buckets under the account."
+msgstr ""
+
+#: ../../user/quick_start.rst:89
+msgid ""
+"`service.list\\_buckets() "
+"<https://docs.qingcloud.com/qingstor/api/service/get.html>`__ List all "
+"the buckets owned by the currently used account."
+msgstr ""
+
+#: ../../user/quick_start.rst:94
+msgid "resp object is the response of bucket.list\\_buckets()"
+msgstr ""
+
+#: ../../user/quick_start.rst:96
+msgid ""
+"When the response's content-type is ``application-json`` , sdk will "
+"attempt to parse the return body and add the individual keys to the resp "
+"object. At this point you can manipulate the resp object as a dict. In "
+"this example, the contents of the resp object can be referenced at `GET "
+"Service <https://docs.qingcloud.com/qingstor/api/service/get.html>`_."
+msgstr ""
+
+#: ../../user/quick_start.rst:99
+msgid "Upload an Object"
+msgstr ""
+
+#: ../../user/quick_start.rst:101
+msgid "Next we will show you how to upload an Object in the Bucket:"
+msgstr ""
+
+#: ../../user/quick_start.rst:115 ../../user/quick_start.rst:149
+msgid "tempfile.NamedTemporaryFile() created a temporary file."
+msgstr ""
+
+#: ../../user/quick_start.rst:116
+msgid ""
+"`bucket.put\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/put.html>`_ Upload an "
+"Object to Bucket."
+msgstr ""
+
+#: ../../user/quick_start.rst:118
+msgid ""
+"The first argument represents the Key of the Object, and the Object Key "
+"is the identity of the object that corresponds to the bucket in the "
+"QingStor object storage system, which is equivalent to the file name in "
+"the local storage system."
+msgstr ""
+
+#: ../../user/quick_start.rst:119
+msgid ""
+"``body`` means the contents of the upload Object, it's value can be a "
+"string ans also can be any file object."
+msgstr ""
+
+#: ../../user/quick_start.rst:122
+msgid "List Objects in Bucket"
+msgstr ""
+
+#: ../../user/quick_start.rst:124
+msgid ""
+"Before we upload an Object in Bucket, we will show you how to list "
+"objects in Bucket:"
+msgstr ""
+
+#: ../../user/quick_start.rst:133
+msgid ""
+"`bucket.list\\_objects() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/get.html>`_ List objects "
+"in the bucket."
+msgstr ""
+
+#: ../../user/quick_start.rst:137
+msgid "Download an Object"
+msgstr ""
+
+#: ../../user/quick_start.rst:150
+msgid ""
+"`bucket.get\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/get.html>`_ Get an "
+"Object."
+msgstr ""
+
+#: ../../user/quick_start.rst:152
+msgid ""
+"``resp.iter\\_content()`` Automatically iterates the contents of an "
+"Object to reduce memory footprint and improve performance"
+msgstr ""
+
+#: ../../user/quick_start.rst:155
+msgid "Check the status of an Object"
+msgstr ""
+
+#: ../../user/quick_start.rst:164
+msgid ""
+"`bucket.head\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/head.html>`__ View the "
+"status of an Object, the returning object's status\\_code conforms to the"
+" semantics specified by the HTTP specification. For example: 200 means "
+"the file status is normal, you can download or delete it; 404 means the "
+"file does not exist and so on."
+msgstr ""
+
+#: ../../user/quick_start.rst:168
+msgid "Delete an Object"
+msgstr ""
+
+#: ../../user/quick_start.rst:170
+msgid "Next we will show you how to delete an object."
+msgstr ""
+
+#: ../../user/quick_start.rst:179
+msgid ""
+"`bucket.delete\\_object() "
+"<https://docs.qingcloud.com/qingstor/api/object/delete.html>`__ Delete an"
+" Object."
+msgstr ""
+
+#: ../../user/quick_start.rst:183
+msgid "Initialize a multipart upload"
+msgstr ""
+
+#: ../../user/quick_start.rst:185
+msgid ""
+"QingStor Object Storage support for file multipart upload, maximum "
+"support 10,000, each size up to 5G, on the one hand to help users to "
+"large files in the shortest possible time to upload, on the other hand "
+"allows users to store up to 50TB file. Below we will show how to use the "
+"QingStor Object Storage Multipart Upload API."
+msgstr ""
+
+#: ../../user/quick_start.rst:196
+msgid ""
+"`bucket.initiate\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/initiate_multipart_upload.html>`_"
+" Initialize a segment upload, the request will return a Upload ID. When "
+"uploading a segment, the Upload ID is appended to the request parameter, "
+"indicating that the segment belongs to the same object."
+msgstr ""
+
+#: ../../user/quick_start.rst:200
+msgid "Upload a multipart"
+msgstr ""
+
+#: ../../user/quick_start.rst:218
+msgid ""
+"tempfile.NamedTemporaryFile(), f.seek(), f.write(), f.flush() Created a "
+"temporary file with a size of 5MB"
+msgstr ""
+
+#: ../../user/quick_start.rst:220
+msgid ""
+"`bucket.upload\\_multipart() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html>`_"
+" Used to upload a multipart. Except the last segment, the other segments "
+"have a minimum size of 4M and a maximum size  of 1G."
+msgstr ""
+
+#: ../../user/quick_start.rst:222
+msgid ""
+"``upload\\_id`` is the returning ``Upload ID`` while "
+"initiate_multipart_upload, multipart upload with the same ``Upload ID`` "
+"means they belong to the same object."
+msgstr ""
+
+#: ../../user/quick_start.rst:223
+msgid ""
+"``part\\_number`` is part number, parts merged in accordance with the "
+"part number from small to large order."
+msgstr ""
+
+#: ../../user/quick_start.rst:226
+msgid "List multipart uploaded"
+msgstr ""
+
+#: ../../user/quick_start.rst:239
+msgid ""
+"`bucket.list\\_multipart() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/list_multipart.html>`_"
+" Used to list multiparts that have been uploaded."
+msgstr ""
+
+#: ../../user/quick_start.rst:243
+msgid "Complete a multipart upload"
+msgstr ""
+
+#: ../../user/quick_start.rst:256
+msgid ""
+"`bucket.complete\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/complete_multipart_upload.html>`_"
+" Used to end this multipart upload, to get a complete object. When this "
+"API is not called, the multipart upload is in an incomplete state, and "
+"the GET request to retrieve the object will return an error."
+msgstr ""
+
+#: ../../user/quick_start.rst:258
+msgid ""
+"``object\\_parts`` specify the part number that needed to merge, should "
+"follow the part number from small to large order."
+msgstr ""
+
+#: ../../user/quick_start.rst:261
+msgid "Abort a multipart upload"
+msgstr ""
+
+#: ../../user/quick_start.rst:273
+msgid ""
+"`bucket.abort\\_multipart\\_upload() "
+"<https://docs.qingcloud.com/qingstor/api/object/multipart/abort_multipart_upload.html>`_"
+" Terminate the multipart upload, and delete the already uploaded "
+"multipart."
+msgstr ""
+
+#: ../../user/quick_start.rst:277
+msgid "Get bucket's access control list"
+msgstr ""
+
+#: ../../user/quick_start.rst:279
+msgid ""
+"The QingStor Object Storage support storage access control lists (Bucket "
+"ACLs). For storage-level access control, users can grant read, write, "
+"read, or read and write permissions to a single or multiple QingCloud "
+"users. Here we will demonstrate how to use the API to get and set the "
+"Bucket ACL."
+msgstr ""
+
+#: ../../user/quick_start.rst:288
+msgid ""
+"`bucket.get\\_acl() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/acl/get_acl.html>`_ Get "
+"access control list for Bucket."
+msgstr ""
+
+#: ../../user/quick_start.rst:292
+msgid "Set bucket's access control list"
+msgstr ""
+
+#: ../../user/quick_start.rst:312
+msgid ""
+"`bucket.put\\_acl() "
+"<https://docs.qingcloud.com/qingstor/api/bucket/acl/put_acl.html>`__ Set "
+"access control list for Bucket."
+msgstr ""
+
+#: ../../user/quick_start.rst:314
+msgid ""
+"``acl`` used to set Bucket's ACL. This example gives all QingCloud users "
+"the read access to the bucket"
+msgstr ""
+
+#: ../../user/quick_start.rst:317
+msgid "More operations"
+msgstr ""
+
+#: ../../user/quick_start.rst:319
+msgid ""
+"All API call interfaces are similar to the example above, you can visit "
+"`QingStor Object Storage API Documentation "
+"<https://docs.qingcloud.com/qingstor/api/index.html>`_ for more "
+"information."
+msgstr ""
+

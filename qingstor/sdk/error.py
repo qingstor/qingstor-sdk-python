@@ -19,6 +19,9 @@ from __future__ import unicode_literals
 
 
 class ParameterRequiredError(Exception):
+    """Rasied while Required parameter not input
+
+    """
 
     def __init__(self, parameter_name, parent_name):
         self.parameter_name = parameter_name
@@ -31,6 +34,9 @@ class ParameterRequiredError(Exception):
 
 
 class ParameterValueNotAllowedError(Exception):
+    """Rasied while input not allowed parameter value
+
+    """
 
     def __init__(self, parameter_name, parameter_value, allowed_values):
         self.parameter_name = parameter_name

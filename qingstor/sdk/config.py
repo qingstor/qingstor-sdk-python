@@ -38,6 +38,22 @@ default_config_file = "~/.qingstor/config.yaml"
 
 
 class Config:
+    """Process config data
+
+    Parameters:
+        access_key_id (str): user's access_key_id
+        secret_access_key (str): user's secret_access_key
+
+    Attributes:
+        access_key_id (str): user's access_key_id
+        secret_access_key (str): user's secret_access_key
+        host (str): user's request host
+        port (int): user's request port
+        protocol (str): user's request protocol
+        connection_retries (int): user's request retry times
+        log_level (str): user's log_level
+
+    """
 
     def __init__(self, access_key_id="", secret_access_key=""):
         self.load_default_config()
@@ -48,6 +64,9 @@ class Config:
         return "<Config %r>" % self.access_key_id
 
     def set_log_level(self):
+        """Set log_level
+
+        """
         logging.basicConfig(
             format=(
                 "[%(asctime)s] %(name)s "
@@ -67,6 +86,12 @@ class Config:
         self.logger.setLevel(log_level)
 
     def get_user_config_file_path(self):
+        """Get user config file path
+
+        Returns:
+             str: user's absolute config file path
+
+        """
         home = os.environ.get("HOME")
         if sys.platform == "windows":
             home = os.environ.get("HOMEDRIVE") + os.environ.get("HOMEPATH")
@@ -75,6 +100,9 @@ class Config:
         return default_config_file.replace("~", home)
 
     def install_default_user_config(self):
+        """Install default user config
+
+        """
         user_config_file_path = self.get_user_config_file_path()
         user_dir = os.path.dirname(user_config_file_path)
         if not os.path.exists(user_dir):
@@ -84,17 +112,38 @@ class Config:
             f.close()
 
     def load_config_from_data(self, data):
+        """Load config from data
+
+        Parameters:
+            data (dict): input data for config
+
+        Returns:
+            Config: a Config instance with data loaded
+
+        """
         for (k, v) in data.items():
             setattr(self, k, v)
         self.set_log_level()
         return self
 
     def load_default_config(self):
+        """Load default config
+
+        Returns:
+            Config: default Config instance
+
+        """
         config_data = yaml.load(default_config_file_content)
         self.load_config_from_data(config_data)
         return self
 
     def load_user_config(self):
+        """Load user config
+
+        Returns:
+            Config: user Config instance
+
+        """
         user_config_file_path = self.get_user_config_file_path()
         if not os.path.exists(user_config_file_path):
             self.install_default_user_config()
@@ -102,6 +151,15 @@ class Config:
         return self
 
     def load_config_from_filepath(self, filepath):
+        """Load config from filepath
+
+        Parameters:
+            filepath (str): input file path for config
+
+        Returns:
+            Config: a Config instance with specified file path data loaded
+
+        """
         with open(filepath, "r") as f:
             config_data = yaml.load(f)
             self.load_config_from_data(config_data)

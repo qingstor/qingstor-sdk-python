@@ -26,7 +26,20 @@ from ..request import Request
 from ..error import ParameterRequiredError, ParameterValueNotAllowedError
 
 
-class Bucket():
+class Bucket:
+    """Bucket can access bucket and object level api
+
+    Parameters:
+        config (Config): Config that initializes a QingStor service
+        properties (dict): Properties including bucket_name and zone
+        client (requests.Session): Client that sends requests
+
+    Attributes:
+        config (Config): Config that initializes a QingStor service
+        properties (dict): Properties including bucket_name and zone
+        client (requests.Session): Client that sends requests
+
+    """
 
     def __init__(self, config, properties, client):
         self.config = config

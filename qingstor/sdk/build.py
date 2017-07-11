@@ -34,6 +34,18 @@ from .compat import is_python2, is_python3
 
 
 class Builder:
+    """Build request with operation
+
+    Parameters:
+        config (Config): Config that initializes a QingStor service
+        operation (dict): operation built by input
+
+    Attributes:
+        config (Config): Config that initializes a QingStor service
+        operation (dict): operation built by input
+        logger (Logger): qingstor-sdk logger
+
+    """
 
     def __init__(self, config, operation):
         self.config = config
@@ -44,6 +56,12 @@ class Builder:
         return "<Builder>"
 
     def parse(self):
+        """Parse request operation to build a Request Req
+
+        Returns:
+            requests.Request: a Request req built with Builder
+
+        """
         parsed_operation = dict()
         parsed_operation["Method"] = self.operation["Method"]
         parsed_operation["URI"] = self.parse_request_uri()
@@ -63,6 +81,12 @@ class Builder:
         return req
 
     def parse_request_params(self):
+        """Parse request operation's params
+
+        Returns:
+            dict: parsed params from request operation
+
+        """
         parsed_params = dict()
         if "Params" in self.operation:
             for (k, v) in self.operation["Params"].items():
@@ -75,6 +99,12 @@ class Builder:
         return parsed_params
 
     def parse_request_headers(self):
+        """Parse request operation's headers
+
+        Returns:
+            dict: parsed headers from request operation
+
+        """
         parsed_headers = dict()
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
@@ -136,6 +166,17 @@ class Builder:
         return parsed_headers
 
     def parse_request_body(self):
+        """Parse request operation's body
+
+        Returns:
+            tuple: a tuple with two objects::
+
+                (
+                    str or file: parsed body from request operation
+                    bool: True if body's content is json else False
+                )
+
+        """
         parsed_body = None
         is_json = False
         if "Body" in self.operation and self.operation["Body"]:
@@ -147,6 +188,12 @@ class Builder:
         return parsed_body, is_json
 
     def parse_request_properties(self):
+        """Parse request operation's properties
+
+        Returns:
+            parsed_properties (dict): parsed properties from request operation
+
+        """
         parsed_properties = dict()
         if "Properties" in self.operation:
             for (k, v) in self.operation["Properties"].items():
@@ -159,6 +206,12 @@ class Builder:
         return parsed_properties
 
     def parse_request_uri(self):
+        """Parse request operation's uri
+
+        Returns:
+            str: parsed uri from request operation
+
+        """
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
         port = str(self.config.port)

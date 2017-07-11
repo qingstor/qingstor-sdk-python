@@ -25,10 +25,18 @@ from .bucket import Bucket
 from ..request import Request
 from ..unpack import Unpacker
 
-# QingStor provides QingStor Service API (API Version 2016-01-06)
 
+class QingStor:
+    """QingStor provides QingStor Service API (API Version 2016-01-06)
 
-class QingStor():
+    Parameters:
+        config (Config): Config that initializes a QingStor service
+
+    Attributes:
+        config (Config): Config that initializes a QingStor service
+        client (requests.Session): Client that sends requests
+
+    """
 
     def __init__(self, config):
         self.config = config
@@ -43,6 +51,18 @@ class QingStor():
         )
 
     def list_buckets_request(self, location=""):
+        """Build request for list_buckets
+
+        Parameters:
+            location (string): Limits results to buckets that in the location
+
+        Returns:
+            Request: A Request that not signed.
+
+        See Also:
+           https://docs.qingcloud.com/qingstor/api/service/get.html
+
+        """
         operation = {
             "API": "ListBuckets",
             "Method": "GET",
@@ -60,15 +80,47 @@ class QingStor():
         return Request(self.config, operation)
 
     def list_buckets(self, location=""):
+        """Send list_buckets_request
+
+        Parameters:
+            location (string): Limits results to buckets that in the location
+
+        Returns:
+            Unpacker: Server Response that unpacked.
+
+        See Also:
+           https://docs.qingcloud.com/qingstor/api/service/get.html
+
+        """
         req = self.list_buckets_request(location=location)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def list_buckets_validate(op):
+        """Validate request input for list_buckets
+
+        Parameters:
+            op (dict): operation built by input
+
+        Raises:
+            ParameterRequiredError: Parameter required not input.
+            ParameterValueNotAllowedError: Parameter has not allowed value.
+
+        """
         pass
 
     def Bucket(self, bucket_name, zone):
+        """Create a Bucket instance will QingStor service
+
+        Parameters:
+            bucket_name (str): Bucket's name
+            zone (str): Zone's name
+
+        Returns:
+            Bucket: A Bucket instance
+
+        """
         properties = {"bucket-name": bucket_name, "zone": zone}
         client = self.client
         return Bucket(self.config, properties, client)

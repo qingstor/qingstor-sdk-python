@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Yunify, Inc.
+# This file is distributed under the same license as the qingstor-sdk
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qingstor-sdk 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-30 21:40+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../installation.rst:4
+msgid "Installation Guide"
+msgstr ""
+
+#: ../../installation.rst:6
+msgid ""
+"This part of the documentation covers the installation of qingstor-sdk. "
+"The first step to using any software package is getting it properly "
+"installed."
+msgstr ""
+
+#: ../../installation.rst:10
+msgid "Install from pypi"
+msgstr ""
+
+#: ../../installation.rst:12
+msgid ""
+"To install qingstor-sdk, simply run this simple command in your terminal "
+"of choice::"
+msgstr ""
+
+#: ../../installation.rst:16
+msgid ""
+"If you don't have `pip <https://pip.pypa.io>`_ installed, `this Python "
+"installation guide <http://docs.python-"
+"guide.org/en/latest/starting/installation/>`_ can guide you through the "
+"process."
+msgstr ""
+
+#: ../../installation.rst:21
+msgid "Install from source code"
+msgstr ""
+
+#: ../../installation.rst:23
+msgid ""
+"qingstor-sdk is actively developed on GitHub, where the code is `always "
+"available <https://github.com/yunify/qingstor-sdk-python>`_."
+msgstr ""
+
+#: ../../installation.rst:26
+msgid "You can either clone the public repository::"
+msgstr ""
+
+#: ../../installation.rst:30
+msgid ""
+"Or, download the `tarball <https://github.com/yunify/qingstor-sdk-"
+"python/tarball/master>`_::"
+msgstr ""
+
+#: ../../installation.rst:35
+msgid ""
+"Once you have a copy of the source, you can embed it in your own Python "
+"package, or install it into your site-packages easily::"
+msgstr ""
+
