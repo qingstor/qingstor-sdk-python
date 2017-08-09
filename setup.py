@@ -8,7 +8,7 @@ from qingstor.sdk import __version__
 
 ROOT = os.path.dirname(__file__)
 
-requires = ['requests', 'PyYAML']
+requires = ['requests', 'PyYAML', 'idna<2.6,>=2.5']
 
 if version_info[:3] < (2, 7, 9):
     requires[0] = "requests[security]"
