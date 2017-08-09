@@ -40,14 +40,19 @@ class Unpacker(dict):
         return self.res.content
 
     def unpack_response_body(self):
-        try:
-            data = self.res.json()
-        except ValueError:
-            data = None
-        if data:
-            for (k, v) in data.items():
-                self[k] = v
-                self.logger.debug("%s: %s" % (k, v))
+        # Body should be unpacked to json in these situations:
+        # - status_code >= 400 and status_code < 600 (client error or server error)
+        # - status_code >= 200 and status_code < 400 and content type is application/json
+        # In other situations, body should not be unpacked for possibly large memory usage
+        if not (self.res.ok and self.res.headers["Content-Type"] != "application/json"):
+            try:
+                data = self.res.json()
+            except ValueError:
+                data = None
+            if data:
+                for (k, v) in data.items():
+                    self[k] = v
+                    self.logger.debug("%s: %s" % (k, v))
 
     def iter_content(self, chunk_size=CHUNK_SIZE, decode_unicode=False):
         return self.res.iter_content(chunk_size, decode_unicode)
