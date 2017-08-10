@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.3] - 2017-08-10
+
+### Fixed
+
+- Fix bug that can cause large memory usage
+- Fix setup error for python2.6
+
+### Changed
+
+- Requests do not bundle urllib3 any more
+
 ## [2.1.2] - 2017-05-24
 
 ### Fixed
@@ -79,7 +90,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Changed
 
-- Builder will check value if exists before use 
+- Builder will check value if exists before use
 
 ## [2.0.0b2] - 2017-01-03
 
@@ -93,6 +104,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.1.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.0.3...2.1.0
