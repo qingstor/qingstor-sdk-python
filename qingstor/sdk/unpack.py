@@ -19,10 +19,11 @@ from __future__ import unicode_literals
 
 import logging
 
-from .constant import CHUNK_SIZE
+from .constant import PART_SIZE
 
 
 class Unpacker(dict):
+
     def __init__(self, res):
         super(Unpacker, self).__init__()
         self.res = res
@@ -44,7 +45,10 @@ class Unpacker(dict):
         # - status_code >= 400 and status_code < 600 (client error or server error)
         # - status_code >= 200 and status_code < 400 and content type is application/json
         # In other situations, body should not be unpacked for possibly large memory usage
-        if not (self.res.ok and self.res.headers["Content-Type"] != "application/json"):
+        if not (
+                self.res.ok and
+                self.res.headers["Content-Type"] != "application/json"
+        ):
             try:
                 data = self.res.json()
             except ValueError:
@@ -54,5 +58,5 @@ class Unpacker(dict):
                     self[k] = v
                     self.logger.debug("%s: %s" % (k, v))
 
-    def iter_content(self, chunk_size=CHUNK_SIZE, decode_unicode=False):
+    def iter_content(self, chunk_size=PART_SIZE, decode_unicode=False):
         return self.res.iter_content(chunk_size, decode_unicode)

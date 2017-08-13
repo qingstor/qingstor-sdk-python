@@ -22,7 +22,7 @@ from ..request import Request
 from ..error import ParameterRequiredError, ParameterValueNotAllowedError
 
 
-class Bucket():
+class Bucket(object):
 
     def __init__(self, config, properties, client):
         self.config = config
