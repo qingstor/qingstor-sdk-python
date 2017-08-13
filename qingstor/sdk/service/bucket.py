@@ -336,7 +336,12 @@ class Bucket(object):
         pass
 
     def list_multipart_uploads_request(
-            self, delimiter="", limit=None, marker="", prefix=""
+            self,
+            delimiter="",
+            key_marker="",
+            limit=None,
+            prefix="",
+            upload_id_marker=""
     ):
         operation = {
             "API": "ListMultipartUploads",
@@ -348,9 +353,10 @@ class Bucket(object):
             },
             "Params": {
                 "delimiter": delimiter,
+                "key_marker": key_marker,
                 "limit": limit,
-                "marker": marker,
                 "prefix": prefix,
+                "upload_id_marker": upload_id_marker,
             },
             "Elements": {},
             "Properties": self.properties,
@@ -360,10 +366,19 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def list_multipart_uploads(
-            self, delimiter="", limit=None, marker="", prefix=""
+            self,
+            delimiter="",
+            key_marker="",
+            limit=None,
+            prefix="",
+            upload_id_marker=""
     ):
         req = self.list_multipart_uploads_request(
-            delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
+            delimiter=delimiter,
+            key_marker=key_marker,
+            limit=limit,
+            prefix=prefix,
+            upload_id_marker=upload_id_marker
         )
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -905,6 +920,76 @@ class Bucket(object):
     def head_object_validate(op):
         pass
 
+    def image_process_request(
+            self,
+            object_key,
+            action="",
+            response_cache_control="",
+            response_content_disposition="",
+            response_content_encoding="",
+            response_content_language="",
+            response_content_type="",
+            response_expires="",
+            if_modified_since=""
+    ):
+        operation = {
+            "API": "ImageProcess",
+            "Method": "GET",
+            "URI": "/<bucket-name>/<object-key>?image",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+                "If-Modified-Since": if_modified_since,
+            },
+            "Params": {
+                "action": action,
+                "response_cache_control": response_cache_control,
+                "response_content_disposition": response_content_disposition,
+                "response_content_encoding": response_content_encoding,
+                "response_content_language": response_content_language,
+                "response_content_type": response_content_type,
+                "response_expires": response_expires,
+            },
+            "Elements": {},
+            "Properties": self.properties,
+            "Body": None
+        }
+        operation["Properties"]["object-key"] = object_key
+        self.image_process_validate(operation)
+        return Request(self.config, operation)
+
+    def image_process(
+            self,
+            object_key,
+            action="",
+            response_cache_control="",
+            response_content_disposition="",
+            response_content_encoding="",
+            response_content_language="",
+            response_content_type="",
+            response_expires="",
+            if_modified_since=""
+    ):
+        req = self.image_process_request(
+            object_key,
+            action=action,
+            response_cache_control=response_cache_control,
+            response_content_disposition=response_content_disposition,
+            response_content_encoding=response_content_encoding,
+            response_content_language=response_content_language,
+            response_content_type=response_content_type,
+            response_expires=response_expires,
+            if_modified_since=if_modified_since
+        )
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def image_process_validate(op):
+        if op["Params"]["action"] and not op["Params"]["action"]:
+            raise ParameterRequiredError("action", "ImageProcessInput")
+        pass
+
     def initiate_multipart_upload_request(
             self,
             object_key,
@@ -1182,6 +1267,15 @@ class Bucket(object):
             upload_id="",
             content_length=None,
             content_md5="",
+            x_qs_copy_range="",
+            x_qs_copy_source="",
+            x_qs_copy_source_encryption_customer_algorithm="",
+            x_qs_copy_source_encryption_customer_key="",
+            x_qs_copy_source_encryption_customer_key_md5="",
+            x_qs_copy_source_if_match="",
+            x_qs_copy_source_if_modified_since="",
+            x_qs_copy_source_if_none_match="",
+            x_qs_copy_source_if_unmodified_since="",
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
@@ -1196,6 +1290,21 @@ class Bucket(object):
                 "".join([self.properties["zone"], ".", self.config.host]),
                 "Content-Length": content_length,
                 "Content-MD5": content_md5,
+                "X-QS-Copy-Range": x_qs_copy_range,
+                "X-QS-Copy-Source": x_qs_copy_source,
+                "X-QS-Copy-Source-Encryption-Customer-Algorithm":
+                x_qs_copy_source_encryption_customer_algorithm,
+                "X-QS-Copy-Source-Encryption-Customer-Key":
+                x_qs_copy_source_encryption_customer_key,
+                "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
+                x_qs_copy_source_encryption_customer_key_md5,
+                "X-QS-Copy-Source-If-Match": x_qs_copy_source_if_match,
+                "X-QS-Copy-Source-If-Modified-Since":
+                x_qs_copy_source_if_modified_since,
+                "X-QS-Copy-Source-If-None-Match":
+                x_qs_copy_source_if_none_match,
+                "X-QS-Copy-Source-If-Unmodified-Since":
+                x_qs_copy_source_if_unmodified_since,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
                 "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
@@ -1221,6 +1330,15 @@ class Bucket(object):
             upload_id="",
             content_length=None,
             content_md5="",
+            x_qs_copy_range="",
+            x_qs_copy_source="",
+            x_qs_copy_source_encryption_customer_algorithm="",
+            x_qs_copy_source_encryption_customer_key="",
+            x_qs_copy_source_encryption_customer_key_md5="",
+            x_qs_copy_source_if_match="",
+            x_qs_copy_source_if_modified_since="",
+            x_qs_copy_source_if_none_match="",
+            x_qs_copy_source_if_unmodified_since="",
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
@@ -1232,6 +1350,15 @@ class Bucket(object):
             upload_id=upload_id,
             content_length=content_length,
             content_md5=content_md5,
+            x_qs_copy_range=x_qs_copy_range,
+            x_qs_copy_source=x_qs_copy_source,
+            x_qs_copy_source_encryption_customer_algorithm=x_qs_copy_source_encryption_customer_algorithm,
+            x_qs_copy_source_encryption_customer_key=x_qs_copy_source_encryption_customer_key,
+            x_qs_copy_source_encryption_customer_key_md5=x_qs_copy_source_encryption_customer_key_md5,
+            x_qs_copy_source_if_match=x_qs_copy_source_if_match,
+            x_qs_copy_source_if_modified_since=x_qs_copy_source_if_modified_since,
+            x_qs_copy_source_if_none_match=x_qs_copy_source_if_none_match,
+            x_qs_copy_source_if_unmodified_since=x_qs_copy_source_if_unmodified_since,
             x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
