@@ -28,7 +28,7 @@ from ..unpack import Unpacker
 # QingStor provides QingStor Service API (API Version 2016-01-06)
 
 
-class QingStor():
+class QingStor(object):
 
     def __init__(self, config):
         self.config = config

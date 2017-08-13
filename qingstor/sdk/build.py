@@ -31,6 +31,7 @@ from requests.utils import quote, urlparse, urlunparse
 
 from . import __version__
 from .compat import is_python2, is_python3
+from .constant import BINARY_MIME_TYPE, JSON_MIME_TYPE
 
 
 class Builder:
@@ -120,9 +121,9 @@ class Builder:
                 "Content-Type"
             ) or mimetypes.guess_type(filename)[0]
             if is_json:
-                parsed_headers["Content-Type"] = "application/json"
+                parsed_headers["Content-Type"] = JSON_MIME_TYPE
             if parsed_headers["Content-Type"] is None:
-                parsed_headers["Content-Type"] = "application/octet-stream"
+                parsed_headers["Content-Type"] = BINARY_MIME_TYPE
 
             # Handle specific API
             if "API" in self.operation:

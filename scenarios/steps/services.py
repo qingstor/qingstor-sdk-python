@@ -13,7 +13,9 @@ from qingstor.sdk.service.qingstor import QingStor
 test_config_file_path = path.abspath(
     path.join(path.dirname(__file__), path.pardir)
 )
-config = Config().load_config_from_filepath(test_config_file_path + "/config.yaml")
+config = Config(
+).load_config_from_filepath(test_config_file_path + "/config.yaml")
+
 
 @when(u'initialize QingStor service')
 def step_impl(context):
