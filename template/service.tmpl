@@ -33,7 +33,7 @@ from ..unpack import Unpacker
 
 # {{$service.Name | camelCase}} provides {{$service.Name}} Service API (API Version {{$service.APIVersion}})
 
-class {{$service.Name | camelCase}}():
+class {{$service.Name | camelCase}}(object):
 
     def __init__(self, config):
         self.config = config
