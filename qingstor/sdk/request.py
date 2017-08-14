@@ -74,6 +74,9 @@ class Request:
         return content_type
 
     def get_date(self):
+        # if user input has x_qs_date, empty Date header is returned.
+        if self.req.headers.get("x-qs-date", ""):
+            return ""
         date = self.req.headers.get("Date", "")
         return date
 
@@ -110,12 +113,27 @@ class Request:
         self.logger.debug(canonicalized_resource)
         return canonicalized_resource
 
-    def get_authorization(self):
-        string_to_sign = "".join([
+    def get_string_to_sign(self, query=False, expires=None):
+        sign_parts = [
             self.req.method + "\n", self.get_content_md5() + "\n",
             self.get_content_type() + "\n", self.get_date() + "\n",
             self.get_canonicalized_headers(), self.get_canonicalized_resource()
-        ])
+        ]
+
+        # if query sign is used:
+        # - Date should be replaced by expires
+        # - Content-Type should be removed
+        if query:
+            sign_parts[2] = "\n"
+            sign_parts[3] = str(expires) + "\n"
+
+        string_to_sign = "".join(sign_parts)
+        self.logger.debug(string_to_sign)
+
+        return string_to_sign
+
+    def get_authorization(self):
+        string_to_sign = self.get_string_to_sign()
         self.logger.debug(string_to_sign)
         h = hmac.new(
             self.secret_access_key.encode("utf-8"),
@@ -126,11 +144,7 @@ class Request:
         return signature
 
     def get_query_signature(self, expires):
-        string_to_sign = "".join([
-            self.req.method + "\n", self.get_content_md5() + "\n", "\n",
-            str(expires) + "\n", self.get_canonicalized_headers(),
-            self.get_canonicalized_resource()
-        ])
+        string_to_sign = self.get_string_to_sign(query=True, expires=expires)
         self.logger.debug(string_to_sign)
         h = hmac.new(
             self.secret_access_key.encode("utf-8"),
