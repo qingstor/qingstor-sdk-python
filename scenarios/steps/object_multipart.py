@@ -106,7 +106,6 @@ def step_impl(context, key):
     context.res = bucket.complete_multipart_upload(
         key,
         upload_id=init_multipart_res['upload_id'],
-        etag='"4072783b8efb99a9e5817067d68f61c6"',
         object_parts=list_multipart_res['object_parts']
     )
 
