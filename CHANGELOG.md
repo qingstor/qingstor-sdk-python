@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.0] - 2017-08-14
+
+### Added
+
+- Add images process support
+- Add upload client and file chunk classes
+- Be compatible with new style classes
+
+### Fixed
+
+- Fix non-ascii data not handled right in Builder
+- Fix canonicalized headers not sorted by key
+
 ## [2.1.3] - 2017-08-10
 
 ### Fixed
@@ -104,6 +117,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.2.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.3...2.2.0
 [2.1.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.0...2.1.1
