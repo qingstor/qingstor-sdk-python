@@ -24,8 +24,8 @@ class SignTestCase(unittest.TestCase):
                 'Host': 'pek3a.qingstor.com',
                 'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
                 'x-qs-test-header1': 'test',
-                'x-qs-test-header2': '中文测试',
-                'x-qs-test': 'test_sort',
+                'x-qs-copy-source': '中文测试',
+                'x-qs-fetch-source': 'https://google.com/logo.png',
                 'test_empty_header': '',
             },
             'Params': {
@@ -62,9 +62,10 @@ class SignTestCase(unittest.TestCase):
     def test_get_canonicalized_headers(self):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
         self.assertEqual(
-            canonicalized_headers, 'x-qs-test:test_sort\n'
+            canonicalized_headers,
+            'x-qs-copy-source:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
+            'x-qs-fetch-source:https://google.com/logo.png\n'
             'x-qs-test-header1:test\n'
-            'x-qs-test-header2:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
         )
 
     def test_get_canonicalized_resource(self):
@@ -77,13 +78,13 @@ class SignTestCase(unittest.TestCase):
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
         self.assertEqual(
-            authorization, '6DI5FCMDHDROPvAGJE2QNfAbYZeU47eXIwpJidygeiM='
+            authorization, 'L1Aiatm0YRH9qk8/4phJYtOlJiyHvq+ejH3sRlyUusI='
         )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, 'IWpuMPUZRwiwNwnwHOvlxX7An8g2a9Z3K8t4eeFeXKU%3D'
+            authorization, 'y7/aT93vwQ3UMGhAnrYJCQbuu9gqj5j9kFG/4Ni/T7Q%3D'
         )
 
     def test_sign(self):
@@ -153,7 +154,7 @@ class SignTestCase(unittest.TestCase):
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
-                '&signature=IWpuMPUZRwiwNwnwHOvlxX7An8g2a9Z3K8t4eeFeXKU%3D'
+                '&signature=y7/aT93vwQ3UMGhAnrYJCQbuu9gqj5j9kFG/4Ni/T7Q%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )

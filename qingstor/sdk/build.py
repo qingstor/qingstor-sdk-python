@@ -31,7 +31,7 @@ from requests.structures import CaseInsensitiveDict
 from . import __version__
 from .compat import urlparse, urlunparse
 from .constant import BINARY_MIME_TYPE, JSON_MIME_TYPE
-from .utils.helper import current_time, uni_quote, should_quote
+from .utils.helper import current_time, uni_quote, url_quote, should_quote, should_url_quote
 
 
 class Builder:
@@ -80,6 +80,8 @@ class Builder:
                 if v != "" and v is not None:
                     if should_quote(k):
                         v = uni_quote(v)
+                    elif should_url_quote(k):
+                        v = url_quote(v)
                     parsed_headers[k] = v
 
             # Handle header Date

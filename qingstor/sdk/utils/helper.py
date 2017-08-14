@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from time import strftime, gmtime
 
-from ..compat import is_python2, is_python3, quote
+from ..compat import is_python2, is_python3, quote, unquote, urlparse, urlunparse
 
 
 def current_time():
@@ -19,11 +19,20 @@ def uni_quote(o):
         return quote(str(o))
 
 
+def url_quote(o):
+    scheme, netloc, path, params, query, fragment = urlparse(
+        o, allow_fragments=False
+    )
+    path = quote(unquote(path))
+    o = urlunparse((scheme, netloc, path, params, query, fragment))
+    return o
+
+
+def should_url_quote(key):
+    should_url_quote_list = ["x-qs-fetch-source"]
+    return key in should_url_quote_list
+
+
 def should_quote(key):
-    keys_map = [
-        "date", "user-agent", "content-md5", "content-type",
-        "x-qs-encryption-customer-key", "x-qs-encryption-customer-key-md5",
-        "x-qs-copy-source-encryption-customer-key",
-        "x-qs-copy-source-encryption-customer-key-md5"
-    ]
-    return key not in keys_map
+    should_quote_list = ["x-qs-copy-source", "x-qs-move-source"]
+    return key in should_quote_list
