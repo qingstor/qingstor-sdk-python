@@ -23,6 +23,7 @@ import logging
 from hashlib import sha256
 
 from .build import Builder
+from .utils.helper import url_quote
 from .compat import unquote, urlparse, urlunparse, quote
 
 
@@ -43,13 +44,7 @@ class Request:
         ])
         self.logger.debug(self.req.headers["Authorization"])
         prepared = self.req.prepare()
-        scheme, netloc, path, params, query, fragment = urlparse(
-            prepared.url, allow_fragments=False
-        )
-        path = quote(unquote(path))
-        prepared.url = urlunparse(
-            (scheme, netloc, path, params, query, fragment)
-        )
+        prepared.url = url_quote(prepared.url)
         return prepared
 
     def sign_query(self, expires):

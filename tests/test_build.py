@@ -25,7 +25,8 @@ class BuildTestCase(unittest.TestCase):
                 'Host': 'pek3a.qingstor.com',
                 'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
                 'x-qs-test-header1': 'test_val',
-                'x-qs-test-header2': '中文测试',
+                'x-qs-copy-source': '中文测试',
+                'x-qs-fetch-source': 'https://google.com/logo.png',
                 'test_empty_header': '',
             },
             'Params': {
@@ -71,8 +72,11 @@ class BuildTestCase(unittest.TestCase):
         self.assertEqual(test_headers['Content-Type'], 'application/json')
         self.assertEqual(test_headers['x-qs-test-header1'], 'test_val')
         self.assertEqual(
-            test_headers['x-qs-test-header2'],
+            test_headers['x-qs-copy-source'],
             '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
+        )
+        self.assertEqual(
+            test_headers['x-qs-fetch-source'], 'https://google.com/logo.png'
         )
 
     def test_parse_request_body(self):
