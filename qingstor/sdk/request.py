@@ -85,11 +85,13 @@ class Request:
     def get_canonicalized_headers(self):
         headers = self.req.headers
         keys = list()
-        for (k, v) in headers.items():
+        for k in headers.keys():
             if k[:5].lower() == "x-qs-":
-                keys.append("".join([k.lower().strip(), ":", v.strip()]))
+                keys.append(k.lower().strip())
         keys = sorted(keys)
-        canonicalized_headers = "\n".join(keys)
+        canonicalized_headers = "\n".join(
+            [k + ":" + headers[k].strip() for k in keys]
+        )
         if canonicalized_headers:
             canonicalized_headers += "\n"
         return canonicalized_headers
