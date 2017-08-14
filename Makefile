@@ -14,7 +14,7 @@ all: update generate unit
 
 test:
 	@echo "run service test"
-	pip install -r scenarios/requirements.txt
+	pip install -r scenarios/requirements.txt -U
 	behave scenarios/features
 	@echo "ok"
 
@@ -23,8 +23,9 @@ generate:
 		echo "ERROR: Command \"snips\" not found."; \
 	fi
 	snips \
-		--service=qingstor --service-api-version=latest \
-		--spec="./specs" --template="./template" --output="./qingstor/sdk/service"
+		-f ./specs/qingstor/2016-01-06/swagger/api_v2.0.json \
+		-t="./template" \
+		-o="./qingstor/sdk/service"
 	rm ./qingstor/sdk/service/object.py
 	yapf -i -r ./qingstor ./tests ./scenarios
 	@echo "ok"
