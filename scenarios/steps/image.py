@@ -29,11 +29,12 @@ with open("scenarios/features/fixtures/test.jpg") as f:
 
 @when(u'image process with key "{key}" and query "{query}"')
 def step_impl(context, key, query):
-    context.res = bucket.image_process(
-        key, action=query
-    )
+    with open("scenarios/features/fixtures/test.jpg") as f:
+        bucket.put_object("test.jpg", body=f)
+    context.res = bucket.image_process(key, action=query)
 
 
 @then(u'image process status code is 200')
 def step_impl(context):
     assert_that(context.res.status_code).is_equal_to(200)
+    bucket.delete_object("test.jpg")
