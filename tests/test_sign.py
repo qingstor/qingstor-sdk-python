@@ -25,6 +25,7 @@ class SignTestCase(unittest.TestCase):
                 'Date': 'Wed, 10 Dec 2014 17:20:31 GMT',
                 'x-qs-test-header1': 'test',
                 'x-qs-test-header2': '中文测试',
+                'x-qs-test': 'test_sort',
                 'test_empty_header': '',
             },
             'Params': {
@@ -61,7 +62,8 @@ class SignTestCase(unittest.TestCase):
     def test_get_canonicalized_headers(self):
         canonicalized_headers = self.test_req.get_canonicalized_headers()
         self.assertEqual(
-            canonicalized_headers, 'x-qs-test-header1:test\n'
+            canonicalized_headers, 'x-qs-test:test_sort\n'
+            'x-qs-test-header1:test\n'
             'x-qs-test-header2:%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95\n'
         )
 
@@ -75,13 +77,13 @@ class SignTestCase(unittest.TestCase):
     def test_get_authorization(self):
         authorization = self.test_req.get_authorization()
         self.assertEqual(
-            authorization, 'j+c8pI+iYMLIiwxTuE1h3xUgGT1JpWKVBy2jnmdpJt8='
+            authorization, '6DI5FCMDHDROPvAGJE2QNfAbYZeU47eXIwpJidygeiM='
         )
 
     def test_get_query_signature(self):
         authorization = self.test_req.get_query_signature(100)
         self.assertEqual(
-            authorization, 'm13TmltT9KoloQTPXnZHZiXuaTx53cauTyYdzD0Z9xA%3D'
+            authorization, 'IWpuMPUZRwiwNwnwHOvlxX7An8g2a9Z3K8t4eeFeXKU%3D'
         )
 
     def test_sign(self):
@@ -151,7 +153,7 @@ class SignTestCase(unittest.TestCase):
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
-                '&signature=m13TmltT9KoloQTPXnZHZiXuaTx53cauTyYdzD0Z9xA%3D'
+                '&signature=IWpuMPUZRwiwNwnwHOvlxX7An8g2a9Z3K8t4eeFeXKU%3D'
                 '&access_key_id=ACCESS_KEY_ID&expires=100'
             )
         )

@@ -22,8 +22,8 @@ import base64
 import logging
 from hashlib import sha256
 
-from requests.utils import quote, unquote, urlparse, urlunparse
 from .build import Builder
+from .compat import unquote, urlparse, urlunparse, quote
 
 
 class Request:

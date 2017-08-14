@@ -24,14 +24,14 @@ import hashlib
 import logging
 import platform
 import mimetypes
-from time import strftime, gmtime
 
 from requests import Request as Req
-from requests.utils import quote, urlparse, urlunparse
+from requests.structures import CaseInsensitiveDict
 
 from . import __version__
-from .compat import is_python2, is_python3
+from .compat import urlparse, urlunparse
 from .constant import BINARY_MIME_TYPE, JSON_MIME_TYPE
+from .utils.helper import current_time, uni_quote, should_quote
 
 
 class Builder:
@@ -68,41 +68,24 @@ class Builder:
         if "Params" in self.operation:
             for (k, v) in self.operation["Params"].items():
                 if v != "" and v is not None:
-                    if is_python2:
-                        parsed_params[k] = quote(unicode(v).encode("utf-8"))
-                    elif is_python3:
-                        parsed_params[k] = quote(str(v))
+                    parsed_params[k] = uni_quote(v)
 
         return parsed_params
 
     def parse_request_headers(self):
-        parsed_headers = dict()
+        parsed_headers = CaseInsensitiveDict()
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
+                k = k.lower()
                 if v != "" and v is not None:
-                    if k[:5].lower() == "x-qs-":
-                        k = k.lower()
-                        if is_python2:
-                            parsed_headers[k] = quote(
-                                unicode(v).encode("utf-8")
-                            )
-                        elif is_python3:
-                            parsed_headers[k] = quote(str(v))
-                    else:
-                        parsed_headers[k] = v
+                    if should_quote(k):
+                        v = uni_quote(v)
+                    parsed_headers[k] = v
 
             # Handle header Date
-            if is_python2:
-                parsed_headers["Date"] = self.operation["Headers"].get(
-                    "Date",
-                    strftime(
-                        "%a, %d %b %Y %H:%M:%S GMT".encode("utf-8"), gmtime()
-                    )
-                )
-            elif is_python3:
-                parsed_headers["Date"] = self.operation["Headers"].get(
-                    "Date", strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
-                )
+            parsed_headers["Date"] = self.operation["Headers"].get(
+                "Date", current_time()
+            )
 
             # Handle header User-Agent
             parsed_headers["User-Agent"] = (
@@ -152,10 +135,7 @@ class Builder:
         if "Properties" in self.operation:
             for (k, v) in self.operation["Properties"].items():
                 if v != "" and v is not None:
-                    if is_python2:
-                        parsed_properties[k] = quote(unicode(v).encode("utf-8"))
-                    elif is_python3:
-                        parsed_properties[k] = quote(str(v))
+                    parsed_properties[k] = uni_quote(v)
 
         return parsed_properties
 

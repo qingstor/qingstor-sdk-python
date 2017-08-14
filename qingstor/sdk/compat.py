@@ -21,3 +21,10 @@ _ver = sys.version_info
 
 is_python2 = (_ver[0] == 2)
 is_python3 = (_ver[0] == 3)
+
+if is_python2:
+    from urllib import quote, unquote
+    from urlparse import urlparse, urlunparse
+
+elif is_python3:
+    from urllib.parse import urlparse, urlunparse, quote, unquote
