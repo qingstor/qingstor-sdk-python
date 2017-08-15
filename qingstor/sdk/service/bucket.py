@@ -411,11 +411,12 @@ class Bucket(object):
         self.list_objects_validate(operation)
         return Request(self.config, operation)
 
-    def list_objects(self, delimiter="", limit=None, marker="", prefix=""):
+    def list_objects(self, delimiter="", limit=None, marker="", prefix="",
+                     timeout=None):
         req = self.list_objects_request(
             delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
         )
-        resp = self.client.send(req.sign())
+        resp = self.client.send(req.sign(), timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
@@ -752,9 +753,9 @@ class Bucket(object):
         self.delete_object_validate(operation)
         return Request(self.config, operation)
 
-    def delete_object(self, object_key):
+    def delete_object(self, object_key, timeout=None):
         req = self.delete_object_request(object_key)
-        resp = self.client.send(req.sign())
+        resp = self.client.send(req.sign(), timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
@@ -829,7 +830,8 @@ class Bucket(object):
             range="",
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+            x_qs_encryption_customer_key_md5="",
+            timeout=None
     ):
         req = self.get_object_request(
             object_key,
@@ -848,7 +850,7 @@ class Bucket(object):
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5
         )
-        resp = self.client.send(req.sign(), stream=True)
+        resp = self.client.send(req.sign(), stream=True, timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
@@ -1229,7 +1231,8 @@ class Bucket(object):
             x_qs_fetch_if_unmodified_since="",
             x_qs_fetch_source="",
             x_qs_move_source="",
-            body=None
+            body=None,
+            timeout=None
     ):
         req = self.put_object_request(
             object_key,
@@ -1253,7 +1256,7 @@ class Bucket(object):
             x_qs_move_source=x_qs_move_source,
             body=body
         )
-        resp = self.client.send(req.sign())
+        resp = self.client.send(req.sign(), timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
