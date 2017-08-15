@@ -903,7 +903,8 @@ class Bucket(object):
             if_unmodified_since="",
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+            x_qs_encryption_customer_key_md5="",
+            timeout=None
     ):
         req = self.head_object_request(
             object_key,
@@ -915,7 +916,7 @@ class Bucket(object):
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5
         )
-        resp = self.client.send(req.sign())
+        resp = self.client.send(req.sign(), timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
@@ -1120,7 +1121,8 @@ class Bucket(object):
             object_key,
             access_control_request_headers="",
             access_control_request_method="",
-            origin=""
+            origin="",
+            timeout=None
     ):
         req = self.options_object_request(
             object_key,
@@ -1128,7 +1130,7 @@ class Bucket(object):
             access_control_request_method=access_control_request_method,
             origin=origin
         )
-        resp = self.client.send(req.sign())
+        resp = self.client.send(req.sign(), timeout=timeout)
         return Unpacker(resp)
 
     @staticmethod
