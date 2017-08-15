@@ -22,7 +22,7 @@ setup(
     url='https://github.com/yunify/qingstor-sdk-python',
     author_email='sdk_group@yunify.com',
     scripts=[],
-    packages=find_packages('.'),
+    packages=find_packages('.', exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     namespace_packages=['qingstor'],
     package_dir={'sdk': 'qingstor'},
     include_package_data=True,
