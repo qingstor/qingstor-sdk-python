@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.1] - 2017-08-15
+
+### Added
+
+- Add support for x-qs-date header
+
+### Fixed
+
+- Fix x-qs-fetch-source not handled right
+
 ## [2.2.0] - 2017-08-14
 
 ### Added
@@ -117,6 +127,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.2.1]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.3...2.2.0
 [2.1.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/yunify/qingstor-sdk-python/compare/2.1.1...2.1.2
