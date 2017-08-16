@@ -22,6 +22,8 @@
 {{- $customizedTypes := .Data.CustomizedTypes -}}
 from __future__ import unicode_literals
 
+from functools import partial
+
 from requests import Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -43,6 +45,8 @@ class {{$service.Name | camelCase}}(object):
             backoff_factor=1,
             status_forcelist=[500, 502, 503, 504])
         self.client.mount(self.config.protocol+"://", HTTPAdapter(max_retries=retries))
+        if hasattr(self.config, "timeout") and self.config.timeout:
+            self.client.send = partial(self.client.send, timeout=self.config.timeout)
 
     {{- range $_, $operation := $service.Operations}}
     {{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}

@@ -30,6 +30,8 @@ default_config_file_content = (
     'port: 443\n'
     'protocol: "https"\n'
     'connection_retries: 3\n'
+    '# Use 0 for never timeout for request\n'
+    'timeout: 0\n'
     '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
     'log_level: "warn"\n'
 )
