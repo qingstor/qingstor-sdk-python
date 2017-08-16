@@ -17,6 +17,8 @@
 
 from __future__ import unicode_literals
 
+from functools import partial
+
 from requests import Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -41,6 +43,10 @@ class QingStor(object):
         self.client.mount(
             self.config.protocol + "://", HTTPAdapter(max_retries=retries)
         )
+        if hasattr(self.config, "timeout") and self.config.timeout:
+            self.client.send = partial(
+                self.client.send, timeout=self.config.timeout
+            )
 
     def list_buckets_request(self, location=""):
         operation = {
