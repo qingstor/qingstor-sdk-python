@@ -1,6 +1,11 @@
-import os
-from math import ceil
+from __future__ import unicode_literals
 
+import os
+
+from math import ceil
+from Crypto.Cipher import AES
+
+from .helper import md5_digest
 from ..constant import PART_SIZE, SEGMENT_SIZE
 
 # Only support read for now
@@ -82,3 +87,23 @@ class FileChunk:
 
     def __iter__(self):
         return self
+
+
+class EncryptionFileChunk(FileChunk):
+
+    def __init__(self, fd, encrypt_key, iv, encrypt_algo="AES256"):
+        FileChunk.__init__(self, fd)
+        self.mode = AES.MODE_CBC
+        encrypt_key = md5_digest(encrypt_key)
+        self.cryptor = AES.new(encrypt_key, self.mode, iv)
+        self.encrypt_algo = encrypt_algo
+
+    def read(self):
+        for (event, callbacks) in self.hooks.items():
+            for callback_function in callbacks:
+                callback_function()
+        content = self.fd.read(SEGMENT_SIZE)
+        if content == b"":
+            return content
+        content = content.ljust(SEGMENT_SIZE, b"\0")
+        return self.cryptor.encrypt(content)

@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import hashlib
+
 from time import strftime, gmtime
 
 from ..compat import is_python2, is_python3, quote, unquote, urlparse, urlunparse
@@ -36,3 +38,9 @@ def should_url_quote(key):
 def should_quote(key):
     should_quote_list = ["x-qs-copy-source", "x-qs-move-source"]
     return key in should_quote_list
+
+
+def md5_digest(input_str):
+    m = hashlib.md5()
+    m.update(input_str)
+    return m.digest()
