@@ -94,8 +94,7 @@ class EncryptionFileChunk(FileChunk):
     def __init__(self, fd, encrypt_key, iv, encrypt_algo="AES256"):
         FileChunk.__init__(self, fd)
         self.mode = AES.MODE_CBC
-        encrypt_key = md5_digest(encrypt_key)
-        self.cryptor = AES.new(encrypt_key, self.mode, iv)
+        self.encryptor = AES.new(md5_digest(encrypt_key), self.mode, iv)
         self.encrypt_algo = encrypt_algo
 
     def read(self):
@@ -106,4 +105,4 @@ class EncryptionFileChunk(FileChunk):
         if content == b"":
             return content
         content = content.ljust(SEGMENT_SIZE, b"\0")
-        return self.cryptor.encrypt(content)
+        return self.encryptor.encrypt(content)
