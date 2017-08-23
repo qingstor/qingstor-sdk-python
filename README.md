@@ -68,11 +68,7 @@ print(output.content)
 
 ## Contributing
 
-1. Fork it ( https://github.com/yunify/qingstor-sdk-python/fork )
-2. Create your feature branch (`git checkout -b new-feature`)
-3. Commit your changes (`git commit -asm 'Add some feature'`)
-4. Push to the branch (`git push origin new-feature`)
-5. Create a new Pull Request
+Please see [*Contributing Guidelines*](https://github.com/yunify/qingstor-sdk-python/blob/master/CONTRIBUTING.md) of this project before submitting patches.
 
 ## LICENSE
 
