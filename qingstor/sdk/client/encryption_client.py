@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 import base64
 
-from Crypto.Cipher import AES
-
 from ..service.bucket import Bucket
 from ..utils.helper import md5_digest
 
@@ -43,7 +41,7 @@ class EncryptionClient(Bucket):
 
     def upload_multipart(self, *args, **kwargs):
         kwargs = self.apply_encrypt_headers(**kwargs)
-        return Bucket.bucket.upload_multipart(self, *args, **kwargs)
+        return Bucket.upload_multipart(self, *args, **kwargs)
 
     def apply_encrypt_headers(self, **kwargs):
         kwargs["x_qs_encryption_customer_algorithm"] = self.encrypt_algo
