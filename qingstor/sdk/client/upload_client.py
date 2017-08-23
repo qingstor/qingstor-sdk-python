@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from ..utils.file_chunk import FileChunk
 from ..constant import (PART_SIZE, BINARY_MIME_TYPE)
 
