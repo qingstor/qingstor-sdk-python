@@ -157,6 +157,9 @@ class Request:
     def is_sub_resource(self, key):
         keys_map = [
             "acl", "cors", "delete", "mirror", "part_number", "policy", "stats",
-            "upload_id", "uploads", "image", "notification"
+            "upload_id", "uploads", "image", "notification", "response-expires",
+            "response-cache-control", "response-content-type",
+            "response-content-language", "response-content-encoding",
+            "response-content-disposition"
         ]
         return key in keys_map
