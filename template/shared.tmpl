@@ -197,7 +197,13 @@
             },
             "Params": {
                 {{- range $id, $property := $operation.Request.Params.Properties}}
+                {{ $prefixProperty := printf  "%.8s"  $property.Name }}
+                {{- if eq $prefixProperty "response" }}
+                "{{$property.Name | dashConnected}}": {{$property.Name | snakeCase}},
+                {{ end }}
+                {{- if ne $prefixProperty "response" }}
                 "{{$property.Name | snakeCase}}": {{$property.Name | snakeCase}},
+                {{ end }}
                 {{- end}}
             },
             "Elements": {
