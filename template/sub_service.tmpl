@@ -29,6 +29,10 @@ from ..error import ParameterRequiredError, ParameterValueNotAllowedError
 class Bucket(object):
 
     def __init__(self, config, properties, client):
+        # Zone should be forced to lower case
+        if properties and "zone" in properties:
+            properties["zone"] = properties["zone"].lower()
+
         self.config = config
         self.properties = properties
         self.client = client
