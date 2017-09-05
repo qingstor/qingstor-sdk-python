@@ -60,7 +60,7 @@ class UploadClient:
         resp = self.bucket.abort_multipart_upload(
             object_key, upload_id=upload_id
         )
-        if not resp.status_code == 400:
+        if not resp.ok:
             raise Exception(resp["message"])
 
     def _list_parts(self, object_key, upload_id):
