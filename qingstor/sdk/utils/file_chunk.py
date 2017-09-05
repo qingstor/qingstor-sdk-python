@@ -83,7 +83,7 @@ class FileChunk:
         return data
 
     def __next__(self):
-        self.next()
+        return self.next()
 
     def __iter__(self):
         return self
