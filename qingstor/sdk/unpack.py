@@ -40,6 +40,10 @@ class Unpacker(dict):
     def content(self):
         return self.res.content
 
+    @property
+    def ok(self):
+        return self.res.ok
+
     def unpack_response_body(self):
         # Body should be unpacked to json in these situations:
         # - status_code >= 400 and status_code < 600 (client error or server error)
