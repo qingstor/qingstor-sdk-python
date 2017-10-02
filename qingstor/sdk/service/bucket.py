@@ -44,7 +44,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.delete_bucket_validate(operation)
@@ -70,7 +70,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.delete_bucket_cors_validate(operation)
@@ -96,7 +96,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.delete_bucket_external_mirror_validate(operation)
@@ -122,7 +122,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.delete_bucket_policy_validate(operation)
@@ -154,7 +154,7 @@ class Bucket(object):
                 "objects": objects,
                 "quiet": quiet,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.delete_multiple_objects_validate(operation)
@@ -194,7 +194,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.get_bucket_acl_validate(operation)
@@ -220,7 +220,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.get_bucket_cors_validate(operation)
@@ -246,7 +246,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.get_bucket_external_mirror_validate(operation)
@@ -272,7 +272,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.get_bucket_policy_validate(operation)
@@ -298,7 +298,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.get_bucket_statistics_validate(operation)
@@ -324,7 +324,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.head_bucket_validate(operation)
@@ -363,7 +363,7 @@ class Bucket(object):
                 "upload_id_marker": upload_id_marker,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.list_multipart_uploads_validate(operation)
@@ -409,7 +409,7 @@ class Bucket(object):
                 "prefix": prefix,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.list_objects_validate(operation)
@@ -437,7 +437,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.put_bucket_validate(operation)
@@ -465,7 +465,7 @@ class Bucket(object):
             "Elements": {
                 "acl": acl,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.put_bucket_acl_validate(operation)
@@ -517,7 +517,7 @@ class Bucket(object):
             "Elements": {
                 "cors_rules": cors_rules,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.put_bucket_cors_validate(operation)
@@ -554,7 +554,7 @@ class Bucket(object):
             "Elements": {
                 "source_site": source_site,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.put_bucket_external_mirror_validate(operation)
@@ -586,7 +586,7 @@ class Bucket(object):
             "Elements": {
                 "statement": statement,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         self.put_bucket_policy_validate(operation)
@@ -645,7 +645,7 @@ class Bucket(object):
                 "upload_id": upload_id,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -697,7 +697,7 @@ class Bucket(object):
             "Elements": {
                 "object_parts": object_parts,
             },
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -749,7 +749,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -810,7 +810,7 @@ class Bucket(object):
                 "response-expires": response_expires,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -889,7 +889,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -955,7 +955,7 @@ class Bucket(object):
                 "response-expires": response_expires,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -1018,7 +1018,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -1064,7 +1064,7 @@ class Bucket(object):
                 "upload_id": upload_id,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -1110,7 +1110,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
@@ -1205,7 +1205,7 @@ class Bucket(object):
             },
             "Params": {},
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
@@ -1320,7 +1320,7 @@ class Bucket(object):
                 "upload_id": upload_id,
             },
             "Elements": {},
-            "Properties": self.properties,
+            "Properties": self.properties.copy(),
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
