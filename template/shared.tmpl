@@ -22,11 +22,11 @@
   {{- $service := index . 0 -}}
   {{- $operation := index . 1 -}}
 
-  {{- $hasParams := gt (len $operation.Request.Params.Properties) 0 -}}
+  {{- $hasParams := gt (len $operation.Request.Query.Properties) 0 -}}
   {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0 -}}
   {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0 -}}
 
-  {{- template "CustomizedTypeRequestParams" $operation.Request.Params -}}
+  {{- template "CustomizedTypeRequestParams" $operation.Request.Query -}}
   {{- if and $hasParams $hasHeaders -}},{{end}}
   {{- template "CustomizedTypeRequestParams" $operation.Request.Headers -}}
   {{- if and (or $hasParams $hasHeaders) $hasElements -}},{{end}}
@@ -45,12 +45,12 @@
   {{- $service := index . 0 -}}
   {{- $operation := index . 1 -}}
 
-  {{- $hasParams := gt (len $operation.Request.Params.Properties) 0 -}}
+  {{- $hasParams := gt (len $operation.Request.Query.Properties) 0 -}}
   {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0 -}}
   {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0 -}}
 
-  {{- $firstID := $operation.Request.Params | firstPropertyIDInCustomizedType -}}
-  {{- range $_, $property := $operation.Request.Params.Properties -}}
+  {{- $firstID := $operation.Request.Query | firstPropertyIDInCustomizedType -}}
+  {{- range $_, $property := $operation.Request.Query.Properties -}}
     {{- if ne $property.ID $firstID -}},
     {{end -}}
     {{$property.ID | snakeCase}}={{$property.ID | snakeCase}}
@@ -146,7 +146,7 @@
 {{- $request := $operation.Request}}
     @staticmethod
     def {{$operation.ID | snakeCase}}_validate(op):
-        {{- $x := passThrough "op[\"Params\"]" $request.Params $customizedTypes ""}}
+        {{- $x := passThrough "op[\"Params\"]" $request.Query $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
         {{- $x := passThrough "op[\"Headers\"]" $request.Headers $customizedTypes ""}}
         {{- template "RenderCustomizedTypeValidation" $x }}
@@ -160,7 +160,7 @@
     {{- $operation := index . 1}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
 
-    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
     {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
@@ -176,7 +176,7 @@
         {{- if eq $service "Object"}},object_key{{end -}}
         {{- if $hasInput}},{{end -}}
         {{- template "OperationInitParams" passThrough $service $operation -}}):
-        {{- $uri := $operation.Request.URI}}
+        {{- $uri := $operation.Request.Path}}
         {{- $uri := replace $uri "{" "<" -1}}
         {{- $uri := replace $uri "}" ">" -1}}
         {{- $uri := dashConnected $uri}}
@@ -196,7 +196,7 @@
                 {{- end}}
             },
             "Params": {
-                {{- range $id, $property := $operation.Request.Params.Properties}}
+                {{- range $id, $property := $operation.Request.Query.Properties}}
                 {{ $prefixProperty := printf  "%.8s"  $property.Name }}
                 {{- if eq $prefixProperty "response" }}
                 "{{$property.Name | dashConnected}}": {{$property.Name | snakeCase}},
@@ -212,7 +212,7 @@
                 {{- end}}
             },
             {{- if ne $service "QingStor" -}}
-            "Properties" : self.properties,
+            "Properties" : self.properties.copy(),
             {{- end}}
             {{- if eq $service "QingStor" -}}
             "Properties" : {},
@@ -231,7 +231,7 @@
     {{- $operation := index . 1}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
 
-    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
     {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
