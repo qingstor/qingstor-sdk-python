@@ -31,22 +31,18 @@ from ..unpack import Unpacker
 
 
 class QingStor(object):
-
     def __init__(self, config):
         self.config = config
         self.client = Session()
         retries = Retry(
             total=self.config.connection_retries,
             backoff_factor=1,
-            status_forcelist=[500, 502, 503, 504]
-        )
+            status_forcelist=[500, 502, 503, 504])
         self.client.mount(
-            self.config.protocol + "://", HTTPAdapter(max_retries=retries)
-        )
+            self.config.protocol + "://", HTTPAdapter(max_retries=retries))
         if hasattr(self.config, "timeout") and self.config.timeout:
             self.client.send = partial(
-                self.client.send, timeout=self.config.timeout
-            )
+                self.client.send, timeout=self.config.timeout)
 
     def list_buckets_request(self, location=""):
         operation = {

@@ -23,7 +23,6 @@ from ..error import ParameterRequiredError, ParameterValueNotAllowedError
 
 
 class Bucket(object):
-
     def __init__(self, config, properties, client):
         # Zone should be forced to lower case
         if properties and "zone" in properties:
@@ -111,6 +110,58 @@ class Bucket(object):
     def delete_bucket_external_mirror_validate(op):
         pass
 
+    def delete_lifecycle_request(self):
+        operation = {
+            "API": "DeleteBucketLifecycle",
+            "Method": "DELETE",
+            "URI": "/<bucket-name>?lifecycle",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.delete_bucket_lifecycle_validate(operation)
+        return Request(self.config, operation)
+
+    def delete_lifecycle(self):
+        req = self.delete_lifecycle_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def delete_bucket_lifecycle_validate(op):
+        pass
+
+    def delete_notification_request(self):
+        operation = {
+            "API": "DeleteBucketNotification",
+            "Method": "DELETE",
+            "URI": "/<bucket-name>?notification",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.delete_bucket_notification_validate(operation)
+        return Request(self.config, operation)
+
+    def delete_notification(self):
+        req = self.delete_notification_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def delete_bucket_notification_validate(op):
+        pass
+
     def delete_policy_request(self):
         operation = {
             "API": "DeleteBucketPolicy",
@@ -137,9 +188,10 @@ class Bucket(object):
     def delete_bucket_policy_validate(op):
         pass
 
-    def delete_multiple_objects_request(
-            self, content_md5="", objects=list(), quiet=None
-    ):
+    def delete_multiple_objects_request(self,
+                                        content_md5="",
+                                        objects=list(),
+                                        quiet=None):
         operation = {
             "API": "DeleteMultipleObjects",
             "Method": "POST",
@@ -160,25 +212,23 @@ class Bucket(object):
         self.delete_multiple_objects_validate(operation)
         return Request(self.config, operation)
 
-    def delete_multiple_objects(
-            self, content_md5="", objects=list(), quiet=None
-    ):
+    def delete_multiple_objects(self,
+                                content_md5="",
+                                objects=list(),
+                                quiet=None):
         req = self.delete_multiple_objects_request(
-            content_md5=content_md5, objects=objects, quiet=quiet
-        )
+            content_md5=content_md5, objects=objects, quiet=quiet)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def delete_multiple_objects_validate(op):
         if op["Headers"]["Content-MD5"] and not op["Headers"]["Content-MD5"]:
-            raise ParameterRequiredError(
-                "Content-MD5", "DeleteMultipleObjectsInput"
-            )
+            raise ParameterRequiredError("Content-MD5",
+                                         "DeleteMultipleObjectsInput")
         if "objects" not in op["Elements"] and not op["Elements"]["objects"]:
-            raise ParameterRequiredError(
-                "objects", "DeleteMultipleObjectsInput"
-            )
+            raise ParameterRequiredError("objects",
+                                         "DeleteMultipleObjectsInput")
         for x in op["Elements"]["objects"]:
             pass
         pass
@@ -261,6 +311,58 @@ class Bucket(object):
     def get_bucket_external_mirror_validate(op):
         pass
 
+    def get_lifecycle_request(self):
+        operation = {
+            "API": "GetBucketLifecycle",
+            "Method": "GET",
+            "URI": "/<bucket-name>?lifecycle",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.get_bucket_lifecycle_validate(operation)
+        return Request(self.config, operation)
+
+    def get_lifecycle(self):
+        req = self.get_lifecycle_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def get_bucket_lifecycle_validate(op):
+        pass
+
+    def get_notification_request(self):
+        operation = {
+            "API": "GetBucketNotification",
+            "Method": "GET",
+            "URI": "/<bucket-name>?notification",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.get_bucket_notification_validate(operation)
+        return Request(self.config, operation)
+
+    def get_notification(self):
+        req = self.get_notification_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def get_bucket_notification_validate(op):
+        pass
+
     def get_policy_request(self):
         operation = {
             "API": "GetBucketPolicy",
@@ -339,14 +441,12 @@ class Bucket(object):
     def head_bucket_validate(op):
         pass
 
-    def list_multipart_uploads_request(
-            self,
-            delimiter="",
-            key_marker="",
-            limit=None,
-            prefix="",
-            upload_id_marker=""
-    ):
+    def list_multipart_uploads_request(self,
+                                       delimiter="",
+                                       key_marker="",
+                                       limit=None,
+                                       prefix="",
+                                       upload_id_marker=""):
         operation = {
             "API": "ListMultipartUploads",
             "Method": "GET",
@@ -369,21 +469,18 @@ class Bucket(object):
         self.list_multipart_uploads_validate(operation)
         return Request(self.config, operation)
 
-    def list_multipart_uploads(
-            self,
-            delimiter="",
-            key_marker="",
-            limit=None,
-            prefix="",
-            upload_id_marker=""
-    ):
+    def list_multipart_uploads(self,
+                               delimiter="",
+                               key_marker="",
+                               limit=None,
+                               prefix="",
+                               upload_id_marker=""):
         req = self.list_multipart_uploads_request(
             delimiter=delimiter,
             key_marker=key_marker,
             limit=limit,
             prefix=prefix,
-            upload_id_marker=upload_id_marker
-        )
+            upload_id_marker=upload_id_marker)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
@@ -391,9 +488,11 @@ class Bucket(object):
     def list_multipart_uploads_validate(op):
         pass
 
-    def list_objects_request(
-            self, delimiter="", limit=None, marker="", prefix=""
-    ):
+    def list_objects_request(self,
+                             delimiter="",
+                             limit=None,
+                             marker="",
+                             prefix=""):
         operation = {
             "API": "ListObjects",
             "Method": "GET",
@@ -417,8 +516,7 @@ class Bucket(object):
 
     def list_objects(self, delimiter="", limit=None, marker="", prefix=""):
         req = self.list_objects_request(
-            delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
-        )
+            delimiter=delimiter, limit=limit, marker=marker, prefix=prefix)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
@@ -488,8 +586,7 @@ class Bucket(object):
                     type_valid_values = ["user", "group"]
                     if str(x["grantee"]["type"]) not in type_valid_values:
                         raise ParameterValueNotAllowedError(
-                            "type", x["grantee"]["type"], type_valid_values
-                        )
+                            "type", x["grantee"]["type"], type_valid_values)
                 pass
                 if "grantee" not in x:
                     raise ParameterRequiredError("grantee", "acl")
@@ -499,8 +596,7 @@ class Bucket(object):
                 permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"]
                 if str(x["permission"]) not in permission_valid_values:
                     raise ParameterValueNotAllowedError(
-                        "permission", x["permission"], permission_valid_values
-                    )
+                        "permission", x["permission"], permission_valid_values)
             pass
         pass
 
@@ -530,8 +626,7 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_cors_validate(op):
-        if "cors_rules" not in op["Elements"] and not op["Elements"
-                                                         ]["cors_rules"]:
+        if "cors_rules" not in op["Elements"] and not op["Elements"]["cors_rules"]:
             raise ParameterRequiredError("cors_rules", "PutBucketCORSInput")
         for x in op["Elements"]["cors_rules"]:
             if "allowed_methods" not in x and not x["allowed_methods"]:
@@ -568,9 +663,117 @@ class Bucket(object):
     @staticmethod
     def put_bucket_external_mirror_validate(op):
         if op["Elements"]["source_site"] and not op["Elements"]["source_site"]:
-            raise ParameterRequiredError(
-                "source_site", "PutBucketExternalMirrorInput"
-            )
+            raise ParameterRequiredError("source_site",
+                                         "PutBucketExternalMirrorInput")
+        pass
+
+    def put_lifecycle_request(self, rule=list()):
+        operation = {
+            "API": "PutBucketLifecycle",
+            "Method": "PUT",
+            "URI": "/<bucket-name>?lifecycle",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "rule": rule,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.put_bucket_lifecycle_validate(operation)
+        return Request(self.config, operation)
+
+    def put_lifecycle(self, rule=list()):
+        req = self.put_lifecycle_request(rule=rule)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def put_bucket_lifecycle_validate(op):
+        if "rule" not in op["Elements"] and not op["Elements"]["rule"]:
+            raise ParameterRequiredError("rule", "PutBucketLifecycleInput")
+        for x in op["Elements"]["rule"]:
+            if "abort_incomplete_multipart_upload" not in x:
+                if x["abort_incomplete_multipart_upload"]["days_after_initiation"] and not x["abort_incomplete_multipart_upload"]["days_after_initiation"]:
+                    raise ParameterRequiredError(
+                        "days_after_initiation",
+                        "abort_incomplete_multipart_upload")
+                pass
+            if "expiration" not in x:
+                pass
+            if "filter" not in x:
+                if x["filter"]["prefix"] and not x["filter"]["prefix"]:
+                    raise ParameterRequiredError("prefix", "filter")
+                pass
+                if "filter" not in x:
+                    raise ParameterRequiredError("filter", "rule")
+            if x["id"] and not x["id"]:
+                raise ParameterRequiredError("id", "rule")
+            if x["status"] and not x["status"]:
+                raise ParameterRequiredError("status", "rule")
+            if x["status"] and not x["status"]:
+                status_valid_values = ["enabled", "disabled"]
+                if str(x["status"]) not in status_valid_values:
+                    raise ParameterValueNotAllowedError(
+                        "status", x["status"], status_valid_values)
+            if "transition" not in x:
+                if x["transition"]["storage_class"] and not x["transition"]["storage_class"]:
+                    raise ParameterRequiredError("storage_class", "transition")
+                pass
+            pass
+        pass
+
+    def put_notification_request(self, notifications=list()):
+        operation = {
+            "API": "PutBucketNotification",
+            "Method": "PUT",
+            "URI": "/<bucket-name>?notification",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "notifications": notifications,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.put_bucket_notification_validate(operation)
+        return Request(self.config, operation)
+
+    def put_notification(self, notifications=list()):
+        req = self.put_notification_request(notifications=notifications)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def put_bucket_notification_validate(op):
+        if "notifications" not in op["Elements"] and not op["Elements"]["notifications"]:
+            raise ParameterRequiredError("notifications",
+                                         "PutBucketNotificationInput")
+        for x in op["Elements"]["notifications"]:
+            if x["cloudfunc"] and not x["cloudfunc"]:
+                raise ParameterRequiredError("cloudfunc", "notification")
+            if x["cloudfunc"] and not x["cloudfunc"]:
+                cloudfunc_valid_values = [
+                    "create_object", "delete_object", "abort_multipart"
+                ]
+                if str(x["cloudfunc"]) not in cloudfunc_valid_values:
+                    raise ParameterValueNotAllowedError(
+                        "cloudfunc", x["cloudfunc"], cloudfunc_valid_values)
+            if "cloudfunc_args" not in x:
+                if x["cloudfunc_args"]["action"] and not x["cloudfunc_args"]["action"]:
+                    raise ParameterRequiredError("action", "cloudfunc_args")
+                pass
+            if "event_types" not in x and not x["event_types"]:
+                raise ParameterRequiredError("event_types", "notification")
+            if x["id"] and not x["id"]:
+                raise ParameterRequiredError("id", "notification")
+            pass
         pass
 
     def put_policy_request(self, statement=list()):
@@ -599,8 +802,7 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_policy_validate(op):
-        if "statement" not in op["Elements"] and not op["Elements"]["statement"
-                                                                    ]:
+        if "statement" not in op["Elements"] and not op["Elements"]["statement"]:
             raise ParameterRequiredError("statement", "PutBucketPolicyInput")
         for x in op["Elements"]["statement"]:
             if "action" not in x and not x["action"]:
@@ -623,8 +825,7 @@ class Bucket(object):
                 effect_valid_values = ["allow", "deny"]
                 if str(x["effect"]) not in effect_valid_values:
                     raise ParameterValueNotAllowedError(
-                        "effect", x["effect"], effect_valid_values
-                    )
+                        "effect", x["effect"], effect_valid_values)
             if x["id"] and not x["id"]:
                 raise ParameterRequiredError("id", "statement")
             if "user" not in x and not x["user"]:
@@ -654,17 +855,15 @@ class Bucket(object):
 
     def abort_multipart_upload(self, object_key, upload_id=""):
         req = self.abort_multipart_upload_request(
-            object_key, upload_id=upload_id
-        )
+            object_key, upload_id=upload_id)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def abort_multipart_upload_validate(op):
         if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
-            raise ParameterRequiredError(
-                "upload_id", "AbortMultipartUploadInput"
-            )
+            raise ParameterRequiredError("upload_id",
+                                         "AbortMultipartUploadInput")
         pass
 
     def complete_multipart_upload_request(
@@ -675,8 +874,7 @@ class Bucket(object):
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
-            object_parts=list()
-    ):
+            object_parts=list()):
         operation = {
             "API": "CompleteMultipartUpload",
             "Method": "POST",
@@ -684,10 +882,12 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "ETag": etag,
+                "ETag":
+                etag,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
             },
@@ -704,34 +904,34 @@ class Bucket(object):
         self.complete_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
-    def complete_multipart_upload(
-            self,
-            object_key,
-            upload_id="",
-            etag="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            object_parts=list()
-    ):
+    def complete_multipart_upload(self,
+                                  object_key,
+                                  upload_id="",
+                                  etag="",
+                                  x_qs_encryption_customer_algorithm="",
+                                  x_qs_encryption_customer_key="",
+                                  x_qs_encryption_customer_key_md5="",
+                                  object_parts=list()):
         req = self.complete_multipart_upload_request(
             object_key,
             upload_id=upload_id,
             etag=etag,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
-            object_parts=object_parts
-        )
+            object_parts=object_parts)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def complete_multipart_upload_validate(op):
         if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
-            raise ParameterRequiredError(
-                "upload_id", "CompleteMultipartUploadInput"
-            )
+            raise ParameterRequiredError("upload_id",
+                                         "CompleteMultipartUploadInput")
+        if "object_parts" not in op["Elements"] and not op["Elements"]["object_parts"]:
+            raise ParameterRequiredError("object_parts",
+                                         "CompleteMultipartUploadInput")
         for x in op["Elements"]["object_parts"]:
             if x["part_number"] and not x["part_number"]:
                 raise ParameterRequiredError("part_number", "object_part")
@@ -765,24 +965,22 @@ class Bucket(object):
     def delete_object_validate(op):
         pass
 
-    def get_object_request(
-            self,
-            object_key,
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            range="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+    def get_object_request(self,
+                           object_key,
+                           response_cache_control="",
+                           response_content_disposition="",
+                           response_content_encoding="",
+                           response_content_language="",
+                           response_content_type="",
+                           response_expires="",
+                           if_match="",
+                           if_modified_since="",
+                           if_none_match="",
+                           if_unmodified_since="",
+                           range="",
+                           x_qs_encryption_customer_algorithm="",
+                           x_qs_encryption_customer_key="",
+                           x_qs_encryption_customer_key_md5=""):
         operation = {
             "API": "GetObject",
             "Method": "GET",
@@ -790,14 +988,20 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "If-Match": if_match,
-                "If-Modified-Since": if_modified_since,
-                "If-None-Match": if_none_match,
-                "If-Unmodified-Since": if_unmodified_since,
-                "Range": range,
+                "If-Match":
+                if_match,
+                "If-Modified-Since":
+                if_modified_since,
+                "If-None-Match":
+                if_none_match,
+                "If-Unmodified-Since":
+                if_unmodified_since,
+                "Range":
+                range,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
             },
@@ -817,24 +1021,22 @@ class Bucket(object):
         self.get_object_validate(operation)
         return Request(self.config, operation)
 
-    def get_object(
-            self,
-            object_key,
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            range="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+    def get_object(self,
+                   object_key,
+                   response_cache_control="",
+                   response_content_disposition="",
+                   response_content_encoding="",
+                   response_content_language="",
+                   response_content_type="",
+                   response_expires="",
+                   if_match="",
+                   if_modified_since="",
+                   if_none_match="",
+                   if_unmodified_since="",
+                   range="",
+                   x_qs_encryption_customer_algorithm="",
+                   x_qs_encryption_customer_key="",
+                   x_qs_encryption_customer_key_md5=""):
         req = self.get_object_request(
             object_key,
             response_cache_control=response_cache_control,
@@ -848,10 +1050,10 @@ class Bucket(object):
             if_none_match=if_none_match,
             if_unmodified_since=if_unmodified_since,
             range=range,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
-            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5
-        )
+            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5)
         resp = self.client.send(req.sign(), stream=True)
         return Unpacker(resp)
 
@@ -859,17 +1061,15 @@ class Bucket(object):
     def get_object_validate(op):
         pass
 
-    def head_object_request(
-            self,
-            object_key,
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+    def head_object_request(self,
+                            object_key,
+                            if_match="",
+                            if_modified_since="",
+                            if_none_match="",
+                            if_unmodified_since="",
+                            x_qs_encryption_customer_algorithm="",
+                            x_qs_encryption_customer_key="",
+                            x_qs_encryption_customer_key_md5=""):
         operation = {
             "API": "HeadObject",
             "Method": "HEAD",
@@ -877,13 +1077,18 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "If-Match": if_match,
-                "If-Modified-Since": if_modified_since,
-                "If-None-Match": if_none_match,
-                "If-Unmodified-Since": if_unmodified_since,
+                "If-Match":
+                if_match,
+                "If-Modified-Since":
+                if_modified_since,
+                "If-None-Match":
+                if_none_match,
+                "If-Unmodified-Since":
+                if_unmodified_since,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
             },
@@ -896,27 +1101,25 @@ class Bucket(object):
         self.head_object_validate(operation)
         return Request(self.config, operation)
 
-    def head_object(
-            self,
-            object_key,
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+    def head_object(self,
+                    object_key,
+                    if_match="",
+                    if_modified_since="",
+                    if_none_match="",
+                    if_unmodified_since="",
+                    x_qs_encryption_customer_algorithm="",
+                    x_qs_encryption_customer_key="",
+                    x_qs_encryption_customer_key_md5=""):
         req = self.head_object_request(
             object_key,
             if_match=if_match,
             if_modified_since=if_modified_since,
             if_none_match=if_none_match,
             if_unmodified_since=if_unmodified_since,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
-            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5
-        )
+            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
@@ -924,18 +1127,16 @@ class Bucket(object):
     def head_object_validate(op):
         pass
 
-    def image_process_request(
-            self,
-            object_key,
-            action="",
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_modified_since=""
-    ):
+    def image_process_request(self,
+                              object_key,
+                              action="",
+                              response_cache_control="",
+                              response_content_disposition="",
+                              response_content_encoding="",
+                              response_content_language="",
+                              response_content_type="",
+                              response_expires="",
+                              if_modified_since=""):
         operation = {
             "API": "ImageProcess",
             "Method": "GET",
@@ -962,18 +1163,16 @@ class Bucket(object):
         self.image_process_validate(operation)
         return Request(self.config, operation)
 
-    def image_process(
-            self,
-            object_key,
-            action="",
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_modified_since=""
-    ):
+    def image_process(self,
+                      object_key,
+                      action="",
+                      response_cache_control="",
+                      response_content_disposition="",
+                      response_content_encoding="",
+                      response_content_language="",
+                      response_content_type="",
+                      response_expires="",
+                      if_modified_since=""):
         req = self.image_process_request(
             object_key,
             action=action,
@@ -983,8 +1182,7 @@ class Bucket(object):
             response_content_language=response_content_language,
             response_content_type=response_content_type,
             response_expires=response_expires,
-            if_modified_since=if_modified_since
-        )
+            if_modified_since=if_modified_since)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
@@ -1000,8 +1198,8 @@ class Bucket(object):
             content_type="",
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+            x_qs_encryption_customer_key_md5="",
+            x_qs_storage_class=""):
         operation = {
             "API": "InitiateMultipartUpload",
             "Method": "POST",
@@ -1009,12 +1207,16 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Type": content_type,
+                "Content-Type":
+                content_type,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
+                "X-QS-Storage-Class":
+                x_qs_storage_class,
             },
             "Params": {},
             "Elements": {},
@@ -1025,31 +1227,41 @@ class Bucket(object):
         self.initiate_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
-    def initiate_multipart_upload(
-            self,
-            object_key,
-            content_type="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
-    ):
+    def initiate_multipart_upload(self,
+                                  object_key,
+                                  content_type="",
+                                  x_qs_encryption_customer_algorithm="",
+                                  x_qs_encryption_customer_key="",
+                                  x_qs_encryption_customer_key_md5="",
+                                  x_qs_storage_class=""):
         req = self.initiate_multipart_upload_request(
             object_key,
             content_type=content_type,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
-            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5
-        )
+            x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
+            x_qs_storage_class=x_qs_storage_class)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def initiate_multipart_upload_validate(op):
+        if op["Headers"]["X-QS-Storage-Class"] and not op["Headers"]["X-QS-Storage-Class"]:
+            x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
+            if str(
+                    op["Headers"]
+                ["X-QS-Storage-Class"]) not in x_qs_storage_class_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "X-QS-Storage-Class", op["Headers"]["X-QS-Storage-Class"],
+                    x_qs_storage_class_valid_values)
         pass
 
-    def list_multipart_request(
-            self, object_key, limit=None, part_number_marker=None, upload_id=""
-    ):
+    def list_multipart_request(self,
+                               object_key,
+                               limit=None,
+                               part_number_marker=None,
+                               upload_id=""):
         operation = {
             "API": "ListMultipart",
             "Method": "GET",
@@ -1071,15 +1283,16 @@ class Bucket(object):
         self.list_multipart_validate(operation)
         return Request(self.config, operation)
 
-    def list_multipart(
-            self, object_key, limit=None, part_number_marker=None, upload_id=""
-    ):
+    def list_multipart(self,
+                       object_key,
+                       limit=None,
+                       part_number_marker=None,
+                       upload_id=""):
         req = self.list_multipart_request(
             object_key,
             limit=limit,
             part_number_marker=part_number_marker,
-            upload_id=upload_id
-        )
+            upload_id=upload_id)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
@@ -1089,13 +1302,11 @@ class Bucket(object):
             raise ParameterRequiredError("upload_id", "ListMultipartInput")
         pass
 
-    def options_object_request(
-            self,
-            object_key,
-            access_control_request_headers="",
-            access_control_request_method="",
-            origin=""
-    ):
+    def options_object_request(self,
+                               object_key,
+                               access_control_request_headers="",
+                               access_control_request_method="",
+                               origin=""):
         operation = {
             "API": "OptionsObject",
             "Method": "OPTIONS",
@@ -1117,57 +1328,50 @@ class Bucket(object):
         self.options_object_validate(operation)
         return Request(self.config, operation)
 
-    def options_object(
-            self,
-            object_key,
-            access_control_request_headers="",
-            access_control_request_method="",
-            origin=""
-    ):
+    def options_object(self,
+                       object_key,
+                       access_control_request_headers="",
+                       access_control_request_method="",
+                       origin=""):
         req = self.options_object_request(
             object_key,
             access_control_request_headers=access_control_request_headers,
             access_control_request_method=access_control_request_method,
-            origin=origin
-        )
+            origin=origin)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def options_object_validate(op):
-        if op["Headers"]["Access-Control-Request-Method"] and not op["Headers"][
-                "Access-Control-Request-Method"
-        ]:
-            raise ParameterRequiredError(
-                "Access-Control-Request-Method", "OptionsObjectInput"
-            )
+        if op["Headers"]["Access-Control-Request-Method"] and not op["Headers"]["Access-Control-Request-Method"]:
+            raise ParameterRequiredError("Access-Control-Request-Method",
+                                         "OptionsObjectInput")
         if op["Headers"]["Origin"] and not op["Headers"]["Origin"]:
             raise ParameterRequiredError("Origin", "OptionsObjectInput")
         pass
 
-    def put_object_request(
-            self,
-            object_key,
-            content_length=None,
-            content_md5="",
-            content_type="",
-            expect="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_fetch_if_unmodified_since="",
-            x_qs_fetch_source="",
-            x_qs_move_source="",
-            body=None
-    ):
+    def put_object_request(self,
+                           object_key,
+                           content_length=None,
+                           content_md5="",
+                           content_type="",
+                           expect="",
+                           x_qs_copy_source="",
+                           x_qs_copy_source_encryption_customer_algorithm="",
+                           x_qs_copy_source_encryption_customer_key="",
+                           x_qs_copy_source_encryption_customer_key_md5="",
+                           x_qs_copy_source_if_match="",
+                           x_qs_copy_source_if_modified_since="",
+                           x_qs_copy_source_if_none_match="",
+                           x_qs_copy_source_if_unmodified_since="",
+                           x_qs_encryption_customer_algorithm="",
+                           x_qs_encryption_customer_key="",
+                           x_qs_encryption_customer_key_md5="",
+                           x_qs_fetch_if_unmodified_since="",
+                           x_qs_fetch_source="",
+                           x_qs_move_source="",
+                           x_qs_storage_class="",
+                           body=None):
         operation = {
             "API": "PutObject",
             "Method": "PUT",
@@ -1175,18 +1379,24 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "Content-Type": content_type,
-                "Expect": expect,
-                "X-QS-Copy-Source": x_qs_copy_source,
+                "Content-Length":
+                content_length,
+                "Content-MD5":
+                content_md5,
+                "Content-Type":
+                content_type,
+                "Expect":
+                expect,
+                "X-QS-Copy-Source":
+                x_qs_copy_source,
                 "X-QS-Copy-Source-Encryption-Customer-Algorithm":
                 x_qs_copy_source_encryption_customer_algorithm,
                 "X-QS-Copy-Source-Encryption-Customer-Key":
                 x_qs_copy_source_encryption_customer_key,
                 "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
                 x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match": x_qs_copy_source_if_match,
+                "X-QS-Copy-Source-If-Match":
+                x_qs_copy_source_if_match,
                 "X-QS-Copy-Source-If-Modified-Since":
                 x_qs_copy_source_if_modified_since,
                 "X-QS-Copy-Source-If-None-Match":
@@ -1195,13 +1405,18 @@ class Bucket(object):
                 x_qs_copy_source_if_unmodified_since,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
                 "X-QS-Fetch-If-Unmodified-Since":
                 x_qs_fetch_if_unmodified_since,
-                "X-QS-Fetch-Source": x_qs_fetch_source,
-                "X-QS-Move-Source": x_qs_move_source,
+                "X-QS-Fetch-Source":
+                x_qs_fetch_source,
+                "X-QS-Move-Source":
+                x_qs_move_source,
+                "X-QS-Storage-Class":
+                x_qs_storage_class,
             },
             "Params": {},
             "Elements": {},
@@ -1212,29 +1427,28 @@ class Bucket(object):
         self.put_object_validate(operation)
         return Request(self.config, operation)
 
-    def put_object(
-            self,
-            object_key,
-            content_length=None,
-            content_md5="",
-            content_type="",
-            expect="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_fetch_if_unmodified_since="",
-            x_qs_fetch_source="",
-            x_qs_move_source="",
-            body=None
-    ):
+    def put_object(self,
+                   object_key,
+                   content_length=None,
+                   content_md5="",
+                   content_type="",
+                   expect="",
+                   x_qs_copy_source="",
+                   x_qs_copy_source_encryption_customer_algorithm="",
+                   x_qs_copy_source_encryption_customer_key="",
+                   x_qs_copy_source_encryption_customer_key_md5="",
+                   x_qs_copy_source_if_match="",
+                   x_qs_copy_source_if_modified_since="",
+                   x_qs_copy_source_if_none_match="",
+                   x_qs_copy_source_if_unmodified_since="",
+                   x_qs_encryption_customer_algorithm="",
+                   x_qs_encryption_customer_key="",
+                   x_qs_encryption_customer_key_md5="",
+                   x_qs_fetch_if_unmodified_since="",
+                   x_qs_fetch_source="",
+                   x_qs_move_source="",
+                   x_qs_storage_class="",
+                   body=None):
         req = self.put_object_request(
             object_key,
             content_length=content_length,
@@ -1242,26 +1456,40 @@ class Bucket(object):
             content_type=content_type,
             expect=expect,
             x_qs_copy_source=x_qs_copy_source,
-            x_qs_copy_source_encryption_customer_algorithm=x_qs_copy_source_encryption_customer_algorithm,
-            x_qs_copy_source_encryption_customer_key=x_qs_copy_source_encryption_customer_key,
-            x_qs_copy_source_encryption_customer_key_md5=x_qs_copy_source_encryption_customer_key_md5,
+            x_qs_copy_source_encryption_customer_algorithm=
+            x_qs_copy_source_encryption_customer_algorithm,
+            x_qs_copy_source_encryption_customer_key=
+            x_qs_copy_source_encryption_customer_key,
+            x_qs_copy_source_encryption_customer_key_md5=
+            x_qs_copy_source_encryption_customer_key_md5,
             x_qs_copy_source_if_match=x_qs_copy_source_if_match,
-            x_qs_copy_source_if_modified_since=x_qs_copy_source_if_modified_since,
+            x_qs_copy_source_if_modified_since=
+            x_qs_copy_source_if_modified_since,
             x_qs_copy_source_if_none_match=x_qs_copy_source_if_none_match,
-            x_qs_copy_source_if_unmodified_since=x_qs_copy_source_if_unmodified_since,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_copy_source_if_unmodified_since=
+            x_qs_copy_source_if_unmodified_since,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
             x_qs_fetch_if_unmodified_since=x_qs_fetch_if_unmodified_since,
             x_qs_fetch_source=x_qs_fetch_source,
             x_qs_move_source=x_qs_move_source,
-            body=body
-        )
+            x_qs_storage_class=x_qs_storage_class,
+            body=body)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def put_object_validate(op):
+        if op["Headers"]["X-QS-Storage-Class"] and not op["Headers"]["X-QS-Storage-Class"]:
+            x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
+            if str(
+                    op["Headers"]
+                ["X-QS-Storage-Class"]) not in x_qs_storage_class_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "X-QS-Storage-Class", op["Headers"]["X-QS-Storage-Class"],
+                    x_qs_storage_class_valid_values)
         pass
 
     def upload_multipart_request(
@@ -1283,8 +1511,7 @@ class Bucket(object):
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
-            body=None
-    ):
+            body=None):
         operation = {
             "API": "UploadMultipart",
             "Method": "PUT",
@@ -1292,17 +1519,22 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "X-QS-Copy-Range": x_qs_copy_range,
-                "X-QS-Copy-Source": x_qs_copy_source,
+                "Content-Length":
+                content_length,
+                "Content-MD5":
+                content_md5,
+                "X-QS-Copy-Range":
+                x_qs_copy_range,
+                "X-QS-Copy-Source":
+                x_qs_copy_source,
                 "X-QS-Copy-Source-Encryption-Customer-Algorithm":
                 x_qs_copy_source_encryption_customer_algorithm,
                 "X-QS-Copy-Source-Encryption-Customer-Key":
                 x_qs_copy_source_encryption_customer_key,
                 "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
                 x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match": x_qs_copy_source_if_match,
+                "X-QS-Copy-Source-If-Match":
+                x_qs_copy_source_if_match,
                 "X-QS-Copy-Source-If-Modified-Since":
                 x_qs_copy_source_if_modified_since,
                 "X-QS-Copy-Source-If-None-Match":
@@ -1311,7 +1543,8 @@ class Bucket(object):
                 x_qs_copy_source_if_unmodified_since,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
+                "X-QS-Encryption-Customer-Key":
+                x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
             },
@@ -1327,27 +1560,25 @@ class Bucket(object):
         self.upload_multipart_validate(operation)
         return Request(self.config, operation)
 
-    def upload_multipart(
-            self,
-            object_key,
-            part_number=None,
-            upload_id="",
-            content_length=None,
-            content_md5="",
-            x_qs_copy_range="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            body=None
-    ):
+    def upload_multipart(self,
+                         object_key,
+                         part_number=None,
+                         upload_id="",
+                         content_length=None,
+                         content_md5="",
+                         x_qs_copy_range="",
+                         x_qs_copy_source="",
+                         x_qs_copy_source_encryption_customer_algorithm="",
+                         x_qs_copy_source_encryption_customer_key="",
+                         x_qs_copy_source_encryption_customer_key_md5="",
+                         x_qs_copy_source_if_match="",
+                         x_qs_copy_source_if_modified_since="",
+                         x_qs_copy_source_if_none_match="",
+                         x_qs_copy_source_if_unmodified_since="",
+                         x_qs_encryption_customer_algorithm="",
+                         x_qs_encryption_customer_key="",
+                         x_qs_encryption_customer_key_md5="",
+                         body=None):
         req = self.upload_multipart_request(
             object_key,
             part_number=part_number,
@@ -1356,18 +1587,23 @@ class Bucket(object):
             content_md5=content_md5,
             x_qs_copy_range=x_qs_copy_range,
             x_qs_copy_source=x_qs_copy_source,
-            x_qs_copy_source_encryption_customer_algorithm=x_qs_copy_source_encryption_customer_algorithm,
-            x_qs_copy_source_encryption_customer_key=x_qs_copy_source_encryption_customer_key,
-            x_qs_copy_source_encryption_customer_key_md5=x_qs_copy_source_encryption_customer_key_md5,
+            x_qs_copy_source_encryption_customer_algorithm=
+            x_qs_copy_source_encryption_customer_algorithm,
+            x_qs_copy_source_encryption_customer_key=
+            x_qs_copy_source_encryption_customer_key,
+            x_qs_copy_source_encryption_customer_key_md5=
+            x_qs_copy_source_encryption_customer_key_md5,
             x_qs_copy_source_if_match=x_qs_copy_source_if_match,
-            x_qs_copy_source_if_modified_since=x_qs_copy_source_if_modified_since,
+            x_qs_copy_source_if_modified_since=
+            x_qs_copy_source_if_modified_since,
             x_qs_copy_source_if_none_match=x_qs_copy_source_if_none_match,
-            x_qs_copy_source_if_unmodified_since=x_qs_copy_source_if_unmodified_since,
-            x_qs_encryption_customer_algorithm=x_qs_encryption_customer_algorithm,
+            x_qs_copy_source_if_unmodified_since=
+            x_qs_copy_source_if_unmodified_since,
+            x_qs_encryption_customer_algorithm=
+            x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
-            body=body
-        )
+            body=body)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
