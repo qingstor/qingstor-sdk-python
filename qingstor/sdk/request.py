@@ -160,6 +160,6 @@ class Request:
             "upload_id", "uploads", "image", "notification", "response-expires",
             "response-cache-control", "response-content-type",
             "response-content-language", "response-content-encoding",
-            "response-content-disposition"
+            "response-content-disposition", "lifecycle"
         ]
         return key in keys_map
