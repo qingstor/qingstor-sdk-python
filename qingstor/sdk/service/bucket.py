@@ -759,9 +759,7 @@ class Bucket(object):
             if x["cloudfunc"] and not x["cloudfunc"]:
                 raise ParameterRequiredError("cloudfunc", "notification")
             if x["cloudfunc"] and not x["cloudfunc"]:
-                cloudfunc_valid_values = [
-                    "create_object", "delete_object", "abort_multipart"
-                ]
+                cloudfunc_valid_values = ["tupu-porn", "notifier", "image"]
                 if str(x["cloudfunc"]) not in cloudfunc_valid_values:
                     raise ParameterValueNotAllowedError(
                         "cloudfunc", x["cloudfunc"], cloudfunc_valid_values)
