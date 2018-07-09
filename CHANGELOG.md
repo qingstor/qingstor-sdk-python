@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.6] - 2018-07-09
+
+### Added
+
+- Add support for lifecycle and notification
+
+### Fixed
+
+- Fix key error while delete not return content-type
+
 ## [2.2.5] - 2017-10-02
 
 ### Fixed
@@ -167,6 +177,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.2.6]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.5...2.2.6
 [2.2.5]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.2...2.2.3
