@@ -51,7 +51,7 @@ class Unpacker(dict):
         # In other situations, body should not be unpacked for possibly large memory usage
         if not (
                 self.res.ok and
-                self.res.headers["Content-Type"] != "application/json"
+                self.res.headers.get("Content-Type")  != "application/json"
         ):
             try:
                 data = self.res.json()
