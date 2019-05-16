@@ -17,6 +17,9 @@ if version_info[:3] < (2, 7, 9):
             requires.remove(item)
             requires.append('requests[security]')
 
+if version_info[:3] < (2, 7, 0):
+    requires.insert(0, 'idna<2.6,>=2.5')
+
 setup(
     name='qingstor-sdk',
     version=__version__,
