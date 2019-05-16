@@ -8,10 +8,14 @@ from qingstor.sdk import __version__
 
 ROOT = os.path.dirname(__file__)
 
-requires = ['requests', 'PyYAML', 'idna<2.7,>=2.5', 'urllib3', 'pycrypto']
+with open('requirements.txt') as fp:
+    requires = [item.strip() for item in fp.readlines()]
 
 if version_info[:3] < (2, 7, 9):
-    requires[0] = "requests[security]"
+    for item in requires:
+        if item.startswith('requests'):
+            requires.remove(item)
+            requires.append('requests[security]')
 
 setup(
     name='qingstor-sdk',
