@@ -14,7 +14,6 @@ all: update generate unit
 
 test:
 	@echo "run service test"
-	pip install -r scenarios/requirements.txt -U
 	behave scenarios/features
 	@echo "ok"
 

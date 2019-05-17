@@ -8,6 +8,7 @@ yapf = "*"
 nose = "*"
 assertpy = "*"
 mock = "*"
+behave = {git = "https://github.com/behave/behave.git"}
 
 [packages]
 requests = ">=2.22.0,<=3.0.0"
