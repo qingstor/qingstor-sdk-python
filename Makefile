@@ -36,7 +36,7 @@ update:
 
 unit:
 	@echo "run unit test"
-	tox
+	nosetests
 	@echo "ok"
 
 clean:
