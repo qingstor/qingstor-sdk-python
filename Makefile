@@ -45,5 +45,5 @@ clean:
 
 build: clean
 	@echo "build sdist and bdist_wheel"
-	python setup.py sdist bdist_wheel --universal
+	python setup.py sdist bdist_wheel
 	@echo "ok"
