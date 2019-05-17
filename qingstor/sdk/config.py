@@ -90,7 +90,7 @@ class Config:
         return self
 
     def load_default_config(self):
-        config_data = yaml.load(default_config_file_content)
+        config_data = yaml.safe_load(default_config_file_content)
         self.load_config_from_data(config_data)
         return self
 
@@ -103,7 +103,7 @@ class Config:
 
     def load_config_from_filepath(self, filepath):
         with open(filepath, "r") as f:
-            config_data = yaml.load(f)
+            config_data = yaml.safe_load(f)
             self.load_config_from_data(config_data)
             f.close()
         return self
