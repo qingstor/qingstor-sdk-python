@@ -14,6 +14,7 @@ setup(
     version=__version__,
     description='The official QingStor SDK for the Python programming language.',
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author='Yunify SDK Group',
     url='https://github.com/yunify/qingstor-sdk-python',
     author_email='sdk_group@yunify.com',
