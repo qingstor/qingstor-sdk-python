@@ -1,9 +1,0 @@
-assertpy
-git+https://github.com/behave/behave.git#egg=behave
-enum34
-parse
-parse-type
-PyYAML
-requests
-six
-qingstor-sdk

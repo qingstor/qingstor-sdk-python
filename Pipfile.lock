@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6ea3881d4a1dd8455874169ceb4660f2d86889a48f614f5b3a207473e1c1dc69"
+            "sha256": "e6f3f81dd9fd55c553baf9a1b72d11ea6747440ba44419037a04b85945eef446"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -75,6 +75,10 @@
             ],
             "index": "pypi",
             "version": "==0.14"
+        },
+        "behave": {
+            "git": "https://github.com/behave/behave.git",
+            "ref": "0290cc5ebdccb9f23bcf53c071beb82594bcfe2c"
         },
         "mock": {
             "hashes": [
