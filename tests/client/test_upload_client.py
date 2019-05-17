@@ -10,6 +10,7 @@ from qingstor.sdk.utils.file_chunk import FileChunk
 
 
 class MockResponse(dict):
+
     def __init__(self, **kwargs):
         super(MockResponse, self).__init__()
         self.__dict__ = self
@@ -19,6 +20,7 @@ class MockResponse(dict):
 
 
 class MockBucket(Bucket, object):
+
     def __init__(self, ok):
         super(MockBucket, self).__init__(None, None, None)
         self.ok = ok
@@ -48,6 +50,7 @@ class MockBucket(Bucket, object):
 
 
 class TestUploadClient(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.ok_upload_client = UploadClient(MockBucket(True))

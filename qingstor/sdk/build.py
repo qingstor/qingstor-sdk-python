@@ -15,8 +15,6 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import sys
 import json
 import base64
@@ -24,14 +22,14 @@ import hashlib
 import logging
 import platform
 import mimetypes
+from urllib.parse import urlparse, quote, urlunparse
 
 from requests import Request as Req
 from requests.structures import CaseInsensitiveDict
 
 from . import __version__
-from .compat import urlparse, urlunparse
 from .constant import BINARY_MIME_TYPE, JSON_MIME_TYPE
-from .utils.helper import current_time, uni_quote, url_quote, should_quote, should_url_quote
+from .utils.helper import current_time, url_quote, should_quote, should_url_quote
 
 
 class Builder:
@@ -68,7 +66,7 @@ class Builder:
         if "Params" in self.operation:
             for (k, v) in self.operation["Params"].items():
                 if v != "" and v is not None:
-                    parsed_params[k] = uni_quote(v)
+                    parsed_params[k] = quote(v)
 
         return parsed_params
 
@@ -79,7 +77,7 @@ class Builder:
                 k = k.lower()
                 if v != "" and v is not None:
                     if should_quote(k):
-                        v = uni_quote(v)
+                        v = quote(v)
                     elif should_url_quote(k):
                         v = url_quote(v)
                     parsed_headers[k] = v
@@ -137,7 +135,7 @@ class Builder:
         if "Properties" in self.operation:
             for (k, v) in self.operation["Properties"].items():
                 if v != "" and v is not None:
-                    parsed_properties[k] = uni_quote(v)
+                    parsed_properties[k] = quote(v)
 
         return parsed_properties
 

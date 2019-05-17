@@ -15,8 +15,6 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import logging
 
 from .constant import PART_SIZE
@@ -49,10 +47,8 @@ class Unpacker(dict):
         # - status_code >= 400 and status_code < 600 (client error or server error)
         # - status_code >= 200 and status_code < 400 and content type is application/json
         # In other situations, body should not be unpacked for possibly large memory usage
-        if not (
-                self.res.ok and
-                self.res.headers.get("Content-Type")  != "application/json"
-        ):
+        if not (self.res.ok
+                and self.res.headers.get("Content-Type") != "application/json"):
             try:
                 data = self.res.json()
             except ValueError:
