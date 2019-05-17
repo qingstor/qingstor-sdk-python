@@ -8,10 +8,7 @@ from qingstor.sdk import __version__
 
 ROOT = os.path.dirname(__file__)
 
-requires = ['requests', 'PyYAML', 'idna<2.7,>=2.5', 'urllib3', 'pycrypto']
-
-if version_info[:3] < (2, 7, 9):
-    requires[0] = "requests[security]"
+requires = ['requests', 'PyYAML']
 
 setup(
     name='qingstor-sdk',
@@ -34,10 +31,10 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ], )

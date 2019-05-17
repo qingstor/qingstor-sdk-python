@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+yapf = "*"
+nose = "*"
+assertpy = "*"
+mock = "*"
+
+[packages]
+requests = ">=2.22.0,<=3.0.0"
+PyYAML = ">=3.12"
+
+[requires]
