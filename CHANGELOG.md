@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0] - 2019-05-17
+
+### Added
+
+- service: Add cache-control and content encoding support
+
+### Changed
+
+- sdk/config: Fix yaml loader warning
+- misc: Use Pipfile to handle dependence
+
+### Removed
+
+- *: Remove compat for python 2
+- client: Remove encryption client support
+
+
 ## [2.2.6] - 2018-07-09
 
 ### Added
@@ -177,6 +194,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.3.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.6...2.3.0
 [2.2.6]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.5...2.2.6
 [2.2.5]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.3...2.2.4

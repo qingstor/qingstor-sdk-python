@@ -12,6 +12,8 @@ The official QingStor SDK for the Python programming language.
 
 Refer to the [Installation Guide](docs/installation.md), and have this SDK installed.
 
+** Since v2.3.0, qingstor-sdk-python will only support python 3**
+
 ### Preparation
 
 Before your start, please python to [QingCloud Console](https://console.qingcloud.com/access_keys/) to create a pair of QingCloud API AccessKey.

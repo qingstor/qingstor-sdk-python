@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-from sys import version_info
 
 from setuptools import setup, find_packages
 from qingstor.sdk import __version__
