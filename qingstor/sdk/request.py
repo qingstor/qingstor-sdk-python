@@ -15,16 +15,14 @@
 # +-------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import hmac
 import base64
 import logging
 from hashlib import sha256
+from urllib.parse import urlparse, quote, urlunparse, unquote
 
 from .build import Builder
 from .utils.helper import url_quote
-from .compat import unquote, urlparse, urlunparse, quote
 
 
 class Request:
@@ -40,7 +38,8 @@ class Request:
 
     def sign(self):
         self.req.headers["Authorization"] = "".join([
-            "QS ", self.access_key_id, ":", self.get_authorization()
+            "QS ", self.access_key_id, ":",
+            self.get_authorization()
         ])
         self.logger.debug(self.req.headers["Authorization"])
         prepared = self.req.prepare()
@@ -55,7 +54,8 @@ class Request:
         )
         path = quote(unquote(path))
         query = [
-            req_query, "signature=%s" % self.get_query_signature(expires),
+            req_query,
+            "signature=%s" % self.get_query_signature(expires),
             "access_key_id=%s" % self.access_key_id,
             "expires=%s" % str(expires)
         ]
@@ -115,9 +115,12 @@ class Request:
 
     def get_string_to_sign(self, query=False, expires=None):
         sign_parts = [
-            self.req.method + "\n", self.get_content_md5() + "\n",
-            self.get_content_type() + "\n", self.get_date() + "\n",
-            self.get_canonicalized_headers(), self.get_canonicalized_resource()
+            self.req.method + "\n",
+            self.get_content_md5() + "\n",
+            self.get_content_type() + "\n",
+            self.get_date() + "\n",
+            self.get_canonicalized_headers(),
+            self.get_canonicalized_resource()
         ]
 
         # if query sign is used:
