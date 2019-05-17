@@ -1400,6 +1400,8 @@ class Bucket(object):
     def put_object_request(
             self,
             object_key,
+            cache_control="",
+            content_encoding="",
             content_length=None,
             content_md5="",
             content_type="",
@@ -1428,6 +1430,8 @@ class Bucket(object):
             "Headers": {
                 "Host":
                 "".join([self.properties["zone"], ".", self.config.host]),
+                "Cache-Control": cache_control,
+                "Content-Encoding": content_encoding,
                 "Content-Length": content_length,
                 "Content-MD5": content_md5,
                 "Content-Type": content_type,
@@ -1469,6 +1473,8 @@ class Bucket(object):
     def put_object(
             self,
             object_key,
+            cache_control="",
+            content_encoding="",
             content_length=None,
             content_md5="",
             content_type="",
@@ -1492,6 +1498,8 @@ class Bucket(object):
     ):
         req = self.put_object_request(
             object_key,
+            cache_control=cache_control,
+            content_encoding=content_encoding,
             content_length=content_length,
             content_md5=content_md5,
             content_type=content_type,
