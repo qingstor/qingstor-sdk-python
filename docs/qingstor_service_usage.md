@@ -186,3 +186,41 @@ output = bucket.abort_multipart_upload(
 # Example: 400
 print(output.status_code)
 ```
+
+GET Object Download Url Example
+
+1. Initialize the Bucket service with accesskeyid and secretaccesskey.
+
+    ```python
+    import time
+
+    from urllib.request import urlretrieve, pathname2url
+    from qingstor.sdk.service.qingstor import QingStor
+    from qingstor.sdk.config import Config
+
+    config = Config('YOUR_ACCESS_KEY_ID', 'YOUR_SECRET_ACCESS_KEY')
+    qingstor = QingStor(config)
+    bucket_api = qingstor.Bucket("your-bucket-name", "your-zone-name")
+    ```
+
+2. Then you can get object signature url.
+
+    ```python
+    # you can get object through the signatured URL：
+    testfile = urlretrieve(req.url, "testfile")
+    # the url above can also be open with browser. If it is some file type browser could preview, than browser will perform it, otherwise download will be executed.
+    ```
+
+3. If you open the url above in the browser, you may see the file preview instead of downloading. To get a url for downloading only, use the method below.
+
+    ```python
+    disposition = "attachment; filename=\"test_file\""
+    # if chinese character or character need escape is used, you can use function pathname2url to encode it.
+    # encoded_filename = pathname2url("测试文件")
+    # disposition = "attachment; filename=\"%s\"; filename*=utf-8''%s" % (encoded_filename, encoded_filename)
+    # you can open the generated url in browser, the browser will download and save it with specified file name.
+    req = bucket_api.get_object_request("logo.svg", response_content_disposition=disposition)
+    expire_time = int(time.time()) + 60
+    req = req.sign_query(expire_time)
+    print(req.url)
+    ```
