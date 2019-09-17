@@ -2,7 +2,7 @@
 
 ## Summary
 
-This SDK uses a class called "Config" to store and manage configuration, read comments of public functions in ["config.py"](https://github.com/yunify/qingstor-sdk-python/blob/master/config.py) for details.
+This SDK uses a class called "Config" to store and manage configuration, read comments of public functions in ["config.py"](../qingstor/sdk/config.py) for details.
 
 Except for Access Key, you can also configure the API endpoint for private cloud usage scenario. All available configurable items are listed in the default configuration file.
 
