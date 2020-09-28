@@ -1079,6 +1079,76 @@ class Bucket(object):
             )
         pass
 
+    def append_object_request(
+            self,
+            object_key,
+            position=None,
+            content_length=None,
+            content_md5="",
+            content_type="",
+            x_qs_storage_class="",
+            body=None
+    ):
+        operation = {
+            "API": "AppendObject",
+            "Method": "POST",
+            "URI": "/<bucket-name>/<object-key>?append",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+                "Content-Length": content_length,
+                "Content-MD5": content_md5,
+                "Content-Type": content_type,
+                "X-QS-Storage-Class": x_qs_storage_class,
+            },
+            "Params": {
+                "position": position,
+            },
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": body
+        }
+        operation["Properties"]["object-key"] = object_key
+        self.append_object_validate(operation)
+        return Request(self.config, operation)
+
+    def append_object(
+            self,
+            object_key,
+            position=None,
+            content_length=None,
+            content_md5="",
+            content_type="",
+            x_qs_storage_class="",
+            body=None
+    ):
+        req = self.append_object_request(
+            object_key,
+            position=position,
+            content_length=content_length,
+            content_md5=content_md5,
+            content_type=content_type,
+            x_qs_storage_class=x_qs_storage_class,
+            body=body
+        )
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def append_object_validate(op):
+        if op["Params"]["position"] and not op["Params"]["position"]:
+            raise ParameterRequiredError("position", "AppendObjectInput")
+        if op["Headers"]["X-QS-Storage-Class"
+                         ] and not op["Headers"]["X-QS-Storage-Class"]:
+            x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
+            if str(op["Headers"]["X-QS-Storage-Class"]
+                   ) not in x_qs_storage_class_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "X-QS-Storage-Class", op["Headers"]["X-QS-Storage-Class"],
+                    x_qs_storage_class_valid_values
+                )
+        pass
+
     def complete_multipart_upload_request(
             self,
             object_key,
