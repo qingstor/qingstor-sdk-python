@@ -2,3 +2,6 @@ output:
   file_naming:
     style: snake_case
     extension: .py
+word_maps:
+  abbreviate:
+    - CNAME
