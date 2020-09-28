@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.4.0] - 2020-09-28
+
+### Added
+
+- service: ListBuckets supports limit and offset
+- template: Fix CNAME is an abbr
+- bucket: Add CNAME support
+- bucket: Add logging support
+- bucket: Add AppendObject support
+- bucket: Add object metadata support
+
+### Changed
+
+- misc: Only python 3 is supported
+
 ## [2.3.0] - 2019-05-17
 
 ### Added
@@ -194,6 +209,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.4.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.6...2.3.0
 [2.2.6]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.5...2.2.6
 [2.2.5]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.4...2.2.5
