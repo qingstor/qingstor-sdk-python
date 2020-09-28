@@ -57,6 +57,36 @@ class Bucket(object):
     def delete_bucket_validate(op):
         pass
 
+    def delete_cname_request(self, domain=""):
+        operation = {
+            "API": "DeleteBucketCNAME",
+            "Method": "DELETE",
+            "URI": "/<bucket-name>?cname",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "domain": domain,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.delete_bucket_cname_validate(operation)
+        return Request(self.config, operation)
+
+    def delete_cname(self, domain=""):
+        req = self.delete_cname_request(domain=domain)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def delete_bucket_cname_validate(op):
+        if op["Elements"]["domain"] and not op["Elements"]["domain"]:
+            raise ParameterRequiredError("domain", "DeleteBucketCNAMEInput")
+        pass
+
     def delete_cors_request(self):
         operation = {
             "API": "DeleteBucketCORS",
@@ -257,6 +287,40 @@ class Bucket(object):
 
     @staticmethod
     def get_bucket_acl_validate(op):
+        pass
+
+    def get_cname_request(self, type=""):
+        operation = {
+            "API": "GetBucketCNAME",
+            "Method": "GET",
+            "URI": "/<bucket-name>?cname",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {
+                "type": type,
+            },
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.get_bucket_cname_validate(operation)
+        return Request(self.config, operation)
+
+    def get_cname(self, type=""):
+        req = self.get_cname_request(type=type)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def get_bucket_cname_validate(op):
+        if op["Params"]["type"] and not op["Params"]["type"]:
+            type_valid_values = ["website", "normal"]
+            if str(op["Params"]["type"]) not in type_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "type", op["Params"]["type"], type_valid_values
+                )
         pass
 
     def get_cors_request(self):
@@ -604,6 +668,43 @@ class Bucket(object):
                         "permission", x["permission"], permission_valid_values
                     )
             pass
+        pass
+
+    def put_cname_request(self, domain="", type=""):
+        operation = {
+            "API": "PutBucketCNAME",
+            "Method": "PUT",
+            "URI": "/<bucket-name>?cname",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "domain": domain,
+                "type": type,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.put_bucket_cname_validate(operation)
+        return Request(self.config, operation)
+
+    def put_cname(self, domain="", type=""):
+        req = self.put_cname_request(domain=domain, type=type)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def put_bucket_cname_validate(op):
+        if op["Elements"]["domain"] and not op["Elements"]["domain"]:
+            raise ParameterRequiredError("domain", "PutBucketCNAMEInput")
+        if op["Elements"]["type"] and not op["Elements"]["type"]:
+            type_valid_values = ["normal", "website"]
+            if str(op["Elements"]["type"]) not in type_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "type", op["Elements"]["type"], type_valid_values
+                )
         pass
 
     def put_cors_request(self, cors_rules=list()):
