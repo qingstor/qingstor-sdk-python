@@ -165,6 +165,32 @@ class Bucket(object):
     def delete_bucket_lifecycle_validate(op):
         pass
 
+    def delete_logging_request(self):
+        operation = {
+            "API": "DeleteBucketLogging",
+            "Method": "DELETE",
+            "URI": "/<bucket-name>?logging",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.delete_bucket_logging_validate(operation)
+        return Request(self.config, operation)
+
+    def delete_logging(self):
+        req = self.delete_logging_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def delete_bucket_logging_validate(op):
+        pass
+
     def delete_notification_request(self):
         operation = {
             "API": "DeleteBucketNotification",
@@ -399,6 +425,32 @@ class Bucket(object):
 
     @staticmethod
     def get_bucket_lifecycle_validate(op):
+        pass
+
+    def get_logging_request(self):
+        operation = {
+            "API": "GetBucketLogging",
+            "Method": "GET",
+            "URI": "/<bucket-name>?logging",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.get_bucket_logging_validate(operation)
+        return Request(self.config, operation)
+
+    def get_logging(self):
+        req = self.get_logging_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def get_bucket_logging_validate(op):
         pass
 
     def get_notification_request(self):
@@ -839,6 +891,47 @@ class Bucket(object):
                     raise ParameterRequiredError("storage_class", "transition")
                 pass
             pass
+        pass
+
+    def put_logging_request(self, target_bucket="", target_prefix=""):
+        operation = {
+            "API": "PutBucketLogging",
+            "Method": "PUT",
+            "URI": "/<bucket-name>?logging",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "target_bucket": target_bucket,
+                "target_prefix": target_prefix,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.put_bucket_logging_validate(operation)
+        return Request(self.config, operation)
+
+    def put_logging(self, target_bucket="", target_prefix=""):
+        req = self.put_logging_request(
+            target_bucket=target_bucket, target_prefix=target_prefix
+        )
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def put_bucket_logging_validate(op):
+        if op["Elements"]["target_bucket"
+                          ] and not op["Elements"]["target_bucket"]:
+            raise ParameterRequiredError(
+                "target_bucket", "PutBucketLoggingInput"
+            )
+        if op["Elements"]["target_prefix"
+                          ] and not op["Elements"]["target_prefix"]:
+            raise ParameterRequiredError(
+                "target_prefix", "PutBucketLoggingInput"
+            )
         pass
 
     def put_notification_request(self, notifications=list()):
