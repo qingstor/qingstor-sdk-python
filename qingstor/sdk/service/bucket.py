@@ -1504,6 +1504,7 @@ class Bucket(object):
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
+            x_qs_meta_data=dict(),
             x_qs_storage_class=""
     ):
         operation = {
@@ -1519,6 +1520,7 @@ class Bucket(object):
                 "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
                 "X-QS-Encryption-Customer-Key-MD5":
                 x_qs_encryption_customer_key_md5,
+                "X-QS-MetaData": x_qs_meta_data,
                 "X-QS-Storage-Class": x_qs_storage_class,
             },
             "Params": {},
@@ -1537,6 +1539,7 @@ class Bucket(object):
             x_qs_encryption_customer_algorithm="",
             x_qs_encryption_customer_key="",
             x_qs_encryption_customer_key_md5="",
+            x_qs_meta_data=dict(),
             x_qs_storage_class=""
     ):
         req = self.initiate_multipart_upload_request(
@@ -1546,6 +1549,7 @@ class Bucket(object):
             x_qs_encryption_customer_algorithm,
             x_qs_encryption_customer_key=x_qs_encryption_customer_key,
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
+            x_qs_meta_data=x_qs_meta_data,
             x_qs_storage_class=x_qs_storage_class
         )
         resp = self.client.send(req.sign())
@@ -1683,6 +1687,8 @@ class Bucket(object):
             x_qs_encryption_customer_key_md5="",
             x_qs_fetch_if_unmodified_since="",
             x_qs_fetch_source="",
+            x_qs_meta_data=dict(),
+            x_qs_metadata_directive="",
             x_qs_move_source="",
             x_qs_storage_class="",
             body=None
@@ -1722,6 +1728,8 @@ class Bucket(object):
                 "X-QS-Fetch-If-Unmodified-Since":
                 x_qs_fetch_if_unmodified_since,
                 "X-QS-Fetch-Source": x_qs_fetch_source,
+                "X-QS-MetaData": x_qs_meta_data,
+                "X-QS-Metadata-Directive": x_qs_metadata_directive,
                 "X-QS-Move-Source": x_qs_move_source,
                 "X-QS-Storage-Class": x_qs_storage_class,
             },
@@ -1756,6 +1764,8 @@ class Bucket(object):
             x_qs_encryption_customer_key_md5="",
             x_qs_fetch_if_unmodified_since="",
             x_qs_fetch_source="",
+            x_qs_meta_data=dict(),
+            x_qs_metadata_directive="",
             x_qs_move_source="",
             x_qs_storage_class="",
             body=None
@@ -1787,6 +1797,8 @@ class Bucket(object):
             x_qs_encryption_customer_key_md5=x_qs_encryption_customer_key_md5,
             x_qs_fetch_if_unmodified_since=x_qs_fetch_if_unmodified_since,
             x_qs_fetch_source=x_qs_fetch_source,
+            x_qs_meta_data=x_qs_meta_data,
+            x_qs_metadata_directive=x_qs_metadata_directive,
             x_qs_move_source=x_qs_move_source,
             x_qs_storage_class=x_qs_storage_class,
             body=body
@@ -1796,6 +1808,16 @@ class Bucket(object):
 
     @staticmethod
     def put_object_validate(op):
+        if op["Headers"]["X-QS-Metadata-Directive"
+                         ] and not op["Headers"]["X-QS-Metadata-Directive"]:
+            x_qs_metadata_directive_valid_values = ["COPY", "REPLACE"]
+            if str(op["Headers"]["X-QS-Metadata-Directive"]
+                   ) not in x_qs_metadata_directive_valid_values:
+                raise ParameterValueNotAllowedError(
+                    "X-QS-Metadata-Directive",
+                    op["Headers"]["X-QS-Metadata-Directive"],
+                    x_qs_metadata_directive_valid_values
+                )
         if op["Headers"]["X-QS-Storage-Class"
                          ] and not op["Headers"]["X-QS-Storage-Class"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
