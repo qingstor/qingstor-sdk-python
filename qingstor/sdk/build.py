@@ -97,6 +97,15 @@ class Builder:
                 system=sys.platform
             )
 
+            # Handle header X-QS-MetaData dict, for example:
+            # {'X-QS-MetaData': {'x': 'vx', 'y': 'vy'}} => {'X-QS-MetaData-x': 'vx', 'X-QS-MetaData-y': 'vy'}
+            if 'X-QS-MetaData' in parsed_headers:
+                metadata = parsed_headers.get('X-QS-MetaData')
+                if isinstance(metadata, dict) and len(metadata) != 0:
+                    for k, v in parsed_headers['X-QS-MetaData'].items():
+                        parsed_headers["X-QS-MetaData-{}".format(k)] = v
+                del parsed_headers['X-QS-MetaData']
+
             # Handle header Content-Type
             parsed_body, is_json = self.parse_request_body()
             filename = urlparse(self.parse_request_uri()).path
