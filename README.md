@@ -1,8 +1,9 @@
 # QingStor SDK for Python
 
-[![Build Status](https://travis-ci.org/yunify/qingstor-sdk-python.svg?branch=master)](https://travis-ci.org/yunify/qingstor-sdk-python)
+[![Build Status](https://github.com/qingstor/qingstor-sdk-python/workflows/Unit%20Test/badge.svg?branch=master)](https://github.com/qingstor/qingstor-sdk-python/actions?query=workflow%3A%22Unit+Test%22)
 [![API Reference](http://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor/)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-python/blob/master/LICENSE)
+[![Join the chat](https://img.shields.io/badge/chat-online-blue?style=flat&logo=zulip)](https://qingstor.zulipchat.com/join/nofzrqd5a5skt5ebnaor5b7d/)
 
 English | [中文](README_zh-CN.md)
 
