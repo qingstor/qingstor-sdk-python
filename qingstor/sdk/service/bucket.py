@@ -243,8 +243,34 @@ class Bucket(object):
     def delete_bucket_policy_validate(op):
         pass
 
+    def delete_replication_request(self):
+        operation = {
+            "API": "DeleteBucketReplication",
+            "Method": "DELETE",
+            "URI": "/<bucket-name>?replication",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.delete_bucket_replication_validate(operation)
+        return Request(self.config, operation)
+
+    def delete_replication(self):
+        req = self.delete_replication_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def delete_bucket_replication_validate(op):
+        pass
+
     def delete_multiple_objects_request(
-            self, content_md5="", objects=list(), quiet=None
+        self, content_md5="", objects=list(), quiet=None
     ):
         operation = {
             "API": "DeleteMultipleObjects",
@@ -267,7 +293,7 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def delete_multiple_objects(
-            self, content_md5="", objects=list(), quiet=None
+        self, content_md5="", objects=list(), quiet=None
     ):
         req = self.delete_multiple_objects_request(
             content_md5=content_md5, objects=objects, quiet=quiet
@@ -505,6 +531,32 @@ class Bucket(object):
     def get_bucket_policy_validate(op):
         pass
 
+    def get_replication_request(self):
+        operation = {
+            "API": "GetBucketReplication",
+            "Method": "GET",
+            "URI": "/<bucket-name>?replication",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {},
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.get_bucket_replication_validate(operation)
+        return Request(self.config, operation)
+
+    def get_replication(self):
+        req = self.get_replication_request()
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def get_bucket_replication_validate(op):
+        pass
+
     def get_statistics_request(self):
         operation = {
             "API": "GetBucketStatistics",
@@ -558,12 +610,12 @@ class Bucket(object):
         pass
 
     def list_multipart_uploads_request(
-            self,
-            delimiter="",
-            key_marker="",
-            limit=None,
-            prefix="",
-            upload_id_marker=""
+        self,
+        delimiter="",
+        key_marker="",
+        limit=None,
+        prefix="",
+        upload_id_marker=""
     ):
         operation = {
             "API": "ListMultipartUploads",
@@ -588,12 +640,12 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def list_multipart_uploads(
-            self,
-            delimiter="",
-            key_marker="",
-            limit=None,
-            prefix="",
-            upload_id_marker=""
+        self,
+        delimiter="",
+        key_marker="",
+        limit=None,
+        prefix="",
+        upload_id_marker=""
     ):
         req = self.list_multipart_uploads_request(
             delimiter=delimiter,
@@ -610,7 +662,7 @@ class Bucket(object):
         pass
 
     def list_objects_request(
-            self, delimiter="", limit=None, marker="", prefix=""
+        self, delimiter="", limit=None, marker="", prefix=""
     ):
         operation = {
             "API": "ListObjects",
@@ -860,8 +912,8 @@ class Bucket(object):
             if "abort_incomplete_multipart_upload" not in x:
                 if x["abort_incomplete_multipart_upload"
                      ]["days_after_initiation"
-                       ] and not x["abort_incomplete_multipart_upload"
-                                   ]["days_after_initiation"]:
+                       ] and not x["abort_incomplete_multipart_upload"][
+                           "days_after_initiation"]:
                     raise ParameterRequiredError(
                         "days_after_initiation",
                         "abort_incomplete_multipart_upload"
@@ -1044,6 +1096,70 @@ class Bucket(object):
             pass
         pass
 
+    def put_replication_request(self, rules=list()):
+        operation = {
+            "API": "PutBucketReplication",
+            "Method": "PUT",
+            "URI": "/<bucket-name>?replication",
+            "Headers": {
+                "Host":
+                "".join([self.properties["zone"], ".", self.config.host]),
+            },
+            "Params": {},
+            "Elements": {
+                "rules": rules,
+            },
+            "Properties": self.properties.copy(),
+            "Body": None
+        }
+        self.put_bucket_replication_validate(operation)
+        return Request(self.config, operation)
+
+    def put_replication(self, rules=list()):
+        req = self.put_replication_request(rules=rules)
+        resp = self.client.send(req.sign())
+        return Unpacker(resp)
+
+    @staticmethod
+    def put_bucket_replication_validate(op):
+        if "rules" not in op["Elements"] and not op["Elements"]["rules"]:
+            raise ParameterRequiredError("rules", "PutBucketReplicationInput")
+        for x in op["Elements"]["rules"]:
+            if x["delete_marker"] and not x["delete_marker"]:
+                delete_marker_valid_values = ["enabled", "disabled"]
+                if str(x["delete_marker"]) not in delete_marker_valid_values:
+                    raise ParameterValueNotAllowedError(
+                        "delete_marker", x["delete_marker"],
+                        delete_marker_valid_values
+                    )
+            if "destination" not in x:
+                if x["destination"]["bucket"] and not x["destination"]["bucket"]:
+                    raise ParameterRequiredError("bucket", "destination")
+                pass
+                if "destination" not in x:
+                    raise ParameterRequiredError("destination", "rules")
+            if "filters" not in x:
+                pass
+                if "filters" not in x:
+                    raise ParameterRequiredError("filters", "rules")
+            if x["id"] and not x["id"]:
+                raise ParameterRequiredError("id", "rules")
+            if x["status"] and not x["status"]:
+                status_valid_values = ["enabled", "disabled"]
+                if str(x["status"]) not in status_valid_values:
+                    raise ParameterValueNotAllowedError(
+                        "status", x["status"], status_valid_values
+                    )
+            if x["sync_marker"] and not x["sync_marker"]:
+                sync_marker_valid_values = ["enabled", "disabled"]
+                if str(x["sync_marker"]) not in sync_marker_valid_values:
+                    raise ParameterValueNotAllowedError(
+                        "sync_marker", x["sync_marker"],
+                        sync_marker_valid_values
+                    )
+            pass
+        pass
+
     def abort_multipart_upload_request(self, object_key, upload_id=""):
         operation = {
             "API": "AbortMultipartUpload",
@@ -1080,14 +1196,14 @@ class Bucket(object):
         pass
 
     def append_object_request(
-            self,
-            object_key,
-            position=None,
-            content_length=None,
-            content_md5="",
-            content_type="",
-            x_qs_storage_class="",
-            body=None
+        self,
+        object_key,
+        position=None,
+        content_length=None,
+        content_md5="",
+        content_type="",
+        x_qs_storage_class="",
+        body=None
     ):
         operation = {
             "API": "AppendObject",
@@ -1113,14 +1229,14 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def append_object(
-            self,
-            object_key,
-            position=None,
-            content_length=None,
-            content_md5="",
-            content_type="",
-            x_qs_storage_class="",
-            body=None
+        self,
+        object_key,
+        position=None,
+        content_length=None,
+        content_md5="",
+        content_type="",
+        x_qs_storage_class="",
+        body=None
     ):
         req = self.append_object_request(
             object_key,
@@ -1150,14 +1266,14 @@ class Bucket(object):
         pass
 
     def complete_multipart_upload_request(
-            self,
-            object_key,
-            upload_id="",
-            etag="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            object_parts=list()
+        self,
+        object_key,
+        upload_id="",
+        etag="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        object_parts=list()
     ):
         operation = {
             "API": "CompleteMultipartUpload",
@@ -1189,14 +1305,14 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def complete_multipart_upload(
-            self,
-            object_key,
-            upload_id="",
-            etag="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            object_parts=list()
+        self,
+        object_key,
+        upload_id="",
+        etag="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        object_parts=list()
     ):
         req = self.complete_multipart_upload_request(
             object_key,
@@ -1256,22 +1372,22 @@ class Bucket(object):
         pass
 
     def get_object_request(
-            self,
-            object_key,
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            range="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+        self,
+        object_key,
+        response_cache_control="",
+        response_content_disposition="",
+        response_content_encoding="",
+        response_content_language="",
+        response_content_type="",
+        response_expires="",
+        if_match="",
+        if_modified_since="",
+        if_none_match="",
+        if_unmodified_since="",
+        range="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5=""
     ):
         operation = {
             "API": "GetObject",
@@ -1314,22 +1430,22 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def get_object(
-            self,
-            object_key,
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            range="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+        self,
+        object_key,
+        response_cache_control="",
+        response_content_disposition="",
+        response_content_encoding="",
+        response_content_language="",
+        response_content_type="",
+        response_expires="",
+        if_match="",
+        if_modified_since="",
+        if_none_match="",
+        if_unmodified_since="",
+        range="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5=""
     ):
         req = self.get_object_request(
             object_key,
@@ -1357,15 +1473,15 @@ class Bucket(object):
         pass
 
     def head_object_request(
-            self,
-            object_key,
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+        self,
+        object_key,
+        if_match="",
+        if_modified_since="",
+        if_none_match="",
+        if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5=""
     ):
         operation = {
             "API": "HeadObject",
@@ -1399,15 +1515,15 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def head_object(
-            self,
-            object_key,
-            if_match="",
-            if_modified_since="",
-            if_none_match="",
-            if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5=""
+        self,
+        object_key,
+        if_match="",
+        if_modified_since="",
+        if_none_match="",
+        if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5=""
     ):
         req = self.head_object_request(
             object_key,
@@ -1428,16 +1544,16 @@ class Bucket(object):
         pass
 
     def image_process_request(
-            self,
-            object_key,
-            action="",
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_modified_since=""
+        self,
+        object_key,
+        action="",
+        response_cache_control="",
+        response_content_disposition="",
+        response_content_encoding="",
+        response_content_language="",
+        response_content_type="",
+        response_expires="",
+        if_modified_since=""
     ):
         operation = {
             "API": "ImageProcess",
@@ -1466,16 +1582,16 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def image_process(
-            self,
-            object_key,
-            action="",
-            response_cache_control="",
-            response_content_disposition="",
-            response_content_encoding="",
-            response_content_language="",
-            response_content_type="",
-            response_expires="",
-            if_modified_since=""
+        self,
+        object_key,
+        action="",
+        response_cache_control="",
+        response_content_disposition="",
+        response_content_encoding="",
+        response_content_language="",
+        response_content_type="",
+        response_expires="",
+        if_modified_since=""
     ):
         req = self.image_process_request(
             object_key,
@@ -1498,14 +1614,14 @@ class Bucket(object):
         pass
 
     def initiate_multipart_upload_request(
-            self,
-            object_key,
-            content_type="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_meta_data=dict(),
-            x_qs_storage_class=""
+        self,
+        object_key,
+        content_type="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        x_qs_meta_data=dict(),
+        x_qs_storage_class=""
     ):
         operation = {
             "API": "InitiateMultipartUpload",
@@ -1533,14 +1649,14 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def initiate_multipart_upload(
-            self,
-            object_key,
-            content_type="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_meta_data=dict(),
-            x_qs_storage_class=""
+        self,
+        object_key,
+        content_type="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        x_qs_meta_data=dict(),
+        x_qs_storage_class=""
     ):
         req = self.initiate_multipart_upload_request(
             object_key,
@@ -1569,7 +1685,7 @@ class Bucket(object):
         pass
 
     def list_multipart_request(
-            self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=""
     ):
         operation = {
             "API": "ListMultipart",
@@ -1593,7 +1709,7 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def list_multipart(
-            self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=""
     ):
         req = self.list_multipart_request(
             object_key,
@@ -1611,11 +1727,11 @@ class Bucket(object):
         pass
 
     def options_object_request(
-            self,
-            object_key,
-            access_control_request_headers="",
-            access_control_request_method="",
-            origin=""
+        self,
+        object_key,
+        access_control_request_headers="",
+        access_control_request_method="",
+        origin=""
     ):
         operation = {
             "API": "OptionsObject",
@@ -1639,11 +1755,11 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def options_object(
-            self,
-            object_key,
-            access_control_request_headers="",
-            access_control_request_method="",
-            origin=""
+        self,
+        object_key,
+        access_control_request_headers="",
+        access_control_request_method="",
+        origin=""
     ):
         req = self.options_object_request(
             object_key,
@@ -1666,32 +1782,32 @@ class Bucket(object):
         pass
 
     def put_object_request(
-            self,
-            object_key,
-            cache_control="",
-            content_encoding="",
-            content_length=None,
-            content_md5="",
-            content_type="",
-            expect="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_fetch_if_unmodified_since="",
-            x_qs_fetch_source="",
-            x_qs_meta_data=dict(),
-            x_qs_metadata_directive="",
-            x_qs_move_source="",
-            x_qs_storage_class="",
-            body=None
+        self,
+        object_key,
+        cache_control="",
+        content_encoding="",
+        content_length=None,
+        content_md5="",
+        content_type="",
+        expect="",
+        x_qs_copy_source="",
+        x_qs_copy_source_encryption_customer_algorithm="",
+        x_qs_copy_source_encryption_customer_key="",
+        x_qs_copy_source_encryption_customer_key_md5="",
+        x_qs_copy_source_if_match="",
+        x_qs_copy_source_if_modified_since="",
+        x_qs_copy_source_if_none_match="",
+        x_qs_copy_source_if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        x_qs_fetch_if_unmodified_since="",
+        x_qs_fetch_source="",
+        x_qs_meta_data=dict(),
+        x_qs_metadata_directive="",
+        x_qs_move_source="",
+        x_qs_storage_class="",
+        body=None
     ):
         operation = {
             "API": "PutObject",
@@ -1743,32 +1859,32 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def put_object(
-            self,
-            object_key,
-            cache_control="",
-            content_encoding="",
-            content_length=None,
-            content_md5="",
-            content_type="",
-            expect="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            x_qs_fetch_if_unmodified_since="",
-            x_qs_fetch_source="",
-            x_qs_meta_data=dict(),
-            x_qs_metadata_directive="",
-            x_qs_move_source="",
-            x_qs_storage_class="",
-            body=None
+        self,
+        object_key,
+        cache_control="",
+        content_encoding="",
+        content_length=None,
+        content_md5="",
+        content_type="",
+        expect="",
+        x_qs_copy_source="",
+        x_qs_copy_source_encryption_customer_algorithm="",
+        x_qs_copy_source_encryption_customer_key="",
+        x_qs_copy_source_encryption_customer_key_md5="",
+        x_qs_copy_source_if_match="",
+        x_qs_copy_source_if_modified_since="",
+        x_qs_copy_source_if_none_match="",
+        x_qs_copy_source_if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        x_qs_fetch_if_unmodified_since="",
+        x_qs_fetch_source="",
+        x_qs_meta_data=dict(),
+        x_qs_metadata_directive="",
+        x_qs_move_source="",
+        x_qs_storage_class="",
+        body=None
     ):
         req = self.put_object_request(
             object_key,
@@ -1830,25 +1946,25 @@ class Bucket(object):
         pass
 
     def upload_multipart_request(
-            self,
-            object_key,
-            part_number=None,
-            upload_id="",
-            content_length=None,
-            content_md5="",
-            x_qs_copy_range="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            body=None
+        self,
+        object_key,
+        part_number=None,
+        upload_id="",
+        content_length=None,
+        content_md5="",
+        x_qs_copy_range="",
+        x_qs_copy_source="",
+        x_qs_copy_source_encryption_customer_algorithm="",
+        x_qs_copy_source_encryption_customer_key="",
+        x_qs_copy_source_encryption_customer_key_md5="",
+        x_qs_copy_source_if_match="",
+        x_qs_copy_source_if_modified_since="",
+        x_qs_copy_source_if_none_match="",
+        x_qs_copy_source_if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        body=None
     ):
         operation = {
             "API": "UploadMultipart",
@@ -1899,25 +2015,25 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def upload_multipart(
-            self,
-            object_key,
-            part_number=None,
-            upload_id="",
-            content_length=None,
-            content_md5="",
-            x_qs_copy_range="",
-            x_qs_copy_source="",
-            x_qs_copy_source_encryption_customer_algorithm="",
-            x_qs_copy_source_encryption_customer_key="",
-            x_qs_copy_source_encryption_customer_key_md5="",
-            x_qs_copy_source_if_match="",
-            x_qs_copy_source_if_modified_since="",
-            x_qs_copy_source_if_none_match="",
-            x_qs_copy_source_if_unmodified_since="",
-            x_qs_encryption_customer_algorithm="",
-            x_qs_encryption_customer_key="",
-            x_qs_encryption_customer_key_md5="",
-            body=None
+        self,
+        object_key,
+        part_number=None,
+        upload_id="",
+        content_length=None,
+        content_md5="",
+        x_qs_copy_range="",
+        x_qs_copy_source="",
+        x_qs_copy_source_encryption_customer_algorithm="",
+        x_qs_copy_source_encryption_customer_key="",
+        x_qs_copy_source_encryption_customer_key_md5="",
+        x_qs_copy_source_if_match="",
+        x_qs_copy_source_if_modified_since="",
+        x_qs_copy_source_if_none_match="",
+        x_qs_copy_source_if_unmodified_since="",
+        x_qs_encryption_customer_algorithm="",
+        x_qs_encryption_customer_key="",
+        x_qs_encryption_customer_key_md5="",
+        body=None
     ):
         req = self.upload_multipart_request(
             object_key,

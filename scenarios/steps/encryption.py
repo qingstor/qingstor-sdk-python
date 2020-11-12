@@ -29,7 +29,7 @@ bucket.put()
     u'put encryption object "{key}" with "{encryption_algorithm}", "{encryption_key}", "{encryption_key_md5}"'
 )
 def step_impl(
-        context, key, encryption_algorithm, encryption_key, encryption_key_md5
+    context, key, encryption_algorithm, encryption_key, encryption_key_md5
 ):
     system('dd if=/dev/zero of=/tmp/sdk_bin bs=1048576 count=1')
     with open('/tmp/sdk_bin') as f:
@@ -51,7 +51,7 @@ def step_impl(context):
     u'copy encryption object "{key}" with "{encryption_algorithm}", "{encryption_key}", "{encryption_key_md5}"'
 )
 def step_impl(
-        context, key, encryption_algorithm, encryption_key, encryption_key_md5
+    context, key, encryption_algorithm, encryption_key, encryption_key_md5
 ):
     context.res = bucket.put_object(
         key + 'copy',
@@ -84,7 +84,7 @@ def step_impl(context):
     u'get encryption object "{key}" with "{encryption_algorithm}", "{encryption_key}", "{encryption_key_md5}"'
 )
 def step_impl(
-        context, key, encryption_algorithm, encryption_key, encryption_key_md5
+    context, key, encryption_algorithm, encryption_key, encryption_key_md5
 ):
     context.res = bucket.get_object(
         key,
@@ -108,7 +108,7 @@ def step_impl(context):
     u'head encryption object with key "{key}" with "{encryption_algorithm}", "{encryption_key}", "{encryption_key_md5}"'
 )
 def step_impl(
-        context, key, encryption_algorithm, encryption_key, encryption_key_md5
+    context, key, encryption_algorithm, encryption_key, encryption_key_md5
 ):
     context.res = bucket.head_object(
         key,
