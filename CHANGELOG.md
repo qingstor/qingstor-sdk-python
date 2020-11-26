@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.0] - 2020-11-26
+
+### Added
+
+- bucket: Add replication support(#67)
+
+### Fixed
+
+- build: Fix custom metadata not set correctly (#66)
+- request: Fix dict not handled properly in canonicalized headers (#65)
+
 ## [2.4.0] - 2020-09-28
 
 ### Added
@@ -209,6 +220,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.5.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.6...2.3.0
 [2.2.6]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.5...2.2.6
