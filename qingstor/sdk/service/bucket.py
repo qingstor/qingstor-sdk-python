@@ -83,7 +83,7 @@ class Bucket(object):
 
     @staticmethod
     def delete_bucket_cname_validate(op):
-        if op["Elements"]["domain"] and not op["Elements"]["domain"]:
+        if "domain" not in op["Elements"]:
             raise ParameterRequiredError("domain", "DeleteBucketCNAMEInput")
         pass
 
@@ -303,11 +303,11 @@ class Bucket(object):
 
     @staticmethod
     def delete_multiple_objects_validate(op):
-        if op["Headers"]["Content-MD5"] and not op["Headers"]["Content-MD5"]:
+        if "Content-MD5" not in op["Headers"]:
             raise ParameterRequiredError(
                 "Content-MD5", "DeleteMultipleObjectsInput"
             )
-        if "objects" not in op["Elements"] and not op["Elements"]["objects"]:
+        if "objects" not in op["Elements"]:
             raise ParameterRequiredError(
                 "objects", "DeleteMultipleObjectsInput"
             )
@@ -367,7 +367,7 @@ class Bucket(object):
 
     @staticmethod
     def get_bucket_cname_validate(op):
-        if op["Params"]["type"] and not op["Params"]["type"]:
+        if "type" in op["Params"]:
             type_valid_values = ["website", "normal"]
             if str(op["Params"]["type"]) not in type_valid_values:
                 raise ParameterValueNotAllowedError(
@@ -748,24 +748,24 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_acl_validate(op):
-        if "acl" not in op["Elements"] and not op["Elements"]["acl"]:
+        if "acl" not in op["Elements"]:
             raise ParameterRequiredError("acl", "PutBucketACLInput")
         for x in op["Elements"]["acl"]:
             if "grantee" not in x:
-                if x["grantee"]["type"] and not x["grantee"]["type"]:
+                raise ParameterRequiredError("grantee", "acl")
+            if "grantee" in x:
+                if "type" not in x["grantee"]:
                     raise ParameterRequiredError("type", "grantee")
-                if x["grantee"]["type"] and not x["grantee"]["type"]:
+                if "type" in x["grantee"]:
                     type_valid_values = ["user", "group"]
                     if str(x["grantee"]["type"]) not in type_valid_values:
                         raise ParameterValueNotAllowedError(
                             "type", x["grantee"]["type"], type_valid_values
                         )
                 pass
-                if "grantee" not in x:
-                    raise ParameterRequiredError("grantee", "acl")
-            if x["permission"] and not x["permission"]:
+            if "permission" not in x:
                 raise ParameterRequiredError("permission", "acl")
-            if x["permission"] and not x["permission"]:
+            if "permission" in x:
                 permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"]
                 if str(x["permission"]) not in permission_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -801,9 +801,9 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_cname_validate(op):
-        if op["Elements"]["domain"] and not op["Elements"]["domain"]:
+        if "domain" not in op["Elements"]:
             raise ParameterRequiredError("domain", "PutBucketCNAMEInput")
-        if op["Elements"]["type"] and not op["Elements"]["type"]:
+        if "type" in op["Elements"]:
             type_valid_values = ["normal", "website"]
             if str(op["Elements"]["type"]) not in type_valid_values:
                 raise ParameterValueNotAllowedError(
@@ -837,13 +837,12 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_cors_validate(op):
-        if "cors_rules" not in op["Elements"
-                                  ] and not op["Elements"]["cors_rules"]:
+        if "cors_rules" not in op["Elements"]:
             raise ParameterRequiredError("cors_rules", "PutBucketCORSInput")
         for x in op["Elements"]["cors_rules"]:
-            if "allowed_methods" not in x and not x["allowed_methods"]:
+            if "allowed_methods" not in x:
                 raise ParameterRequiredError("allowed_methods", "cors_rule")
-            if x["allowed_origin"] and not x["allowed_origin"]:
+            if "allowed_origin" not in x:
                 raise ParameterRequiredError("allowed_origin", "cors_rule")
             pass
         pass
@@ -874,7 +873,7 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_external_mirror_validate(op):
-        if op["Elements"]["source_site"] and not op["Elements"]["source_site"]:
+        if "source_site" not in op["Elements"]:
             raise ParameterRequiredError(
                 "source_site", "PutBucketExternalMirrorInput"
             )
@@ -906,40 +905,37 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_lifecycle_validate(op):
-        if "rule" not in op["Elements"] and not op["Elements"]["rule"]:
+        if "rule" not in op["Elements"]:
             raise ParameterRequiredError("rule", "PutBucketLifecycleInput")
         for x in op["Elements"]["rule"]:
-            if "abort_incomplete_multipart_upload" not in x:
-                if x["abort_incomplete_multipart_upload"
-                     ]["days_after_initiation"
-                       ] and not x["abort_incomplete_multipart_upload"][
-                           "days_after_initiation"]:
+            if "abort_incomplete_multipart_upload" in x:
+                if "days_after_initiation" not in x[
+                        "abort_incomplete_multipart_upload"]:
                     raise ParameterRequiredError(
                         "days_after_initiation",
                         "abort_incomplete_multipart_upload"
                     )
                 pass
-            if "expiration" not in x:
+            if "expiration" in x:
                 pass
             if "filter" not in x:
-                if x["filter"]["prefix"] and not x["filter"]["prefix"]:
+                raise ParameterRequiredError("filter", "rule")
+            if "filter" in x:
+                if "prefix" not in x["filter"]:
                     raise ParameterRequiredError("prefix", "filter")
                 pass
-                if "filter" not in x:
-                    raise ParameterRequiredError("filter", "rule")
-            if x["id"] and not x["id"]:
+            if "id" not in x:
                 raise ParameterRequiredError("id", "rule")
-            if x["status"] and not x["status"]:
+            if "status" not in x:
                 raise ParameterRequiredError("status", "rule")
-            if x["status"] and not x["status"]:
+            if "status" in x:
                 status_valid_values = ["enabled", "disabled"]
                 if str(x["status"]) not in status_valid_values:
                     raise ParameterValueNotAllowedError(
                         "status", x["status"], status_valid_values
                     )
-            if "transition" not in x:
-                if x["transition"]["storage_class"
-                                   ] and not x["transition"]["storage_class"]:
+            if "transition" in x:
+                if "storage_class" not in x["transition"]:
                     raise ParameterRequiredError("storage_class", "transition")
                 pass
             pass
@@ -974,13 +970,11 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_logging_validate(op):
-        if op["Elements"]["target_bucket"
-                          ] and not op["Elements"]["target_bucket"]:
+        if "target_bucket" not in op["Elements"]:
             raise ParameterRequiredError(
                 "target_bucket", "PutBucketLoggingInput"
             )
-        if op["Elements"]["target_prefix"
-                          ] and not op["Elements"]["target_prefix"]:
+        if "target_prefix" not in op["Elements"]:
             raise ParameterRequiredError(
                 "target_prefix", "PutBucketLoggingInput"
             )
@@ -1012,28 +1006,26 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_notification_validate(op):
-        if "notifications" not in op["Elements"
-                                     ] and not op["Elements"]["notifications"]:
+        if "notifications" not in op["Elements"]:
             raise ParameterRequiredError(
                 "notifications", "PutBucketNotificationInput"
             )
         for x in op["Elements"]["notifications"]:
-            if x["cloudfunc"] and not x["cloudfunc"]:
+            if "cloudfunc" not in x:
                 raise ParameterRequiredError("cloudfunc", "notification")
-            if x["cloudfunc"] and not x["cloudfunc"]:
+            if "cloudfunc" in x:
                 cloudfunc_valid_values = ["tupu-porn", "notifier", "image"]
                 if str(x["cloudfunc"]) not in cloudfunc_valid_values:
                     raise ParameterValueNotAllowedError(
                         "cloudfunc", x["cloudfunc"], cloudfunc_valid_values
                     )
-            if "cloudfunc_args" not in x:
-                if x["cloudfunc_args"]["action"
-                                       ] and not x["cloudfunc_args"]["action"]:
+            if "cloudfunc_args" in x:
+                if "action" not in x["cloudfunc_args"]:
                     raise ParameterRequiredError("action", "cloudfunc_args")
                 pass
-            if "event_types" not in x and not x["event_types"]:
+            if "event_types" not in x:
                 raise ParameterRequiredError("event_types", "notification")
-            if x["id"] and not x["id"]:
+            if "id" not in x:
                 raise ParameterRequiredError("id", "notification")
             pass
         pass
@@ -1064,34 +1056,34 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_policy_validate(op):
-        if "statement" not in op["Elements"] and not op["Elements"]["statement"]:
+        if "statement" not in op["Elements"]:
             raise ParameterRequiredError("statement", "PutBucketPolicyInput")
         for x in op["Elements"]["statement"]:
-            if "action" not in x and not x["action"]:
+            if "action" not in x:
                 raise ParameterRequiredError("action", "statement")
-            if "condition" not in x:
-                if "ip_address" not in x["condition"]:
+            if "condition" in x:
+                if "ip_address" in x["condition"]:
                     pass
-                if "is_null" not in x["condition"]:
+                if "is_null" in x["condition"]:
                     pass
-                if "not_ip_address" not in x["condition"]:
+                if "not_ip_address" in x["condition"]:
                     pass
-                if "string_like" not in x["condition"]:
+                if "string_like" in x["condition"]:
                     pass
-                if "string_not_like" not in x["condition"]:
+                if "string_not_like" in x["condition"]:
                     pass
                 pass
-            if x["effect"] and not x["effect"]:
+            if "effect" not in x:
                 raise ParameterRequiredError("effect", "statement")
-            if x["effect"] and not x["effect"]:
+            if "effect" in x:
                 effect_valid_values = ["allow", "deny"]
                 if str(x["effect"]) not in effect_valid_values:
                     raise ParameterValueNotAllowedError(
                         "effect", x["effect"], effect_valid_values
                     )
-            if x["id"] and not x["id"]:
+            if "id" not in x:
                 raise ParameterRequiredError("id", "statement")
-            if "user" not in x and not x["user"]:
+            if "user" not in x:
                 raise ParameterRequiredError("user", "statement")
             pass
         pass
@@ -1122,10 +1114,10 @@ class Bucket(object):
 
     @staticmethod
     def put_bucket_replication_validate(op):
-        if "rules" not in op["Elements"] and not op["Elements"]["rules"]:
+        if "rules" not in op["Elements"]:
             raise ParameterRequiredError("rules", "PutBucketReplicationInput")
         for x in op["Elements"]["rules"]:
-            if x["delete_marker"] and not x["delete_marker"]:
+            if "delete_marker" in x:
                 delete_marker_valid_values = ["enabled", "disabled"]
                 if str(x["delete_marker"]) not in delete_marker_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1133,24 +1125,24 @@ class Bucket(object):
                         delete_marker_valid_values
                     )
             if "destination" not in x:
-                if x["destination"]["bucket"] and not x["destination"]["bucket"]:
+                raise ParameterRequiredError("destination", "rules")
+            if "destination" in x:
+                if "bucket" not in x["destination"]:
                     raise ParameterRequiredError("bucket", "destination")
                 pass
-                if "destination" not in x:
-                    raise ParameterRequiredError("destination", "rules")
             if "filters" not in x:
+                raise ParameterRequiredError("filters", "rules")
+            if "filters" in x:
                 pass
-                if "filters" not in x:
-                    raise ParameterRequiredError("filters", "rules")
-            if x["id"] and not x["id"]:
+            if "id" not in x:
                 raise ParameterRequiredError("id", "rules")
-            if x["status"] and not x["status"]:
+            if "status" in x:
                 status_valid_values = ["enabled", "disabled"]
                 if str(x["status"]) not in status_valid_values:
                     raise ParameterValueNotAllowedError(
                         "status", x["status"], status_valid_values
                     )
-            if x["sync_marker"] and not x["sync_marker"]:
+            if "sync_marker" in x:
                 sync_marker_valid_values = ["enabled", "disabled"]
                 if str(x["sync_marker"]) not in sync_marker_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1189,7 +1181,7 @@ class Bucket(object):
 
     @staticmethod
     def abort_multipart_upload_validate(op):
-        if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
+        if "upload_id" not in op["Params"]:
             raise ParameterRequiredError(
                 "upload_id", "AbortMultipartUploadInput"
             )
@@ -1252,10 +1244,9 @@ class Bucket(object):
 
     @staticmethod
     def append_object_validate(op):
-        if op["Params"]["position"] and not op["Params"]["position"]:
+        if "position" not in op["Params"]:
             raise ParameterRequiredError("position", "AppendObjectInput")
-        if op["Headers"]["X-QS-Storage-Class"
-                         ] and not op["Headers"]["X-QS-Storage-Class"]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -1329,17 +1320,16 @@ class Bucket(object):
 
     @staticmethod
     def complete_multipart_upload_validate(op):
-        if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
+        if "upload_id" not in op["Params"]:
             raise ParameterRequiredError(
                 "upload_id", "CompleteMultipartUploadInput"
             )
-        if "object_parts" not in op["Elements"
-                                    ] and not op["Elements"]["object_parts"]:
+        if "object_parts" not in op["Elements"]:
             raise ParameterRequiredError(
                 "object_parts", "CompleteMultipartUploadInput"
             )
         for x in op["Elements"]["object_parts"]:
-            if x["part_number"] and not x["part_number"]:
+            if "part_number" not in x:
                 raise ParameterRequiredError("part_number", "object_part")
             pass
         pass
@@ -1609,7 +1599,7 @@ class Bucket(object):
 
     @staticmethod
     def image_process_validate(op):
-        if op["Params"]["action"] and not op["Params"]["action"]:
+        if "action" not in op["Params"]:
             raise ParameterRequiredError("action", "ImageProcessInput")
         pass
 
@@ -1673,8 +1663,7 @@ class Bucket(object):
 
     @staticmethod
     def initiate_multipart_upload_validate(op):
-        if op["Headers"]["X-QS-Storage-Class"
-                         ] and not op["Headers"]["X-QS-Storage-Class"]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -1722,7 +1711,7 @@ class Bucket(object):
 
     @staticmethod
     def list_multipart_validate(op):
-        if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
+        if "upload_id" not in op["Params"]:
             raise ParameterRequiredError("upload_id", "ListMultipartInput")
         pass
 
@@ -1772,12 +1761,11 @@ class Bucket(object):
 
     @staticmethod
     def options_object_validate(op):
-        if op["Headers"]["Access-Control-Request-Method"] and not op["Headers"][
-                "Access-Control-Request-Method"]:
+        if "Access-Control-Request-Method" not in op["Headers"]:
             raise ParameterRequiredError(
                 "Access-Control-Request-Method", "OptionsObjectInput"
             )
-        if op["Headers"]["Origin"] and not op["Headers"]["Origin"]:
+        if "Origin" not in op["Headers"]:
             raise ParameterRequiredError("Origin", "OptionsObjectInput")
         pass
 
@@ -1924,8 +1912,7 @@ class Bucket(object):
 
     @staticmethod
     def put_object_validate(op):
-        if op["Headers"]["X-QS-Metadata-Directive"
-                         ] and not op["Headers"]["X-QS-Metadata-Directive"]:
+        if "X-QS-Metadata-Directive" in op["Headers"]:
             x_qs_metadata_directive_valid_values = ["COPY", "REPLACE"]
             if str(op["Headers"]["X-QS-Metadata-Directive"]
                    ) not in x_qs_metadata_directive_valid_values:
@@ -1934,8 +1921,7 @@ class Bucket(object):
                     op["Headers"]["X-QS-Metadata-Directive"],
                     x_qs_metadata_directive_valid_values
                 )
-        if op["Headers"]["X-QS-Storage-Class"
-                         ] and not op["Headers"]["X-QS-Storage-Class"]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -2066,8 +2052,8 @@ class Bucket(object):
 
     @staticmethod
     def upload_multipart_validate(op):
-        if op["Params"]["part_number"] and not op["Params"]["part_number"]:
+        if "part_number" not in op["Params"]:
             raise ParameterRequiredError("part_number", "UploadMultipartInput")
-        if op["Params"]["upload_id"] and not op["Params"]["upload_id"]:
+        if "upload_id" not in op["Params"]:
             raise ParameterRequiredError("upload_id", "UploadMultipartInput")
         pass

@@ -88,20 +88,20 @@
 {{- $spaces := index . 3}}
 {{- range $_, $property := $customizedType.Properties}}
         {{- if eq $property.Type "object"}}
+        {{- if $property.IsRequired }}
         {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
+            {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
+        {{- end}}
+        {{$spaces}}if "{{$property.ID}}" in {{$prefix}}:
             {{- $nextPrefix := printf "%s[\"%s\"]" $prefix $property.ID}}
             {{- $nextCustomizedType := index $customizedTypes $property.ExtraType}}
             {{- $nextSpaces := printf "%s    " $spaces}}
             {{- $x := passThrough $nextPrefix $nextCustomizedType $customizedTypes $nextSpaces }}
             {{- template "RenderCustomizedTypeValidation" $x }}
             {{$spaces}}pass
-            {{- if $property.IsRequired }}
-            {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
-                {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
-            {{- end}}
         {{- else if eq $property.Type "array"}}
         {{- if $property.IsRequired}}
-        {{$spaces}}if "{{$property.ID}}" not in {{$prefix}} and not {{$prefix}}["{{$property.ID}}"]:
+        {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
             {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- $isNotString := ne $property.ExtraType "string"}}
@@ -119,11 +119,11 @@
         {{- $isContentLength := eq $property.ID "Content-Length"}}
         {{- if not $isContentLength}}
         {{- if $property.IsRequired}}
-        {{$spaces}}if {{$prefix}}["{{$property.ID}}"] and not {{$prefix}}["{{$property.ID}}"]:
+        {{$spaces}}if "{{$property.ID}}" not in {{$prefix}}:
             {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- if gt ($property.Enum | len) 0}}
-        {{$spaces}}if {{$prefix}}["{{$property.ID}}"] and not {{$prefix}}["{{$property.ID}}"]:
+        {{$spaces}}if "{{$property.ID}}" in {{$prefix}}:
             {{- $valid_value := $property.Enum | commaConnectedWithQuote}}
             {{$spaces}}{{$property.ID | snakeCase}}_valid_values = [{{replace $valid_value "\"" "\"" -1 }}]
             {{$spaces}}if str({{$prefix}}["{{$property.ID}}"]) not in {{$property.ID | snakeCase}}_valid_values:
