@@ -100,7 +100,7 @@ class BuildTestCase(unittest.TestCase):
         )
 
     def test_parss_request_uri(self):
-        test_uri = self.test_builder.parse_request_uri()
+        test_uri = self.test_builder.parse_request_path_style_uri()
         self.assertEqual(
             test_uri, (
                 'https://pek3a.qingstor.com:443'

@@ -48,7 +48,7 @@ class Builder:
         if self.config.enable_virtual_host_style:
             parsed_operation["URI"] = self.parse_request_virtual_style_uri()
         else:
-            parsed_operation["URI"] = self.parse_request_uri()
+            parsed_operation["URI"] = self.parse_request_path_style_uri()
         self.logger.debug("parsed_uri: %s" % parsed_operation["URI"])
         parsed_body, _ = self.parse_request_body()
         if parsed_body:
@@ -112,7 +112,7 @@ class Builder:
 
             # Handle header Content-Type
             parsed_body, is_json = self.parse_request_body()
-            filename = urlparse(self.parse_request_uri()).path
+            filename = urlparse(self.parse_request_path_style_uri()).path
             parsed_headers["Content-Type"] = self.operation["Headers"].get(
                 "Content-Type"
             ) or mimetypes.guess_type(filename)[0]
@@ -152,7 +152,7 @@ class Builder:
 
         return parsed_properties
 
-    def parse_request_uri(self):
+    def parse_request_path_style_uri(self):
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
         port = str(self.config.port)

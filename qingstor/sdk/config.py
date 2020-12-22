@@ -33,7 +33,6 @@ default_config_file_content = (
     '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
     'log_level: "warn"\n'
     'enable_virtual_host_style: false\n'
-    'disable_dual_stack: false\n'
 )
 
 default_config_file = "~/.qingstor/config.yaml"

@@ -107,6 +107,7 @@ class Request:
                     else:
                         keys.append(i)
             keys = sorted(keys)
+        # hostname: <bucket_name>.<zone>.qingstor.com or <zone>.qingstor.com
         fileds = parsed_uri.hostname.split(".")
         if len(fileds) < 4:
             canonicalized_resource = path
