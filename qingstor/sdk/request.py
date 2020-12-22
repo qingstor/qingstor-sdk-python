@@ -117,7 +117,10 @@ class Request:
                 bucket_name = bucket_name.rstrip(zone)
                 if bucket_name != "":
                     bucket_name = bucket_name.rstrip(".")
-                    canonicalized_resource = "".join(["/", bucket_name, path])
+                    if path != "":
+                        canonicalized_resource = "".join(["/", bucket_name, path])
+                    else:
+                        canonicalized_resource = "".join(["/", bucket_name, "/"]) 
                 else:
                     canonicalized_resource = path
         else:
