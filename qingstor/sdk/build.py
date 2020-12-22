@@ -188,6 +188,7 @@ class Builder:
     def parse_request_virtual_style_uri(self):
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
+        self.config.zone = zone
         port = str(self.config.port)
         request_uri = self.operation["URI"]
         filed = request_uri.split("/", 3)

@@ -32,6 +32,7 @@ class Request:
         self.access_key_id = config.access_key_id
         self.secret_access_key = config.secret_access_key
         self.logger = logging.getLogger("qingstor-sdk")
+        self.config = config
 
     def __repr__(self):
         return "<Request %s>" % self.req.method
@@ -107,12 +108,21 @@ class Request:
                     else:
                         keys.append(i)
             keys = sorted(keys)
-        # hostname: <bucket_name>.<zone>.qingstor.com or <zone>.qingstor.com
-        fileds = parsed_uri.hostname.split(".")
-        if len(fileds) < 4:
-            canonicalized_resource = path
+
+        zone = self.config.zone
+        if self.config.enable_virtual_host_style:
+            bucket_name = parsed_uri.hostname.rstrip(self.config.host)
+            if zone != "":
+                bucket_name = bucket_name.rstrip(".")
+                bucket_name = bucket_name.rstrip(zone)
+                if bucket_name != "":
+                    bucket_name = bucket_name.rstrip(".")
+                    canonicalized_resource = "".join(["/", bucket_name, path])
+                else:
+                    canonicalized_resource = path
         else:
-            canonicalized_resource = "".join(["/", fileds[0], path])
+            canonicalized_resource = path
+
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)
         self.logger.debug(canonicalized_resource)
