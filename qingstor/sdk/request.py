@@ -113,7 +113,6 @@ class Request:
             canonicalized_resource = path
         else:
             canonicalized_resource = "".join(["/", fileds[0], path])
-        canonicalized_resource = path
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)
         self.logger.debug(canonicalized_resource)
