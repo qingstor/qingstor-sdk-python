@@ -188,31 +188,24 @@ class Builder:
     def parse_request_virtual_style_uri(self):
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
-        self.config.zone = zone
         port = str(self.config.port)
-        request_uri = self.operation["URI"]
-        filed = request_uri.split("/", 3)
+
+        strs = self.operation["URI"].split("?")
+        filed = strs[0].split("/", 3)
         domain = self.config.host
         if zone != "":
-            domain = "".join([
-                zone, ".", domain
-            ])
+            domain = "".join([zone, ".", domain])
         if len(filed) >= 2 and filed[1] != "":
-            domain = "".join([
-                filed[1], ".", domain
-            ])
-            self.operation["Headers"]["Host"] = domain
-        parsed_uri = "".join([
-            self.config.protocol, "://", domain, ":", port
-        ])
+            domain = "".join([filed[1], ".", domain])
+        parsed_uri = "".join([self.config.protocol, "://", domain, ":", port])
         if len(filed) == 3 and filed[2] != "":
-            parsed_uri = "".join([
-                parsed_uri, "/", filed[2]
-            ])
+            parsed_uri = "".join([parsed_uri, "/", filed[2]])
+        if len(strs) == 2:
+            parsed_uri = "".join([parsed_uri, "?", strs[1]])
         if len(properties):
             for (k, v) in properties.items():
                 parsed_uri = parsed_uri.replace("<%s>" % k, v)
-                self.operation["Headers"]["Host"] = self.operation["Headers"]["Host"].replace("<%s>" % k, v)
+
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             scheme, netloc, path, params, req_query, fragment = urlparse(
