@@ -107,6 +107,11 @@ class Request:
                     else:
                         keys.append(i)
             keys = sorted(keys)
+        fileds = parsed_uri.hostname.split(".")
+        if len(fileds) < 4:
+            canonicalized_resource = path
+        else:
+            canonicalized_resource = "".join(["/", fileds[0], path])
         canonicalized_resource = path
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)
