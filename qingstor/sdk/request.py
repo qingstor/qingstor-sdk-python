@@ -111,6 +111,7 @@ class Request:
         if self.enable_virtual_host_style:
             bucket_name = self.builder.properties.get("bucket-name", "")
             if bucket_name != "":
+                # FIXME: Workaround for gateway bug, should be removed after fix.
                 if path != "":
                     canonicalized_resource = f"/{bucket_name}{path}"
                 else:
