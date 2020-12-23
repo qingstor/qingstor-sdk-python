@@ -32,6 +32,7 @@ class Request:
         self.access_key_id = config.access_key_id
         self.secret_access_key = config.secret_access_key
         self.logger = logging.getLogger("qingstor-sdk")
+        self.enable_virtual_host_style = config.enable_virtual_host_style
 
     def __repr__(self):
         return "<Request %s>" % self.req.method
@@ -42,6 +43,7 @@ class Request:
             self.get_authorization()
         ])
         self.logger.debug(self.req.headers["Authorization"])
+        self.req.headers["Host"] = self.get_host()
         prepared = self.req.prepare()
         prepared.url = url_quote(prepared.url)
         return prepared
@@ -94,6 +96,11 @@ class Request:
             canonicalized_headers += "\n"
         return canonicalized_headers
 
+    def get_host(self):
+        parsed_uri = urlparse(self.req.url, allow_fragments=False)
+        host = parsed_uri.hostname
+        return host
+
     def get_canonicalized_resource(self):
         parsed_uri = urlparse(self.req.url, allow_fragments=False)
         path, query = parsed_uri.path, parsed_uri.query
@@ -107,7 +114,22 @@ class Request:
                     else:
                         keys.append(i)
             keys = sorted(keys)
-        canonicalized_resource = path
+
+        if self.enable_virtual_host_style:
+            bucket_name = parsed_uri.hostname.replace(
+                self.req.headers["Host"], ''
+            )
+            if bucket_name != "":
+                bucket_name = bucket_name.replace(".", '')
+                if path != "":
+                    canonicalized_resource = "".join(["/", bucket_name, path])
+                else:
+                    canonicalized_resource = "".join(["/", bucket_name, "/"])
+            else:
+                canonicalized_resource = path
+        else:
+            canonicalized_resource = path
+
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)
         self.logger.debug(canonicalized_resource)

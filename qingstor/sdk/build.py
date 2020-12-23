@@ -45,7 +45,10 @@ class Builder:
     def parse(self):
         parsed_operation = dict()
         parsed_operation["Method"] = self.operation["Method"]
-        parsed_operation["URI"] = self.parse_request_uri()
+        if self.config.enable_virtual_host_style:
+            parsed_operation["URI"] = self.parse_request_virtual_style_uri()
+        else:
+            parsed_operation["URI"] = self.parse_request_path_style_uri()
         self.logger.debug("parsed_uri: %s" % parsed_operation["URI"])
         parsed_body, _ = self.parse_request_body()
         if parsed_body:
@@ -109,7 +112,7 @@ class Builder:
 
             # Handle header Content-Type
             parsed_body, is_json = self.parse_request_body()
-            filename = urlparse(self.parse_request_uri()).path
+            filename = urlparse(self.parse_request_path_style_uri()).path
             parsed_headers["Content-Type"] = self.operation["Headers"].get(
                 "Content-Type"
             ) or mimetypes.guess_type(filename)[0]
@@ -149,7 +152,7 @@ class Builder:
 
         return parsed_properties
 
-    def parse_request_uri(self):
+    def parse_request_path_style_uri(self):
         properties = self.parse_request_properties()
         zone = properties.get("zone", "")
         port = str(self.config.port)
@@ -167,6 +170,42 @@ class Builder:
                 endpoint = endpoint.replace("<%s>" % k, v)
                 request_uri = request_uri.replace("<%s>" % k, v)
         parsed_uri = endpoint + request_uri
+        parsed_params = self.parse_request_params()
+        if len(parsed_params):
+            scheme, netloc, path, params, req_query, fragment = urlparse(
+                parsed_uri, allow_fragments=False
+            )
+            query = [req_query]
+            for (k, v) in parsed_params.items():
+                query.append("%s=%s" % (k, v))
+            if not req_query:
+                query.pop(0)
+            parsed_uri = urlunparse(
+                (scheme, netloc, path, params, "", fragment)
+            ) + "?" + "&".join(sorted(query))
+        return parsed_uri
+
+    def parse_request_virtual_style_uri(self):
+        properties = self.parse_request_properties()
+        zone = properties.get("zone", "")
+        port = str(self.config.port)
+
+        strs = self.operation["URI"].split("?")
+        filed = strs[0].split("/", 3)
+        domain = self.config.host
+        if zone != "":
+            domain = "".join([zone, ".", domain])
+        if len(filed) >= 2 and filed[1] != "":
+            domain = "".join([filed[1], ".", domain])
+        parsed_uri = "".join([self.config.protocol, "://", domain, ":", port])
+        if len(filed) == 3 and filed[2] != "":
+            parsed_uri = "".join([parsed_uri, "/", filed[2]])
+        if len(strs) == 2:
+            parsed_uri = "".join([parsed_uri, "?", strs[1]])
+        if len(properties):
+            for (k, v) in properties.items():
+                parsed_uri = parsed_uri.replace("<%s>" % k, v)
+
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             scheme, netloc, path, params, req_query, fragment = urlparse(
