@@ -173,12 +173,14 @@ class Builder:
 
     def parse_request_uri(self):
         request_uri = self.operation["URI"]
+        bucket_name = self.properties.get("bucket-name", "")
         if len(self.properties):
             for (k, v) in self.properties.items():
                 request_uri = request_uri.replace("<%s>" % k, v)
+        if bucket_name != "" and self.config.enable_virtual_host_style:
+            request_uri = request_uri.replace(f"/{bucket_name}", "")
 
         parsed_uri = f"{self.config.protocol}://{self.parse_request_host()}{request_uri}"
-
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             scheme, netloc, path, params, req_query, fragment = urlparse(
