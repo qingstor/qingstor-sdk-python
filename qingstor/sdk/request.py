@@ -28,7 +28,8 @@ from .utils.helper import url_quote
 class Request:
 
     def __init__(self, config, operation):
-        self.req = Builder(config, operation).parse()
+        self.builder = Builder(config, operation)
+        self.req = self.builder.parse()
         self.access_key_id = config.access_key_id
         self.secret_access_key = config.secret_access_key
         self.logger = logging.getLogger("qingstor-sdk")
@@ -38,12 +39,10 @@ class Request:
         return "<Request %s>" % self.req.method
 
     def sign(self):
-        self.req.headers["Authorization"] = "".join([
-            "QS ", self.access_key_id, ":",
-            self.get_authorization()
-        ])
+        self.req.headers[
+            "Authorization"
+        ] = f'QS {self.access_key_id}:{self.get_authorization()}'
         self.logger.debug(self.req.headers["Authorization"])
-        self.req.headers["Host"] = self.get_host()
         prepared = self.req.prepare()
         prepared.url = url_quote(prepared.url)
         return prepared
@@ -68,12 +67,10 @@ class Request:
         return prepared
 
     def get_content_md5(self):
-        content_md5 = self.req.headers.get("Content-MD5", "")
-        return content_md5
+        return self.req.headers.get("Content-MD5", "")
 
     def get_content_type(self):
-        content_type = self.req.headers.get("Content-Type", "")
-        return content_type
+        return self.req.headers.get("Content-Type", "")
 
     def get_date(self):
         # if user input has x_qs_date, empty Date header is returned.
@@ -96,11 +93,6 @@ class Request:
             canonicalized_headers += "\n"
         return canonicalized_headers
 
-    def get_host(self):
-        parsed_uri = urlparse(self.req.url, allow_fragments=False)
-        host = parsed_uri.hostname
-        return host
-
     def get_canonicalized_resource(self):
         parsed_uri = urlparse(self.req.url, allow_fragments=False)
         path, query = parsed_uri.path, parsed_uri.query
@@ -115,20 +107,14 @@ class Request:
                         keys.append(i)
             keys = sorted(keys)
 
+        canonicalized_resource = path
         if self.enable_virtual_host_style:
-            bucket_name = parsed_uri.hostname.replace(
-                self.req.headers["Host"], ''
-            )
+            bucket_name = self.builder.properties.get("bucket-name", "")
             if bucket_name != "":
-                bucket_name = bucket_name.replace(".", '')
                 if path != "":
-                    canonicalized_resource = "".join(["/", bucket_name, path])
+                    canonicalized_resource = f"/{bucket_name}{path}"
                 else:
-                    canonicalized_resource = "".join(["/", bucket_name, "/"])
-            else:
-                canonicalized_resource = path
-        else:
-            canonicalized_resource = path
+                    canonicalized_resource = f"/{bucket_name}/"
 
         if "&".join(keys):
             canonicalized_resource += "?%s" % "&".join(keys)

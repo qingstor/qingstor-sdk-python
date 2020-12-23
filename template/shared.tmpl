@@ -123,7 +123,7 @@
             {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- if gt ($property.Enum | len) 0}}
-        {{$spaces}}if "{{$property.ID}}" in {{$prefix}} and str({{$prefix}}["{{$property.ID}}"]) not in [""]:
+        {{$spaces}}if "{{$property.ID}}" in {{$prefix}}:
             {{- $valid_value := $property.Enum | commaConnectedWithQuote}}
             {{$spaces}}{{$property.ID | snakeCase}}_valid_values = [{{replace $valid_value "\"" "\"" -1 }}]
             {{$spaces}}if str({{$prefix}}["{{$property.ID}}"]) not in {{$property.ID | snakeCase}}_valid_values:

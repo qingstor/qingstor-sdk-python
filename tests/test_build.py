@@ -100,10 +100,10 @@ class BuildTestCase(unittest.TestCase):
         )
 
     def test_parss_request_uri(self):
-        test_uri = self.test_builder.parse_request_path_style_uri()
+        test_uri = self.test_builder.parse_request_uri()
         self.assertEqual(
             test_uri, (
-                'https://pek3a.qingstor.com:443'
+                'https://pek3a.qingstor.com'
                 '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
             )
@@ -113,7 +113,7 @@ class BuildTestCase(unittest.TestCase):
         self.maxDiff = None
         test_parse = self.test_builder.parse()
         print(test_parse.data)
-        self.assertEquals(
+        self.assertEqual(
             test_parse.data, (
                 '{'
                 '"test_elements_1": "test_val", '
@@ -140,7 +140,7 @@ class BuildTestCase(unittest.TestCase):
         self.assertEquals(test_parse.method, 'GET')
         self.assertEquals(
             test_parse.url, (
-                'https://pek3a.qingstor.com:443'
+                'https://pek3a.qingstor.com'
                 '/test_bucket/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
             )
