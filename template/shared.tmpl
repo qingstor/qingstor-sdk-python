@@ -185,12 +185,6 @@
             "Method" : "{{$operation.Request.Method}}",
             "URI" : "{{$uri}}",
             "Headers": {
-                {{- if ne $service "QingStor" -}}
-                "Host": "".join([self.properties["zone"],".",self.config.host]),
-                {{- end}}
-                {{- if eq $service "QingStor" -}}
-                "Host": self.config.host,
-                {{- end}}
                 {{- range $id, $property := $operation.Request.Headers.Properties}}
                 "{{$property.Name}}": {{$property.Name| snakeCase}},
                 {{- end}}

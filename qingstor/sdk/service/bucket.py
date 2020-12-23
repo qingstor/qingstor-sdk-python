@@ -36,10 +36,7 @@ class Bucket(object):
             "API": "DeleteBucket",
             "Method": "DELETE",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -62,10 +59,7 @@ class Bucket(object):
             "API": "DeleteBucketCNAME",
             "Method": "DELETE",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "domain": domain,
@@ -92,10 +86,7 @@ class Bucket(object):
             "API": "DeleteBucketCORS",
             "Method": "DELETE",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -118,10 +109,7 @@ class Bucket(object):
             "API": "DeleteBucketExternalMirror",
             "Method": "DELETE",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -144,10 +132,7 @@ class Bucket(object):
             "API": "DeleteBucketLifecycle",
             "Method": "DELETE",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -170,10 +155,7 @@ class Bucket(object):
             "API": "DeleteBucketLogging",
             "Method": "DELETE",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -196,10 +178,7 @@ class Bucket(object):
             "API": "DeleteBucketNotification",
             "Method": "DELETE",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -222,10 +201,7 @@ class Bucket(object):
             "API": "DeleteBucketPolicy",
             "Method": "DELETE",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -248,10 +224,7 @@ class Bucket(object):
             "API": "DeleteBucketReplication",
             "Method": "DELETE",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -277,8 +250,6 @@ class Bucket(object):
             "Method": "POST",
             "URI": "/<bucket-name>?delete",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Content-MD5": content_md5,
             },
             "Params": {},
@@ -320,10 +291,7 @@ class Bucket(object):
             "API": "GetBucketACL",
             "Method": "GET",
             "URI": "/<bucket-name>?acl",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -346,10 +314,7 @@ class Bucket(object):
             "API": "GetBucketCNAME",
             "Method": "GET",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "type": type,
             },
@@ -380,10 +345,7 @@ class Bucket(object):
             "API": "GetBucketCORS",
             "Method": "GET",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -406,10 +368,7 @@ class Bucket(object):
             "API": "GetBucketExternalMirror",
             "Method": "GET",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -432,10 +391,7 @@ class Bucket(object):
             "API": "GetBucketLifecycle",
             "Method": "GET",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -458,10 +414,7 @@ class Bucket(object):
             "API": "GetBucketLogging",
             "Method": "GET",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -484,10 +437,7 @@ class Bucket(object):
             "API": "GetBucketNotification",
             "Method": "GET",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -510,10 +460,7 @@ class Bucket(object):
             "API": "GetBucketPolicy",
             "Method": "GET",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -536,10 +483,7 @@ class Bucket(object):
             "API": "GetBucketReplication",
             "Method": "GET",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -562,10 +506,7 @@ class Bucket(object):
             "API": "GetBucketStatistics",
             "Method": "GET",
             "URI": "/<bucket-name>?stats",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -588,10 +529,7 @@ class Bucket(object):
             "API": "HeadBucket",
             "Method": "HEAD",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -621,10 +559,7 @@ class Bucket(object):
             "API": "ListMultipartUploads",
             "Method": "GET",
             "URI": "/<bucket-name>?uploads",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "delimiter": delimiter,
                 "key_marker": key_marker,
@@ -668,10 +603,7 @@ class Bucket(object):
             "API": "ListObjects",
             "Method": "GET",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "delimiter": delimiter,
                 "limit": limit,
@@ -701,10 +633,7 @@ class Bucket(object):
             "API": "PutBucket",
             "Method": "PUT",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -727,10 +656,7 @@ class Bucket(object):
             "API": "PutBucketACL",
             "Method": "PUT",
             "URI": "/<bucket-name>?acl",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "acl": acl,
@@ -779,10 +705,7 @@ class Bucket(object):
             "API": "PutBucketCNAME",
             "Method": "PUT",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "domain": domain,
@@ -816,10 +739,7 @@ class Bucket(object):
             "API": "PutBucketCORS",
             "Method": "PUT",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "cors_rules": cors_rules,
@@ -852,10 +772,7 @@ class Bucket(object):
             "API": "PutBucketExternalMirror",
             "Method": "PUT",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "source_site": source_site,
@@ -884,10 +801,7 @@ class Bucket(object):
             "API": "PutBucketLifecycle",
             "Method": "PUT",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "rule": rule,
@@ -946,10 +860,7 @@ class Bucket(object):
             "API": "PutBucketLogging",
             "Method": "PUT",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "target_bucket": target_bucket,
@@ -985,10 +896,7 @@ class Bucket(object):
             "API": "PutBucketNotification",
             "Method": "PUT",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "notifications": notifications,
@@ -1035,10 +943,7 @@ class Bucket(object):
             "API": "PutBucketPolicy",
             "Method": "PUT",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "statement": statement,
@@ -1093,10 +998,7 @@ class Bucket(object):
             "API": "PutBucketReplication",
             "Method": "PUT",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "rules": rules,
@@ -1157,10 +1059,7 @@ class Bucket(object):
             "API": "AbortMultipartUpload",
             "Method": "DELETE",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "upload_id": upload_id,
             },
@@ -1202,8 +1101,6 @@ class Bucket(object):
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?append",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Content-Length": content_length,
                 "Content-MD5": content_md5,
                 "Content-Type": content_type,
@@ -1271,8 +1168,6 @@ class Bucket(object):
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "ETag":
                 etag,
                 "X-QS-Encryption-Customer-Algorithm":
@@ -1339,10 +1234,7 @@ class Bucket(object):
             "API": "DeleteObject",
             "Method": "DELETE",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -1384,8 +1276,6 @@ class Bucket(object):
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "If-Match":
                 if_match,
                 "If-Modified-Since":
@@ -1478,8 +1368,6 @@ class Bucket(object):
             "Method": "HEAD",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "If-Match":
                 if_match,
                 "If-Modified-Since":
@@ -1550,8 +1438,6 @@ class Bucket(object):
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>?image",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "If-Modified-Since": if_modified_since,
             },
             "Params": {
@@ -1618,8 +1504,6 @@ class Bucket(object):
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?uploads",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Content-Type": content_type,
                 "X-QS-Encryption-Customer-Algorithm":
                 x_qs_encryption_customer_algorithm,
@@ -1680,10 +1564,7 @@ class Bucket(object):
             "API": "ListMultipart",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "limit": limit,
                 "part_number_marker": part_number_marker,
@@ -1727,8 +1608,6 @@ class Bucket(object):
             "Method": "OPTIONS",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Access-Control-Request-Headers":
                 access_control_request_headers,
                 "Access-Control-Request-Method": access_control_request_method,
@@ -1802,8 +1681,6 @@ class Bucket(object):
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Cache-Control": cache_control,
                 "Content-Encoding": content_encoding,
                 "Content-Length": content_length,
@@ -1957,8 +1834,6 @@ class Bucket(object):
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
             "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
                 "Content-Length":
                 content_length,
                 "Content-MD5":

@@ -52,7 +52,6 @@ class QingStor(object):
             "Method": "GET",
             "URI": "/",
             "Headers": {
-                "Host": self.config.host,
                 "Location": location,
             },
             "Params": {
