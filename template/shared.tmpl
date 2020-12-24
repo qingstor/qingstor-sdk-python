@@ -216,6 +216,7 @@
         {{- if eq $service "Object"}}
         operation["Properties"]["object-key"] = object_key
         {{- end}}
+        operation["Headers"] = remove_null_value_headers(operation)
         self.{{$operation.ID | snakeCase }}_validate(operation)
         return Request(self.config, operation)
 {{- end}}

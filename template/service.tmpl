@@ -31,7 +31,7 @@ from urllib3.util.retry import Retry
 from .bucket import Bucket
 from ..request import Request
 from ..unpack import Unpacker
-
+from ..utils.helper import remove_null_value_headers
 
 # {{$service.Name | camelCase}} provides {{$service.Name}} Service API (API Version {{$service.APIVersion}})
 

@@ -32,3 +32,12 @@ def md5_digest(input_str):
     m = hashlib.md5()
     m.update(input_str)
     return m.digest()
+
+
+def remove_null_value_headers(operation):
+    parsed_headers = {}
+    if "Headers" in operation:
+        for (k, v) in operation["Headers"].items():
+            if v != "" and v is not None:
+                parsed_headers[k] = v
+    return parsed_headers

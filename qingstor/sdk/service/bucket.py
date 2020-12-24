@@ -18,6 +18,7 @@
 from ..unpack import Unpacker
 from ..request import Request
 from ..error import ParameterRequiredError, ParameterValueNotAllowedError
+from ..utils.helper import remove_null_value_headers
 
 
 class Bucket(object):
@@ -42,6 +43,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -67,6 +69,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -92,6 +95,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -115,6 +119,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -138,6 +143,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -161,6 +167,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -184,6 +191,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -207,6 +215,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -230,6 +239,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -260,6 +270,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_multiple_objects_validate(operation)
         return Request(self.config, operation)
 
@@ -297,6 +308,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
@@ -322,6 +334,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -351,6 +364,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -374,6 +388,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -397,6 +412,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -420,6 +436,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -443,6 +460,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -466,6 +484,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -489,6 +508,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -512,6 +532,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_statistics_validate(operation)
         return Request(self.config, operation)
 
@@ -535,6 +556,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.head_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -571,6 +593,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.list_multipart_uploads_validate(operation)
         return Request(self.config, operation)
 
@@ -614,6 +637,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.list_objects_validate(operation)
         return Request(self.config, operation)
 
@@ -639,6 +663,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -664,6 +689,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
@@ -714,6 +740,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -747,6 +774,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -780,6 +808,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -809,6 +838,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -869,6 +899,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -904,6 +935,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -951,6 +983,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -1006,6 +1039,7 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -1068,6 +1102,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.abort_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1114,6 +1149,7 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.append_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1187,6 +1223,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.complete_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1241,6 +1278,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1306,6 +1344,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.get_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1389,6 +1428,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.head_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1454,6 +1494,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.image_process_validate(operation)
         return Request(self.config, operation)
 
@@ -1519,6 +1560,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.initiate_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1575,6 +1617,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.list_multipart_validate(operation)
         return Request(self.config, operation)
 
@@ -1619,6 +1662,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.options_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1720,6 +1764,7 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.put_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1872,6 +1917,7 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        operation["Headers"] = remove_null_value_headers(operation)
         self.upload_multipart_validate(operation)
         return Request(self.config, operation)
 

@@ -24,6 +24,7 @@ from urllib3.util.retry import Retry
 from .bucket import Bucket
 from ..request import Request
 from ..unpack import Unpacker
+from ..utils.helper import remove_null_value_headers
 
 # QingStor provides QingStor Service API (API Version 2016-01-06)
 
@@ -62,6 +63,7 @@ class QingStor(object):
             "Properties": {},
             "Body": None
         }
+        operation["Headers"] = remove_null_value_headers(operation)
         self.list_buckets_validate(operation)
         return Request(self.config, operation)
 
