@@ -18,7 +18,6 @@
 from ..unpack import Unpacker
 from ..request import Request
 from ..error import ParameterRequiredError, ParameterValueNotAllowedError
-from ..utils.helper import remove_null_value_headers
 
 
 class Bucket(object):
@@ -43,7 +42,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -69,7 +67,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -95,7 +92,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -119,7 +115,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -143,7 +138,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -167,7 +161,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -191,7 +184,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -215,7 +207,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -239,7 +230,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -259,9 +249,7 @@ class Bucket(object):
             "API": "DeleteMultipleObjects",
             "Method": "POST",
             "URI": "/<bucket-name>?delete",
-            "Headers": {
-                "Content-MD5": content_md5,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "objects": objects,
@@ -270,7 +258,8 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
+        if content_md5 != "" and content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
         self.delete_multiple_objects_validate(operation)
         return Request(self.config, operation)
 
@@ -308,7 +297,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
@@ -334,7 +322,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -364,7 +351,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -388,7 +374,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -412,7 +397,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -436,7 +420,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -460,7 +443,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -484,7 +466,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -508,7 +489,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -532,7 +512,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.get_bucket_statistics_validate(operation)
         return Request(self.config, operation)
 
@@ -556,7 +535,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.head_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -593,7 +571,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.list_multipart_uploads_validate(operation)
         return Request(self.config, operation)
 
@@ -637,7 +614,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.list_objects_validate(operation)
         return Request(self.config, operation)
 
@@ -663,7 +639,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_validate(operation)
         return Request(self.config, operation)
 
@@ -689,7 +664,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
@@ -740,7 +714,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
@@ -774,7 +747,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
@@ -808,7 +780,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
@@ -838,7 +809,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
@@ -899,7 +869,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
@@ -935,7 +904,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
@@ -983,7 +951,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
@@ -1039,7 +1006,6 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        operation["Headers"] = remove_null_value_headers(operation)
         self.put_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
@@ -1102,7 +1068,6 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
         self.abort_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1135,12 +1100,7 @@ class Bucket(object):
             "API": "AppendObject",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?append",
-            "Headers": {
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "Content-Type": content_type,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {
                 "position": position,
             },
@@ -1149,7 +1109,14 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if content_length != "" and content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 != "" and content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if content_type != "" and content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.append_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1203,16 +1170,7 @@ class Bucket(object):
             "API": "CompleteMultipartUpload",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "ETag":
-                etag,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "upload_id": upload_id,
             },
@@ -1223,7 +1181,17 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if etag != "" and etag is not None:
+            operation["Headers"]["ETag"] = etag
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.complete_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1278,7 +1246,6 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
         self.delete_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1313,24 +1280,7 @@ class Bucket(object):
             "API": "GetObject",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "If-Match":
-                if_match,
-                "If-Modified-Since":
-                if_modified_since,
-                "If-None-Match":
-                if_none_match,
-                "If-Unmodified-Since":
-                if_unmodified_since,
-                "Range":
-                range,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "response-cache-control": response_cache_control,
                 "response-content-disposition": response_content_disposition,
@@ -1344,7 +1294,25 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if if_match != "" and if_match is not None:
+            operation["Headers"]["If-Match"] = if_match
+        if if_modified_since != "" and if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
+        if if_none_match != "" and if_none_match is not None:
+            operation["Headers"]["If-None-Match"] = if_none_match
+        if if_unmodified_since != "" and if_unmodified_since is not None:
+            operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
+        if range != "" and range is not None:
+            operation["Headers"]["Range"] = range
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.get_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1406,29 +1374,30 @@ class Bucket(object):
             "API": "HeadObject",
             "Method": "HEAD",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "If-Match":
-                if_match,
-                "If-Modified-Since":
-                if_modified_since,
-                "If-None-Match":
-                if_none_match,
-                "If-Unmodified-Since":
-                if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if if_match != "" and if_match is not None:
+            operation["Headers"]["If-Match"] = if_match
+        if if_modified_since != "" and if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
+        if if_none_match != "" and if_none_match is not None:
+            operation["Headers"]["If-None-Match"] = if_none_match
+        if if_unmodified_since != "" and if_unmodified_since is not None:
+            operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.head_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1477,9 +1446,7 @@ class Bucket(object):
             "API": "ImageProcess",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>?image",
-            "Headers": {
-                "If-Modified-Since": if_modified_since,
-            },
+            "Headers": {},
             "Params": {
                 "action": action,
                 "response-cache-control": response_cache_control,
@@ -1494,7 +1461,8 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if if_modified_since != "" and if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
         self.image_process_validate(operation)
         return Request(self.config, operation)
 
@@ -1544,23 +1512,28 @@ class Bucket(object):
             "API": "InitiateMultipartUpload",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?uploads",
-            "Headers": {
-                "Content-Type": content_type,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-                "X-QS-MetaData": x_qs_meta_data,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if content_type != "" and content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
+        if x_qs_meta_data != "" and x_qs_meta_data is not None:
+            operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
+        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.initiate_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
@@ -1617,7 +1590,6 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
         self.list_multipart_validate(operation)
         return Request(self.config, operation)
 
@@ -1650,19 +1622,21 @@ class Bucket(object):
             "API": "OptionsObject",
             "Method": "OPTIONS",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Access-Control-Request-Headers":
-                access_control_request_headers,
-                "Access-Control-Request-Method": access_control_request_method,
-                "Origin": origin,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if access_control_request_headers != "" and access_control_request_headers is not None:
+            operation["Headers"]["Access-Control-Request-Headers"
+                                 ] = access_control_request_headers
+        if access_control_request_method != "" and access_control_request_method is not None:
+            operation["Headers"]["Access-Control-Request-Method"
+                                 ] = access_control_request_method
+        if origin != "" and origin is not None:
+            operation["Headers"]["Origin"] = origin
         self.options_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1724,47 +1698,73 @@ class Bucket(object):
             "API": "PutObject",
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Cache-Control": cache_control,
-                "Content-Encoding": content_encoding,
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "Content-Type": content_type,
-                "Expect": expect,
-                "X-QS-Copy-Source": x_qs_copy_source,
-                "X-QS-Copy-Source-Encryption-Customer-Algorithm":
-                x_qs_copy_source_encryption_customer_algorithm,
-                "X-QS-Copy-Source-Encryption-Customer-Key":
-                x_qs_copy_source_encryption_customer_key,
-                "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
-                x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match": x_qs_copy_source_if_match,
-                "X-QS-Copy-Source-If-Modified-Since":
-                x_qs_copy_source_if_modified_since,
-                "X-QS-Copy-Source-If-None-Match":
-                x_qs_copy_source_if_none_match,
-                "X-QS-Copy-Source-If-Unmodified-Since":
-                x_qs_copy_source_if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-                "X-QS-Fetch-If-Unmodified-Since":
-                x_qs_fetch_if_unmodified_since,
-                "X-QS-Fetch-Source": x_qs_fetch_source,
-                "X-QS-MetaData": x_qs_meta_data,
-                "X-QS-Metadata-Directive": x_qs_metadata_directive,
-                "X-QS-Move-Source": x_qs_move_source,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if cache_control != "" and cache_control is not None:
+            operation["Headers"]["Cache-Control"] = cache_control
+        if content_encoding != "" and content_encoding is not None:
+            operation["Headers"]["Content-Encoding"] = content_encoding
+        if content_length != "" and content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 != "" and content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if content_type != "" and content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if expect != "" and expect is not None:
+            operation["Headers"]["Expect"] = expect
+        if x_qs_copy_source != "" and x_qs_copy_source is not None:
+            operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
+        if x_qs_copy_source_encryption_customer_algorithm != "" and x_qs_copy_source_encryption_customer_algorithm is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                        ] = x_qs_copy_source_encryption_customer_algorithm
+        if x_qs_copy_source_encryption_customer_key != "" and x_qs_copy_source_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
+                                 ] = x_qs_copy_source_encryption_customer_key
+        if x_qs_copy_source_encryption_customer_key_md5 != "" and x_qs_copy_source_encryption_customer_key_md5 is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                        ] = x_qs_copy_source_encryption_customer_key_md5
+        if x_qs_copy_source_if_match != "" and x_qs_copy_source_if_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Match"
+                                 ] = x_qs_copy_source_if_match
+        if x_qs_copy_source_if_modified_since != "" and x_qs_copy_source_if_modified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
+                                 ] = x_qs_copy_source_if_modified_since
+        if x_qs_copy_source_if_none_match != "" and x_qs_copy_source_if_none_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-None-Match"
+                                 ] = x_qs_copy_source_if_none_match
+        if x_qs_copy_source_if_unmodified_since != "" and x_qs_copy_source_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
+                                 ] = x_qs_copy_source_if_unmodified_since
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
+        if x_qs_fetch_if_unmodified_since != "" and x_qs_fetch_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Fetch-If-Unmodified-Since"
+                                 ] = x_qs_fetch_if_unmodified_since
+        if x_qs_fetch_source != "" and x_qs_fetch_source is not None:
+            operation["Headers"]["X-QS-Fetch-Source"] = x_qs_fetch_source
+        if x_qs_meta_data != "" and x_qs_meta_data is not None:
+            operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
+        if x_qs_metadata_directive != "" and x_qs_metadata_directive is not None:
+            operation["Headers"]["X-QS-Metadata-Directive"
+                                 ] = x_qs_metadata_directive
+        if x_qs_move_source != "" and x_qs_move_source is not None:
+            operation["Headers"]["X-QS-Move-Source"] = x_qs_move_source
+        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.put_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1878,36 +1878,7 @@ class Bucket(object):
             "API": "UploadMultipart",
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Content-Length":
-                content_length,
-                "Content-MD5":
-                content_md5,
-                "X-QS-Copy-Range":
-                x_qs_copy_range,
-                "X-QS-Copy-Source":
-                x_qs_copy_source,
-                "X-QS-Copy-Source-Encryption-Customer-Algorithm":
-                x_qs_copy_source_encryption_customer_algorithm,
-                "X-QS-Copy-Source-Encryption-Customer-Key":
-                x_qs_copy_source_encryption_customer_key,
-                "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
-                x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match":
-                x_qs_copy_source_if_match,
-                "X-QS-Copy-Source-If-Modified-Since":
-                x_qs_copy_source_if_modified_since,
-                "X-QS-Copy-Source-If-None-Match":
-                x_qs_copy_source_if_none_match,
-                "X-QS-Copy-Source-If-Unmodified-Since":
-                x_qs_copy_source_if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "part_number": part_number,
                 "upload_id": upload_id,
@@ -1917,7 +1888,46 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        operation["Headers"] = remove_null_value_headers(operation)
+        if content_length != "" and content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 != "" and content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if x_qs_copy_range != "" and x_qs_copy_range is not None:
+            operation["Headers"]["X-QS-Copy-Range"] = x_qs_copy_range
+        if x_qs_copy_source != "" and x_qs_copy_source is not None:
+            operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
+        if x_qs_copy_source_encryption_customer_algorithm != "" and x_qs_copy_source_encryption_customer_algorithm is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                        ] = x_qs_copy_source_encryption_customer_algorithm
+        if x_qs_copy_source_encryption_customer_key != "" and x_qs_copy_source_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
+                                 ] = x_qs_copy_source_encryption_customer_key
+        if x_qs_copy_source_encryption_customer_key_md5 != "" and x_qs_copy_source_encryption_customer_key_md5 is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                        ] = x_qs_copy_source_encryption_customer_key_md5
+        if x_qs_copy_source_if_match != "" and x_qs_copy_source_if_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Match"
+                                 ] = x_qs_copy_source_if_match
+        if x_qs_copy_source_if_modified_since != "" and x_qs_copy_source_if_modified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
+                                 ] = x_qs_copy_source_if_modified_since
+        if x_qs_copy_source_if_none_match != "" and x_qs_copy_source_if_none_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-None-Match"
+                                 ] = x_qs_copy_source_if_none_match
+        if x_qs_copy_source_if_unmodified_since != "" and x_qs_copy_source_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
+                                 ] = x_qs_copy_source_if_unmodified_since
+        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.upload_multipart_validate(operation)
         return Request(self.config, operation)
 

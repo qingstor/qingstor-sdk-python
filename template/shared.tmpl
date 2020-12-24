@@ -184,11 +184,7 @@
             "API": "{{$operation.ID}}",
             "Method" : "{{$operation.Request.Method}}",
             "URI" : "{{$uri}}",
-            "Headers": {
-                {{- range $id, $property := $operation.Request.Headers.Properties}}
-                "{{$property.Name}}": {{$property.Name| snakeCase}},
-                {{- end}}
-            },
+            "Headers": {},
             "Params": {
                 {{- range $id, $property := $operation.Request.Query.Properties}}
                 {{ $prefixProperty := printf  "%.8s"  $property.Name }}
@@ -216,7 +212,10 @@
         {{- if eq $service "Object"}}
         operation["Properties"]["object-key"] = object_key
         {{- end}}
-        operation["Headers"] = remove_null_value_headers(operation)
+        {{- range $id, $property := $operation.Request.Headers.Properties}}
+        if {{$property.Name| snakeCase}} != "" and {{$property.Name| snakeCase}} is not None:
+            operation["Headers"]["{{$property.Name}}"] = {{$property.Name| snakeCase}}
+        {{- end}}
         self.{{$operation.ID | snakeCase }}_validate(operation)
         return Request(self.config, operation)
 {{- end}}
