@@ -4,17 +4,7 @@
   {{- range $_, $property := $customizedType.Properties -}}
     {{- if ne $property.ID $firstPropertyID -}},
     {{end -}}
-    {{- if eq $property.Type "string" -}}
-      {{$property.ID | snakeCase}}= ""
-    {{- else if eq $property.Type "timestamp" -}}
-      {{$property.ID | snakeCase}}=""
-    {{- else if eq $property.Type "array" -}}
-      {{$property.ID | snakeCase}}=list()
-    {{- else if eq $property.Type "map" -}}
-      {{$property.ID | snakeCase}}=dict()
-    {{- else -}}
-      {{$property.ID | snakeCase}}=None
-    {{- end -}}
+    {{$property.ID | snakeCase}}=None
   {{- end -}}
 {{end}}
 
@@ -123,7 +113,7 @@
             {{$spaces}}raise ParameterRequiredError("{{$property.ID}}", "{{$customizedType.ID}}")
         {{- end}}
         {{- if gt ($property.Enum | len) 0}}
-        {{$spaces}}if "{{$property.ID}}" in {{$prefix}} and str({{$prefix}}["{{$property.ID}}"]) not in [""]:
+        {{$spaces}}if "{{$property.ID}}" in {{$prefix}}:
             {{- $valid_value := $property.Enum | commaConnectedWithQuote}}
             {{$spaces}}{{$property.ID | snakeCase}}_valid_values = [{{replace $valid_value "\"" "\"" -1 }}]
             {{$spaces}}if str({{$prefix}}["{{$property.ID}}"]) not in {{$property.ID | snakeCase}}_valid_values:
@@ -184,17 +174,7 @@
             "API": "{{$operation.ID}}",
             "Method" : "{{$operation.Request.Method}}",
             "URI" : "{{$uri}}",
-            "Headers": {
-                {{- if ne $service "QingStor" -}}
-                "Host": "".join([self.properties["zone"],".",self.config.host]),
-                {{- end}}
-                {{- if eq $service "QingStor" -}}
-                "Host": self.config.host,
-                {{- end}}
-                {{- range $id, $property := $operation.Request.Headers.Properties}}
-                "{{$property.Name}}": {{$property.Name| snakeCase}},
-                {{- end}}
-            },
+            "Headers": {},
             "Params": {
                 {{- range $id, $property := $operation.Request.Query.Properties}}
                 {{ $prefixProperty := printf  "%.8s"  $property.Name }}
@@ -221,6 +201,10 @@
         }
         {{- if eq $service "Object"}}
         operation["Properties"]["object-key"] = object_key
+        {{- end}}
+        {{- range $id, $property := $operation.Request.Headers.Properties}}
+        if {{$property.Name| snakeCase}} is not None:
+            operation["Headers"]["{{$property.Name}}"] = {{$property.Name| snakeCase}}
         {{- end}}
         self.{{$operation.ID | snakeCase }}_validate(operation)
         return Request(self.config, operation)

@@ -46,15 +46,12 @@ class QingStor(object):
                 self.client.send, timeout=self.config.timeout
             )
 
-    def list_buckets_request(self, limit=None, offset=None, location=""):
+    def list_buckets_request(self, limit=None, offset=None, location=None):
         operation = {
             "API": "ListBuckets",
             "Method": "GET",
             "URI": "/",
-            "Headers": {
-                "Host": self.config.host,
-                "Location": location,
-            },
+            "Headers": {},
             "Params": {
                 "limit": limit,
                 "offset": offset,
@@ -63,10 +60,12 @@ class QingStor(object):
             "Properties": {},
             "Body": None
         }
+        if location is not None:
+            operation["Headers"]["Location"] = location
         self.list_buckets_validate(operation)
         return Request(self.config, operation)
 
-    def list_buckets(self, limit=None, offset=None, location=""):
+    def list_buckets(self, limit=None, offset=None, location=None):
         req = self.list_buckets_request(
             limit=limit, offset=offset, location=location
         )

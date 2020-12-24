@@ -87,7 +87,7 @@ class SignTestCase(unittest.TestCase):
 
     def test_sign(self):
         req = self.test_req.sign()
-        self.assertEquals(
+        self.assertEqual(
             req.body, (
                 '{'
                 '"test_elements_1": "test_val", '
@@ -113,7 +113,7 @@ class SignTestCase(unittest.TestCase):
         self.assertEqual(req.method, 'GET')
         self.assertEqual(
             req.url, (
-                'https://pek3a.qingstor.com:443/test_bucket/'
+                'https://pek3a.qingstor.com/test_bucket/'
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'
@@ -123,7 +123,7 @@ class SignTestCase(unittest.TestCase):
     def test_query_sign(self):
         self.maxDiff = None
         req = Request(self.test_config, self.test_op).sign_query(100)
-        self.assertEquals(
+        self.assertEqual(
             req.body, (
                 '{'
                 '"test_elements_1": "test_val", '
@@ -148,7 +148,7 @@ class SignTestCase(unittest.TestCase):
         self.assertEqual(req.method, 'GET')
         self.assertEqual(
             req.url, (
-                'https://pek3a.qingstor.com:443/test_bucket/'
+                'https://pek3a.qingstor.com/test_bucket/'
                 '%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95.json'
                 '?test_params_1=test_val'
                 '&test_params_2=%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95'

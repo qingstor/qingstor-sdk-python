@@ -38,6 +38,7 @@ class Builder:
         self.config = config
         self.operation = operation
         self.logger = logging.getLogger("qingstor-sdk")
+        self.properties = self.parse_request_properties()
 
     def __repr__(self):
         return "<Builder>"
@@ -45,11 +46,8 @@ class Builder:
     def parse(self):
         parsed_operation = dict()
         parsed_operation["Method"] = self.operation["Method"]
-        if self.config.enable_virtual_host_style:
-            parsed_operation["URI"] = self.parse_request_virtual_style_uri()
-        else:
-            parsed_operation["URI"] = self.parse_request_path_style_uri()
-        self.logger.debug("parsed_uri: %s" % parsed_operation["URI"])
+        parsed_operation["URI"] = self.parse_request_uri()
+        self.logger.debug(f'parsed_uri: {parsed_operation["URI"]}')
         parsed_body, _ = self.parse_request_body()
         if parsed_body:
             parsed_operation["Body"] = parsed_body
@@ -75,60 +73,63 @@ class Builder:
 
     def parse_request_headers(self):
         parsed_headers = CaseInsensitiveDict()
+
+        # Parse headers from operation.
         if "Headers" in self.operation:
             for (k, v) in self.operation["Headers"].items():
                 k = k.lower()
-                if v != "" and v is not None:
-                    if should_quote(k):
-                        v = quote(v)
-                    elif should_url_quote(k):
-                        v = url_quote(v)
-                    parsed_headers[k] = v
+                if should_quote(k):
+                    v = quote(v)
+                elif should_url_quote(k):
+                    v = url_quote(v)
+                parsed_headers[k] = v
 
-            # Handle header Date
-            parsed_headers["Date"] = self.operation["Headers"].get(
-                "Date", current_time()
-            )
+        # Handle header Host
+        parsed_headers["Host"] = self.parse_request_host()
 
-            # Handle header User-Agent
-            parsed_headers["User-Agent"] = (
-                "qingstor-sdk-python/{sdk_version}  "
-                "(Python v{python_version}; {system})"
-            ).format(
-                sdk_version=__version__,
-                python_version=platform.python_version(),
-                system=sys.platform
-            )
+        # Handle header Date
+        parsed_headers["Date"] = self.operation["Headers"].get(
+            "Date", current_time()
+        )
 
-            # Handle header X-QS-MetaData dict, for example:
-            # {'X-QS-MetaData': {'x': 'vx', 'y': 'vy'}} => {'X-QS-Meta-x': 'vx', 'X-QS-Meta-y': 'vy'}
-            # https://docs.qingcloud.com/qingstor/api/common/metadata#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%85%83%E6%95%B0%E6%8D%AE
-            if 'X-QS-MetaData' in parsed_headers:
-                metadata = parsed_headers.get('X-QS-MetaData')
-                if isinstance(metadata, dict) and len(metadata) != 0:
-                    for k, v in parsed_headers['X-QS-MetaData'].items():
-                        parsed_headers["X-QS-Meta-{}".format(k)] = v
-                del parsed_headers['X-QS-MetaData']
+        # Handle header User-Agent
+        parsed_headers["User-Agent"] = (
+            "qingstor-sdk-python/{sdk_version}  "
+            "(Python v{python_version}; {system})"
+        ).format(
+            sdk_version=__version__,
+            python_version=platform.python_version(),
+            system=sys.platform
+        )
 
-            # Handle header Content-Type
-            parsed_body, is_json = self.parse_request_body()
-            filename = urlparse(self.parse_request_path_style_uri()).path
-            parsed_headers["Content-Type"] = self.operation["Headers"].get(
-                "Content-Type"
-            ) or mimetypes.guess_type(filename)[0]
-            if is_json:
-                parsed_headers["Content-Type"] = JSON_MIME_TYPE
-            if parsed_headers["Content-Type"] is None:
-                parsed_headers["Content-Type"] = BINARY_MIME_TYPE
+        # Handle header X-QS-MetaData dict, for example:
+        # {'X-QS-MetaData': {'x': 'vx', 'y': 'vy'}} => {'X-QS-Meta-x': 'vx', 'X-QS-Meta-y': 'vy'}
+        # https://docs.qingcloud.com/qingstor/api/common/metadata#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%85%83%E6%95%B0%E6%8D%AE
+        if 'X-QS-MetaData' in parsed_headers:
+            metadata = parsed_headers.get('X-QS-MetaData')
+            if isinstance(metadata, dict) and len(metadata) != 0:
+                for k, v in parsed_headers['X-QS-MetaData'].items():
+                    parsed_headers["X-QS-Meta-{}".format(k)] = v
+            del parsed_headers['X-QS-MetaData']
 
-            # Handle specific API
-            if "API" in self.operation:
-                if self.operation["API"] == "DeleteMultipleObjects":
-                    md5obj = hashlib.md5()
-                    md5obj.update(parsed_body.encode())
-                    parsed_headers["Content-MD5"] = base64.b64encode(
-                        md5obj.digest()
-                    ).decode()
+        # Handle header Content-Type
+        parsed_body, is_json = self.parse_request_body()
+        filename = urlparse(self.parse_request_uri()).path
+        parsed_headers["Content-Type"] = self.operation[
+            "Headers"].get("Content-Type") or mimetypes.guess_type(filename)[0]
+        if is_json:
+            parsed_headers["Content-Type"] = JSON_MIME_TYPE
+        if parsed_headers["Content-Type"] is None:
+            parsed_headers["Content-Type"] = BINARY_MIME_TYPE
+
+        # Handle specific API
+        if "API" in self.operation:
+            if self.operation["API"] == "DeleteMultipleObjects":
+                md5obj = hashlib.md5()
+                md5obj.update(parsed_body.encode())
+                parsed_headers["Content-MD5"] = base64.b64encode(
+                    md5obj.digest()
+                ).decode()
 
         return parsed_headers
 
@@ -145,67 +146,41 @@ class Builder:
 
     def parse_request_properties(self):
         parsed_properties = dict()
-        if "Properties" in self.operation:
-            for (k, v) in self.operation["Properties"].items():
-                if v != "" and v is not None:
-                    parsed_properties[k] = quote(v)
+        for (k, v) in self.operation["Properties"].items():
+            if v != "" and v is not None:
+                parsed_properties[k] = quote(v)
 
         return parsed_properties
 
-    def parse_request_path_style_uri(self):
-        properties = self.parse_request_properties()
-        zone = properties.get("zone", "")
-        port = str(self.config.port)
-        endpoint = "".join([
-            self.config.protocol, "://", self.config.host, ":", port
-        ])
+    def parse_request_host(self):
+        zone = self.properties.get("zone", "")
+        bucket_name = self.properties.get("bucket-name", "")
+
+        (protocol, endpoint,
+         port) = (self.config.protocol, self.config.host, self.config.port)
+
+        # Omit port if https:443 or http:80
+        if not ((protocol == "https" and port == 443) or
+                (protocol == "http" and port == 80)):
+            endpoint = f"{endpoint}:{port}"
         if zone != "":
-            endpoint = "".join([
-                self.config.protocol, "://", zone, ".", self.config.host, ":",
-                port
-            ])
+            endpoint = f"{zone}.{endpoint}"
+        if bucket_name != "" and self.config.enable_virtual_host_style:
+            endpoint = f"{bucket_name}.{endpoint}"
+
+        return endpoint
+
+    def parse_request_uri(self):
         request_uri = self.operation["URI"]
-        if len(properties):
-            for (k, v) in properties.items():
-                endpoint = endpoint.replace("<%s>" % k, v)
+        if self.config.enable_virtual_host_style and request_uri.startswith(
+                "/<bucket-name>"):
+            request_uri = request_uri.replace("/<bucket-name>", "")
+
+        if len(self.properties):
+            for (k, v) in self.properties.items():
                 request_uri = request_uri.replace("<%s>" % k, v)
-        parsed_uri = endpoint + request_uri
-        parsed_params = self.parse_request_params()
-        if len(parsed_params):
-            scheme, netloc, path, params, req_query, fragment = urlparse(
-                parsed_uri, allow_fragments=False
-            )
-            query = [req_query]
-            for (k, v) in parsed_params.items():
-                query.append("%s=%s" % (k, v))
-            if not req_query:
-                query.pop(0)
-            parsed_uri = urlunparse(
-                (scheme, netloc, path, params, "", fragment)
-            ) + "?" + "&".join(sorted(query))
-        return parsed_uri
 
-    def parse_request_virtual_style_uri(self):
-        properties = self.parse_request_properties()
-        zone = properties.get("zone", "")
-        port = str(self.config.port)
-
-        strs = self.operation["URI"].split("?")
-        filed = strs[0].split("/", 3)
-        domain = self.config.host
-        if zone != "":
-            domain = "".join([zone, ".", domain])
-        if len(filed) >= 2 and filed[1] != "":
-            domain = "".join([filed[1], ".", domain])
-        parsed_uri = "".join([self.config.protocol, "://", domain, ":", port])
-        if len(filed) == 3 and filed[2] != "":
-            parsed_uri = "".join([parsed_uri, "/", filed[2]])
-        if len(strs) == 2:
-            parsed_uri = "".join([parsed_uri, "?", strs[1]])
-        if len(properties):
-            for (k, v) in properties.items():
-                parsed_uri = parsed_uri.replace("<%s>" % k, v)
-
+        parsed_uri = f"{self.config.protocol}://{self.parse_request_host()}{request_uri}"
         parsed_params = self.parse_request_params()
         if len(parsed_params):
             scheme, netloc, path, params, req_query, fragment = urlparse(

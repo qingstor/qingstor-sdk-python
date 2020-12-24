@@ -36,10 +36,7 @@ class Bucket(object):
             "API": "DeleteBucket",
             "Method": "DELETE",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -57,15 +54,12 @@ class Bucket(object):
     def delete_bucket_validate(op):
         pass
 
-    def delete_cname_request(self, domain=""):
+    def delete_cname_request(self, domain=None):
         operation = {
             "API": "DeleteBucketCNAME",
             "Method": "DELETE",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "domain": domain,
@@ -76,7 +70,7 @@ class Bucket(object):
         self.delete_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def delete_cname(self, domain=""):
+    def delete_cname(self, domain=None):
         req = self.delete_cname_request(domain=domain)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -92,10 +86,7 @@ class Bucket(object):
             "API": "DeleteBucketCORS",
             "Method": "DELETE",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -118,10 +109,7 @@ class Bucket(object):
             "API": "DeleteBucketExternalMirror",
             "Method": "DELETE",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -144,10 +132,7 @@ class Bucket(object):
             "API": "DeleteBucketLifecycle",
             "Method": "DELETE",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -170,10 +155,7 @@ class Bucket(object):
             "API": "DeleteBucketLogging",
             "Method": "DELETE",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -196,10 +178,7 @@ class Bucket(object):
             "API": "DeleteBucketNotification",
             "Method": "DELETE",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -222,10 +201,7 @@ class Bucket(object):
             "API": "DeleteBucketPolicy",
             "Method": "DELETE",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -248,10 +224,7 @@ class Bucket(object):
             "API": "DeleteBucketReplication",
             "Method": "DELETE",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -270,17 +243,13 @@ class Bucket(object):
         pass
 
     def delete_multiple_objects_request(
-        self, content_md5="", objects=list(), quiet=None
+        self, content_md5=None, objects=None, quiet=None
     ):
         operation = {
             "API": "DeleteMultipleObjects",
             "Method": "POST",
             "URI": "/<bucket-name>?delete",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-MD5": content_md5,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "objects": objects,
@@ -289,11 +258,13 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
+        if content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
         self.delete_multiple_objects_validate(operation)
         return Request(self.config, operation)
 
     def delete_multiple_objects(
-        self, content_md5="", objects=list(), quiet=None
+        self, content_md5=None, objects=None, quiet=None
     ):
         req = self.delete_multiple_objects_request(
             content_md5=content_md5, objects=objects, quiet=quiet
@@ -320,10 +291,7 @@ class Bucket(object):
             "API": "GetBucketACL",
             "Method": "GET",
             "URI": "/<bucket-name>?acl",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -341,15 +309,12 @@ class Bucket(object):
     def get_bucket_acl_validate(op):
         pass
 
-    def get_cname_request(self, type=""):
+    def get_cname_request(self, type=None):
         operation = {
             "API": "GetBucketCNAME",
             "Method": "GET",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "type": type,
             },
@@ -360,14 +325,14 @@ class Bucket(object):
         self.get_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def get_cname(self, type=""):
+    def get_cname(self, type=None):
         req = self.get_cname_request(type=type)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
 
     @staticmethod
     def get_bucket_cname_validate(op):
-        if "type" in op["Params"] and str(op["Params"]["type"]) not in [""]:
+        if "type" in op["Params"]:
             type_valid_values = ["website", "normal"]
             if str(op["Params"]["type"]) not in type_valid_values:
                 raise ParameterValueNotAllowedError(
@@ -380,10 +345,7 @@ class Bucket(object):
             "API": "GetBucketCORS",
             "Method": "GET",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -406,10 +368,7 @@ class Bucket(object):
             "API": "GetBucketExternalMirror",
             "Method": "GET",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -432,10 +391,7 @@ class Bucket(object):
             "API": "GetBucketLifecycle",
             "Method": "GET",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -458,10 +414,7 @@ class Bucket(object):
             "API": "GetBucketLogging",
             "Method": "GET",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -484,10 +437,7 @@ class Bucket(object):
             "API": "GetBucketNotification",
             "Method": "GET",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -510,10 +460,7 @@ class Bucket(object):
             "API": "GetBucketPolicy",
             "Method": "GET",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -536,10 +483,7 @@ class Bucket(object):
             "API": "GetBucketReplication",
             "Method": "GET",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -562,10 +506,7 @@ class Bucket(object):
             "API": "GetBucketStatistics",
             "Method": "GET",
             "URI": "/<bucket-name>?stats",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -588,10 +529,7 @@ class Bucket(object):
             "API": "HeadBucket",
             "Method": "HEAD",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -611,20 +549,17 @@ class Bucket(object):
 
     def list_multipart_uploads_request(
         self,
-        delimiter="",
-        key_marker="",
+        delimiter=None,
+        key_marker=None,
         limit=None,
-        prefix="",
-        upload_id_marker=""
+        prefix=None,
+        upload_id_marker=None
     ):
         operation = {
             "API": "ListMultipartUploads",
             "Method": "GET",
             "URI": "/<bucket-name>?uploads",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "delimiter": delimiter,
                 "key_marker": key_marker,
@@ -641,11 +576,11 @@ class Bucket(object):
 
     def list_multipart_uploads(
         self,
-        delimiter="",
-        key_marker="",
+        delimiter=None,
+        key_marker=None,
         limit=None,
-        prefix="",
-        upload_id_marker=""
+        prefix=None,
+        upload_id_marker=None
     ):
         req = self.list_multipart_uploads_request(
             delimiter=delimiter,
@@ -662,16 +597,13 @@ class Bucket(object):
         pass
 
     def list_objects_request(
-        self, delimiter="", limit=None, marker="", prefix=""
+        self, delimiter=None, limit=None, marker=None, prefix=None
     ):
         operation = {
             "API": "ListObjects",
             "Method": "GET",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "delimiter": delimiter,
                 "limit": limit,
@@ -685,7 +617,9 @@ class Bucket(object):
         self.list_objects_validate(operation)
         return Request(self.config, operation)
 
-    def list_objects(self, delimiter="", limit=None, marker="", prefix=""):
+    def list_objects(
+        self, delimiter=None, limit=None, marker=None, prefix=None
+    ):
         req = self.list_objects_request(
             delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
         )
@@ -701,10 +635,7 @@ class Bucket(object):
             "API": "PutBucket",
             "Method": "PUT",
             "URI": "/<bucket-name>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -722,15 +653,12 @@ class Bucket(object):
     def put_bucket_validate(op):
         pass
 
-    def put_acl_request(self, acl=list()):
+    def put_acl_request(self, acl=None):
         operation = {
             "API": "PutBucketACL",
             "Method": "PUT",
             "URI": "/<bucket-name>?acl",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "acl": acl,
@@ -741,7 +669,7 @@ class Bucket(object):
         self.put_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
-    def put_acl(self, acl=list()):
+    def put_acl(self, acl=None):
         req = self.put_acl_request(acl=acl)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -756,8 +684,7 @@ class Bucket(object):
             if "grantee" in x:
                 if "type" not in x["grantee"]:
                     raise ParameterRequiredError("type", "grantee")
-                if "type" in x["grantee"] and str(x["grantee"]["type"]
-                                                  ) not in [""]:
+                if "type" in x["grantee"]:
                     type_valid_values = ["user", "group"]
                     if str(x["grantee"]["type"]) not in type_valid_values:
                         raise ParameterValueNotAllowedError(
@@ -766,7 +693,7 @@ class Bucket(object):
                 pass
             if "permission" not in x:
                 raise ParameterRequiredError("permission", "acl")
-            if "permission" in x and str(x["permission"]) not in [""]:
+            if "permission" in x:
                 permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"]
                 if str(x["permission"]) not in permission_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -775,15 +702,12 @@ class Bucket(object):
             pass
         pass
 
-    def put_cname_request(self, domain="", type=""):
+    def put_cname_request(self, domain=None, type=None):
         operation = {
             "API": "PutBucketCNAME",
             "Method": "PUT",
             "URI": "/<bucket-name>?cname",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "domain": domain,
@@ -795,7 +719,7 @@ class Bucket(object):
         self.put_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def put_cname(self, domain="", type=""):
+    def put_cname(self, domain=None, type=None):
         req = self.put_cname_request(domain=domain, type=type)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -804,7 +728,7 @@ class Bucket(object):
     def put_bucket_cname_validate(op):
         if "domain" not in op["Elements"]:
             raise ParameterRequiredError("domain", "PutBucketCNAMEInput")
-        if "type" in op["Elements"] and str(op["Elements"]["type"]) not in [""]:
+        if "type" in op["Elements"]:
             type_valid_values = ["normal", "website"]
             if str(op["Elements"]["type"]) not in type_valid_values:
                 raise ParameterValueNotAllowedError(
@@ -812,15 +736,12 @@ class Bucket(object):
                 )
         pass
 
-    def put_cors_request(self, cors_rules=list()):
+    def put_cors_request(self, cors_rules=None):
         operation = {
             "API": "PutBucketCORS",
             "Method": "PUT",
             "URI": "/<bucket-name>?cors",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "cors_rules": cors_rules,
@@ -831,7 +752,7 @@ class Bucket(object):
         self.put_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
-    def put_cors(self, cors_rules=list()):
+    def put_cors(self, cors_rules=None):
         req = self.put_cors_request(cors_rules=cors_rules)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -848,15 +769,12 @@ class Bucket(object):
             pass
         pass
 
-    def put_external_mirror_request(self, source_site=""):
+    def put_external_mirror_request(self, source_site=None):
         operation = {
             "API": "PutBucketExternalMirror",
             "Method": "PUT",
             "URI": "/<bucket-name>?mirror",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "source_site": source_site,
@@ -867,7 +785,7 @@ class Bucket(object):
         self.put_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
-    def put_external_mirror(self, source_site=""):
+    def put_external_mirror(self, source_site=None):
         req = self.put_external_mirror_request(source_site=source_site)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -880,15 +798,12 @@ class Bucket(object):
             )
         pass
 
-    def put_lifecycle_request(self, rule=list()):
+    def put_lifecycle_request(self, rule=None):
         operation = {
             "API": "PutBucketLifecycle",
             "Method": "PUT",
             "URI": "/<bucket-name>?lifecycle",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "rule": rule,
@@ -899,7 +814,7 @@ class Bucket(object):
         self.put_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
-    def put_lifecycle(self, rule=list()):
+    def put_lifecycle(self, rule=None):
         req = self.put_lifecycle_request(rule=rule)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -929,7 +844,7 @@ class Bucket(object):
                 raise ParameterRequiredError("id", "rule")
             if "status" not in x:
                 raise ParameterRequiredError("status", "rule")
-            if "status" in x and str(x["status"]) not in [""]:
+            if "status" in x:
                 status_valid_values = ["enabled", "disabled"]
                 if str(x["status"]) not in status_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -942,15 +857,12 @@ class Bucket(object):
             pass
         pass
 
-    def put_logging_request(self, target_bucket="", target_prefix=""):
+    def put_logging_request(self, target_bucket=None, target_prefix=None):
         operation = {
             "API": "PutBucketLogging",
             "Method": "PUT",
             "URI": "/<bucket-name>?logging",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "target_bucket": target_bucket,
@@ -962,7 +874,7 @@ class Bucket(object):
         self.put_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
-    def put_logging(self, target_bucket="", target_prefix=""):
+    def put_logging(self, target_bucket=None, target_prefix=None):
         req = self.put_logging_request(
             target_bucket=target_bucket, target_prefix=target_prefix
         )
@@ -981,15 +893,12 @@ class Bucket(object):
             )
         pass
 
-    def put_notification_request(self, notifications=list()):
+    def put_notification_request(self, notifications=None):
         operation = {
             "API": "PutBucketNotification",
             "Method": "PUT",
             "URI": "/<bucket-name>?notification",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "notifications": notifications,
@@ -1000,7 +909,7 @@ class Bucket(object):
         self.put_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
-    def put_notification(self, notifications=list()):
+    def put_notification(self, notifications=None):
         req = self.put_notification_request(notifications=notifications)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -1014,7 +923,7 @@ class Bucket(object):
         for x in op["Elements"]["notifications"]:
             if "cloudfunc" not in x:
                 raise ParameterRequiredError("cloudfunc", "notification")
-            if "cloudfunc" in x and str(x["cloudfunc"]) not in [""]:
+            if "cloudfunc" in x:
                 cloudfunc_valid_values = ["tupu-porn", "notifier", "image"]
                 if str(x["cloudfunc"]) not in cloudfunc_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1031,15 +940,12 @@ class Bucket(object):
             pass
         pass
 
-    def put_policy_request(self, statement=list()):
+    def put_policy_request(self, statement=None):
         operation = {
             "API": "PutBucketPolicy",
             "Method": "PUT",
             "URI": "/<bucket-name>?policy",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "statement": statement,
@@ -1050,7 +956,7 @@ class Bucket(object):
         self.put_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
-    def put_policy(self, statement=list()):
+    def put_policy(self, statement=None):
         req = self.put_policy_request(statement=statement)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -1076,7 +982,7 @@ class Bucket(object):
                 pass
             if "effect" not in x:
                 raise ParameterRequiredError("effect", "statement")
-            if "effect" in x and str(x["effect"]) not in [""]:
+            if "effect" in x:
                 effect_valid_values = ["allow", "deny"]
                 if str(x["effect"]) not in effect_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1089,15 +995,12 @@ class Bucket(object):
             pass
         pass
 
-    def put_replication_request(self, rules=list()):
+    def put_replication_request(self, rules=None):
         operation = {
             "API": "PutBucketReplication",
             "Method": "PUT",
             "URI": "/<bucket-name>?replication",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {
                 "rules": rules,
@@ -1108,7 +1011,7 @@ class Bucket(object):
         self.put_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
-    def put_replication(self, rules=list()):
+    def put_replication(self, rules=None):
         req = self.put_replication_request(rules=rules)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -1118,7 +1021,7 @@ class Bucket(object):
         if "rules" not in op["Elements"]:
             raise ParameterRequiredError("rules", "PutBucketReplicationInput")
         for x in op["Elements"]["rules"]:
-            if "delete_marker" in x and str(x["delete_marker"]) not in [""]:
+            if "delete_marker" in x:
                 delete_marker_valid_values = ["enabled", "disabled"]
                 if str(x["delete_marker"]) not in delete_marker_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1137,13 +1040,13 @@ class Bucket(object):
                 pass
             if "id" not in x:
                 raise ParameterRequiredError("id", "rules")
-            if "status" in x and str(x["status"]) not in [""]:
+            if "status" in x:
                 status_valid_values = ["enabled", "disabled"]
                 if str(x["status"]) not in status_valid_values:
                     raise ParameterValueNotAllowedError(
                         "status", x["status"], status_valid_values
                     )
-            if "sync_marker" in x and str(x["sync_marker"]) not in [""]:
+            if "sync_marker" in x:
                 sync_marker_valid_values = ["enabled", "disabled"]
                 if str(x["sync_marker"]) not in sync_marker_valid_values:
                     raise ParameterValueNotAllowedError(
@@ -1153,15 +1056,12 @@ class Bucket(object):
             pass
         pass
 
-    def abort_multipart_upload_request(self, object_key, upload_id=""):
+    def abort_multipart_upload_request(self, object_key, upload_id=None):
         operation = {
             "API": "AbortMultipartUpload",
             "Method": "DELETE",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "upload_id": upload_id,
             },
@@ -1173,7 +1073,7 @@ class Bucket(object):
         self.abort_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
-    def abort_multipart_upload(self, object_key, upload_id=""):
+    def abort_multipart_upload(self, object_key, upload_id=None):
         req = self.abort_multipart_upload_request(
             object_key, upload_id=upload_id
         )
@@ -1193,23 +1093,16 @@ class Bucket(object):
         object_key,
         position=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        x_qs_storage_class=None,
         body=None
     ):
         operation = {
             "API": "AppendObject",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?append",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "Content-Type": content_type,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {
                 "position": position,
             },
@@ -1218,6 +1111,14 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        if content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.append_object_validate(operation)
         return Request(self.config, operation)
 
@@ -1226,9 +1127,9 @@ class Bucket(object):
         object_key,
         position=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        x_qs_storage_class=None,
         body=None
     ):
         req = self.append_object_request(
@@ -1247,8 +1148,7 @@ class Bucket(object):
     def append_object_validate(op):
         if "position" not in op["Params"]:
             raise ParameterRequiredError("position", "AppendObjectInput")
-        if "X-QS-Storage-Class" in op["Headers"] and str(
-                op["Headers"]["X-QS-Storage-Class"]) not in [""]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -1261,29 +1161,18 @@ class Bucket(object):
     def complete_multipart_upload_request(
         self,
         object_key,
-        upload_id="",
-        etag="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        object_parts=list()
+        upload_id=None,
+        etag=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        object_parts=None
     ):
         operation = {
             "API": "CompleteMultipartUpload",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "ETag":
-                etag,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "upload_id": upload_id,
             },
@@ -1294,18 +1183,29 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if etag is not None:
+            operation["Headers"]["ETag"] = etag
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.complete_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
     def complete_multipart_upload(
         self,
         object_key,
-        upload_id="",
-        etag="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        object_parts=list()
+        upload_id=None,
+        etag=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        object_parts=None
     ):
         req = self.complete_multipart_upload_request(
             object_key,
@@ -1341,10 +1241,7 @@ class Bucket(object):
             "API": "DeleteObject",
             "Method": "DELETE",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
@@ -1366,45 +1263,26 @@ class Bucket(object):
     def get_object_request(
         self,
         object_key,
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        range="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        range=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         operation = {
             "API": "GetObject",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "If-Match":
-                if_match,
-                "If-Modified-Since":
-                if_modified_since,
-                "If-None-Match":
-                if_none_match,
-                "If-Unmodified-Since":
-                if_unmodified_since,
-                "Range":
-                range,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "response-cache-control": response_cache_control,
                 "response-content-disposition": response_content_disposition,
@@ -1418,26 +1296,45 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if if_match is not None:
+            operation["Headers"]["If-Match"] = if_match
+        if if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
+        if if_none_match is not None:
+            operation["Headers"]["If-None-Match"] = if_none_match
+        if if_unmodified_since is not None:
+            operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
+        if range is not None:
+            operation["Headers"]["Range"] = range
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.get_object_validate(operation)
         return Request(self.config, operation)
 
     def get_object(
         self,
         object_key,
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        range="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        range=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         req = self.get_object_request(
             object_key,
@@ -1467,55 +1364,55 @@ class Bucket(object):
     def head_object_request(
         self,
         object_key,
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         operation = {
             "API": "HeadObject",
             "Method": "HEAD",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "If-Match":
-                if_match,
-                "If-Modified-Since":
-                if_modified_since,
-                "If-None-Match":
-                if_none_match,
-                "If-Unmodified-Since":
-                if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if if_match is not None:
+            operation["Headers"]["If-Match"] = if_match
+        if if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
+        if if_none_match is not None:
+            operation["Headers"]["If-None-Match"] = if_none_match
+        if if_unmodified_since is not None:
+            operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.head_object_validate(operation)
         return Request(self.config, operation)
 
     def head_object(
         self,
         object_key,
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         req = self.head_object_request(
             object_key,
@@ -1538,24 +1435,20 @@ class Bucket(object):
     def image_process_request(
         self,
         object_key,
-        action="",
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_modified_since=""
+        action=None,
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_modified_since=None
     ):
         operation = {
             "API": "ImageProcess",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>?image",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "If-Modified-Since": if_modified_since,
-            },
+            "Headers": {},
             "Params": {
                 "action": action,
                 "response-cache-control": response_cache_control,
@@ -1570,20 +1463,22 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if if_modified_since is not None:
+            operation["Headers"]["If-Modified-Since"] = if_modified_since
         self.image_process_validate(operation)
         return Request(self.config, operation)
 
     def image_process(
         self,
         object_key,
-        action="",
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_modified_since=""
+        action=None,
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_modified_since=None
     ):
         req = self.image_process_request(
             object_key,
@@ -1608,47 +1503,51 @@ class Bucket(object):
     def initiate_multipart_upload_request(
         self,
         object_key,
-        content_type="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_meta_data=dict(),
-        x_qs_storage_class=""
+        content_type=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_meta_data=None,
+        x_qs_storage_class=None
     ):
         operation = {
             "API": "InitiateMultipartUpload",
             "Method": "POST",
             "URI": "/<bucket-name>/<object-key>?uploads",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Type": content_type,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-                "X-QS-MetaData": x_qs_meta_data,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
+        if x_qs_meta_data is not None:
+            operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
+        if x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.initiate_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
     def initiate_multipart_upload(
         self,
         object_key,
-        content_type="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_meta_data=dict(),
-        x_qs_storage_class=""
+        content_type=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_meta_data=None,
+        x_qs_storage_class=None
     ):
         req = self.initiate_multipart_upload_request(
             object_key,
@@ -1665,8 +1564,7 @@ class Bucket(object):
 
     @staticmethod
     def initiate_multipart_upload_validate(op):
-        if "X-QS-Storage-Class" in op["Headers"] and str(
-                op["Headers"]["X-QS-Storage-Class"]) not in [""]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -1677,16 +1575,13 @@ class Bucket(object):
         pass
 
     def list_multipart_request(
-        self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=None
     ):
         operation = {
             "API": "ListMultipart",
             "Method": "GET",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-            },
+            "Headers": {},
             "Params": {
                 "limit": limit,
                 "part_number_marker": part_number_marker,
@@ -1701,7 +1596,7 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def list_multipart(
-        self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=None
     ):
         req = self.list_multipart_request(
             object_key,
@@ -1721,37 +1616,38 @@ class Bucket(object):
     def options_object_request(
         self,
         object_key,
-        access_control_request_headers="",
-        access_control_request_method="",
-        origin=""
+        access_control_request_headers=None,
+        access_control_request_method=None,
+        origin=None
     ):
         operation = {
             "API": "OptionsObject",
             "Method": "OPTIONS",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Access-Control-Request-Headers":
-                access_control_request_headers,
-                "Access-Control-Request-Method": access_control_request_method,
-                "Origin": origin,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
+        if access_control_request_headers is not None:
+            operation["Headers"]["Access-Control-Request-Headers"
+                                 ] = access_control_request_headers
+        if access_control_request_method is not None:
+            operation["Headers"]["Access-Control-Request-Method"
+                                 ] = access_control_request_method
+        if origin is not None:
+            operation["Headers"]["Origin"] = origin
         self.options_object_validate(operation)
         return Request(self.config, operation)
 
     def options_object(
         self,
         object_key,
-        access_control_request_headers="",
-        access_control_request_method="",
-        origin=""
+        access_control_request_headers=None,
+        access_control_request_method=None,
+        origin=None
     ):
         req = self.options_object_request(
             object_key,
@@ -1775,106 +1671,131 @@ class Bucket(object):
     def put_object_request(
         self,
         object_key,
-        cache_control="",
-        content_encoding="",
+        cache_control=None,
+        content_encoding=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        expect="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_fetch_if_unmodified_since="",
-        x_qs_fetch_source="",
-        x_qs_meta_data=dict(),
-        x_qs_metadata_directive="",
-        x_qs_move_source="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        expect=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_fetch_if_unmodified_since=None,
+        x_qs_fetch_source=None,
+        x_qs_meta_data=None,
+        x_qs_metadata_directive=None,
+        x_qs_move_source=None,
+        x_qs_storage_class=None,
         body=None
     ):
         operation = {
             "API": "PutObject",
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Cache-Control": cache_control,
-                "Content-Encoding": content_encoding,
-                "Content-Length": content_length,
-                "Content-MD5": content_md5,
-                "Content-Type": content_type,
-                "Expect": expect,
-                "X-QS-Copy-Source": x_qs_copy_source,
-                "X-QS-Copy-Source-Encryption-Customer-Algorithm":
-                x_qs_copy_source_encryption_customer_algorithm,
-                "X-QS-Copy-Source-Encryption-Customer-Key":
-                x_qs_copy_source_encryption_customer_key,
-                "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
-                x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match": x_qs_copy_source_if_match,
-                "X-QS-Copy-Source-If-Modified-Since":
-                x_qs_copy_source_if_modified_since,
-                "X-QS-Copy-Source-If-None-Match":
-                x_qs_copy_source_if_none_match,
-                "X-QS-Copy-Source-If-Unmodified-Since":
-                x_qs_copy_source_if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key": x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-                "X-QS-Fetch-If-Unmodified-Since":
-                x_qs_fetch_if_unmodified_since,
-                "X-QS-Fetch-Source": x_qs_fetch_source,
-                "X-QS-MetaData": x_qs_meta_data,
-                "X-QS-Metadata-Directive": x_qs_metadata_directive,
-                "X-QS-Move-Source": x_qs_move_source,
-                "X-QS-Storage-Class": x_qs_storage_class,
-            },
+            "Headers": {},
             "Params": {},
             "Elements": {},
             "Properties": self.properties.copy(),
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        if cache_control is not None:
+            operation["Headers"]["Cache-Control"] = cache_control
+        if content_encoding is not None:
+            operation["Headers"]["Content-Encoding"] = content_encoding
+        if content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if content_type is not None:
+            operation["Headers"]["Content-Type"] = content_type
+        if expect is not None:
+            operation["Headers"]["Expect"] = expect
+        if x_qs_copy_source is not None:
+            operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
+        if x_qs_copy_source_encryption_customer_algorithm is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                        ] = x_qs_copy_source_encryption_customer_algorithm
+        if x_qs_copy_source_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
+                                 ] = x_qs_copy_source_encryption_customer_key
+        if x_qs_copy_source_encryption_customer_key_md5 is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                        ] = x_qs_copy_source_encryption_customer_key_md5
+        if x_qs_copy_source_if_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Match"
+                                 ] = x_qs_copy_source_if_match
+        if x_qs_copy_source_if_modified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
+                                 ] = x_qs_copy_source_if_modified_since
+        if x_qs_copy_source_if_none_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-None-Match"
+                                 ] = x_qs_copy_source_if_none_match
+        if x_qs_copy_source_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
+                                 ] = x_qs_copy_source_if_unmodified_since
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
+        if x_qs_fetch_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Fetch-If-Unmodified-Since"
+                                 ] = x_qs_fetch_if_unmodified_since
+        if x_qs_fetch_source is not None:
+            operation["Headers"]["X-QS-Fetch-Source"] = x_qs_fetch_source
+        if x_qs_meta_data is not None:
+            operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
+        if x_qs_metadata_directive is not None:
+            operation["Headers"]["X-QS-Metadata-Directive"
+                                 ] = x_qs_metadata_directive
+        if x_qs_move_source is not None:
+            operation["Headers"]["X-QS-Move-Source"] = x_qs_move_source
+        if x_qs_storage_class is not None:
+            operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.put_object_validate(operation)
         return Request(self.config, operation)
 
     def put_object(
         self,
         object_key,
-        cache_control="",
-        content_encoding="",
+        cache_control=None,
+        content_encoding=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        expect="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_fetch_if_unmodified_since="",
-        x_qs_fetch_source="",
-        x_qs_meta_data=dict(),
-        x_qs_metadata_directive="",
-        x_qs_move_source="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        expect=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_fetch_if_unmodified_since=None,
+        x_qs_fetch_source=None,
+        x_qs_meta_data=None,
+        x_qs_metadata_directive=None,
+        x_qs_move_source=None,
+        x_qs_storage_class=None,
         body=None
     ):
         req = self.put_object_request(
@@ -1915,8 +1836,7 @@ class Bucket(object):
 
     @staticmethod
     def put_object_validate(op):
-        if "X-QS-Metadata-Directive" in op["Headers"] and str(
-                op["Headers"]["X-QS-Metadata-Directive"]) not in [""]:
+        if "X-QS-Metadata-Directive" in op["Headers"]:
             x_qs_metadata_directive_valid_values = ["COPY", "REPLACE"]
             if str(op["Headers"]["X-QS-Metadata-Directive"]
                    ) not in x_qs_metadata_directive_valid_values:
@@ -1925,8 +1845,7 @@ class Bucket(object):
                     op["Headers"]["X-QS-Metadata-Directive"],
                     x_qs_metadata_directive_valid_values
                 )
-        if "X-QS-Storage-Class" in op["Headers"] and str(
-                op["Headers"]["X-QS-Storage-Class"]) not in [""]:
+        if "X-QS-Storage-Class" in op["Headers"]:
             x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"]
             if str(op["Headers"]["X-QS-Storage-Class"]
                    ) not in x_qs_storage_class_valid_values:
@@ -1940,59 +1859,28 @@ class Bucket(object):
         self,
         object_key,
         part_number=None,
-        upload_id="",
+        upload_id=None,
         content_length=None,
-        content_md5="",
-        x_qs_copy_range="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
+        content_md5=None,
+        x_qs_copy_range=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
         body=None
     ):
         operation = {
             "API": "UploadMultipart",
             "Method": "PUT",
             "URI": "/<bucket-name>/<object-key>",
-            "Headers": {
-                "Host":
-                "".join([self.properties["zone"], ".", self.config.host]),
-                "Content-Length":
-                content_length,
-                "Content-MD5":
-                content_md5,
-                "X-QS-Copy-Range":
-                x_qs_copy_range,
-                "X-QS-Copy-Source":
-                x_qs_copy_source,
-                "X-QS-Copy-Source-Encryption-Customer-Algorithm":
-                x_qs_copy_source_encryption_customer_algorithm,
-                "X-QS-Copy-Source-Encryption-Customer-Key":
-                x_qs_copy_source_encryption_customer_key,
-                "X-QS-Copy-Source-Encryption-Customer-Key-MD5":
-                x_qs_copy_source_encryption_customer_key_md5,
-                "X-QS-Copy-Source-If-Match":
-                x_qs_copy_source_if_match,
-                "X-QS-Copy-Source-If-Modified-Since":
-                x_qs_copy_source_if_modified_since,
-                "X-QS-Copy-Source-If-None-Match":
-                x_qs_copy_source_if_none_match,
-                "X-QS-Copy-Source-If-Unmodified-Since":
-                x_qs_copy_source_if_unmodified_since,
-                "X-QS-Encryption-Customer-Algorithm":
-                x_qs_encryption_customer_algorithm,
-                "X-QS-Encryption-Customer-Key":
-                x_qs_encryption_customer_key,
-                "X-QS-Encryption-Customer-Key-MD5":
-                x_qs_encryption_customer_key_md5,
-            },
+            "Headers": {},
             "Params": {
                 "part_number": part_number,
                 "upload_id": upload_id,
@@ -2002,6 +1890,46 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
+        if content_length is not None:
+            operation["Headers"]["Content-Length"] = content_length
+        if content_md5 is not None:
+            operation["Headers"]["Content-MD5"] = content_md5
+        if x_qs_copy_range is not None:
+            operation["Headers"]["X-QS-Copy-Range"] = x_qs_copy_range
+        if x_qs_copy_source is not None:
+            operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
+        if x_qs_copy_source_encryption_customer_algorithm is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                        ] = x_qs_copy_source_encryption_customer_algorithm
+        if x_qs_copy_source_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
+                                 ] = x_qs_copy_source_encryption_customer_key
+        if x_qs_copy_source_encryption_customer_key_md5 is not None:
+            operation["Headers"
+                      ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                        ] = x_qs_copy_source_encryption_customer_key_md5
+        if x_qs_copy_source_if_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Match"
+                                 ] = x_qs_copy_source_if_match
+        if x_qs_copy_source_if_modified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
+                                 ] = x_qs_copy_source_if_modified_since
+        if x_qs_copy_source_if_none_match is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-None-Match"
+                                 ] = x_qs_copy_source_if_none_match
+        if x_qs_copy_source_if_unmodified_since is not None:
+            operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
+                                 ] = x_qs_copy_source_if_unmodified_since
+        if x_qs_encryption_customer_algorithm is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
+                                 ] = x_qs_encryption_customer_algorithm
+        if x_qs_encryption_customer_key is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key"
+                                 ] = x_qs_encryption_customer_key
+        if x_qs_encryption_customer_key_md5 is not None:
+            operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
+                                 ] = x_qs_encryption_customer_key_md5
         self.upload_multipart_validate(operation)
         return Request(self.config, operation)
 
@@ -2009,21 +1937,21 @@ class Bucket(object):
         self,
         object_key,
         part_number=None,
-        upload_id="",
+        upload_id=None,
         content_length=None,
-        content_md5="",
-        x_qs_copy_range="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
+        content_md5=None,
+        x_qs_copy_range=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
         body=None
     ):
         req = self.upload_multipart_request(
