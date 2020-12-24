@@ -54,7 +54,7 @@ class Bucket(object):
     def delete_bucket_validate(op):
         pass
 
-    def delete_cname_request(self, domain=""):
+    def delete_cname_request(self, domain=None):
         operation = {
             "API": "DeleteBucketCNAME",
             "Method": "DELETE",
@@ -70,7 +70,7 @@ class Bucket(object):
         self.delete_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def delete_cname(self, domain=""):
+    def delete_cname(self, domain=None):
         req = self.delete_cname_request(domain=domain)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -243,7 +243,7 @@ class Bucket(object):
         pass
 
     def delete_multiple_objects_request(
-        self, content_md5="", objects=list(), quiet=None
+        self, content_md5=None, objects=None, quiet=None
     ):
         operation = {
             "API": "DeleteMultipleObjects",
@@ -258,13 +258,13 @@ class Bucket(object):
             "Properties": self.properties.copy(),
             "Body": None
         }
-        if content_md5 != "" and content_md5 is not None:
+        if content_md5 is not None:
             operation["Headers"]["Content-MD5"] = content_md5
         self.delete_multiple_objects_validate(operation)
         return Request(self.config, operation)
 
     def delete_multiple_objects(
-        self, content_md5="", objects=list(), quiet=None
+        self, content_md5=None, objects=None, quiet=None
     ):
         req = self.delete_multiple_objects_request(
             content_md5=content_md5, objects=objects, quiet=quiet
@@ -309,7 +309,7 @@ class Bucket(object):
     def get_bucket_acl_validate(op):
         pass
 
-    def get_cname_request(self, type=""):
+    def get_cname_request(self, type=None):
         operation = {
             "API": "GetBucketCNAME",
             "Method": "GET",
@@ -325,7 +325,7 @@ class Bucket(object):
         self.get_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def get_cname(self, type=""):
+    def get_cname(self, type=None):
         req = self.get_cname_request(type=type)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -549,11 +549,11 @@ class Bucket(object):
 
     def list_multipart_uploads_request(
         self,
-        delimiter="",
-        key_marker="",
+        delimiter=None,
+        key_marker=None,
         limit=None,
-        prefix="",
-        upload_id_marker=""
+        prefix=None,
+        upload_id_marker=None
     ):
         operation = {
             "API": "ListMultipartUploads",
@@ -576,11 +576,11 @@ class Bucket(object):
 
     def list_multipart_uploads(
         self,
-        delimiter="",
-        key_marker="",
+        delimiter=None,
+        key_marker=None,
         limit=None,
-        prefix="",
-        upload_id_marker=""
+        prefix=None,
+        upload_id_marker=None
     ):
         req = self.list_multipart_uploads_request(
             delimiter=delimiter,
@@ -597,7 +597,7 @@ class Bucket(object):
         pass
 
     def list_objects_request(
-        self, delimiter="", limit=None, marker="", prefix=""
+        self, delimiter=None, limit=None, marker=None, prefix=None
     ):
         operation = {
             "API": "ListObjects",
@@ -617,7 +617,9 @@ class Bucket(object):
         self.list_objects_validate(operation)
         return Request(self.config, operation)
 
-    def list_objects(self, delimiter="", limit=None, marker="", prefix=""):
+    def list_objects(
+        self, delimiter=None, limit=None, marker=None, prefix=None
+    ):
         req = self.list_objects_request(
             delimiter=delimiter, limit=limit, marker=marker, prefix=prefix
         )
@@ -651,7 +653,7 @@ class Bucket(object):
     def put_bucket_validate(op):
         pass
 
-    def put_acl_request(self, acl=list()):
+    def put_acl_request(self, acl=None):
         operation = {
             "API": "PutBucketACL",
             "Method": "PUT",
@@ -667,7 +669,7 @@ class Bucket(object):
         self.put_bucket_acl_validate(operation)
         return Request(self.config, operation)
 
-    def put_acl(self, acl=list()):
+    def put_acl(self, acl=None):
         req = self.put_acl_request(acl=acl)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -700,7 +702,7 @@ class Bucket(object):
             pass
         pass
 
-    def put_cname_request(self, domain="", type=""):
+    def put_cname_request(self, domain=None, type=None):
         operation = {
             "API": "PutBucketCNAME",
             "Method": "PUT",
@@ -717,7 +719,7 @@ class Bucket(object):
         self.put_bucket_cname_validate(operation)
         return Request(self.config, operation)
 
-    def put_cname(self, domain="", type=""):
+    def put_cname(self, domain=None, type=None):
         req = self.put_cname_request(domain=domain, type=type)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -734,7 +736,7 @@ class Bucket(object):
                 )
         pass
 
-    def put_cors_request(self, cors_rules=list()):
+    def put_cors_request(self, cors_rules=None):
         operation = {
             "API": "PutBucketCORS",
             "Method": "PUT",
@@ -750,7 +752,7 @@ class Bucket(object):
         self.put_bucket_cors_validate(operation)
         return Request(self.config, operation)
 
-    def put_cors(self, cors_rules=list()):
+    def put_cors(self, cors_rules=None):
         req = self.put_cors_request(cors_rules=cors_rules)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -767,7 +769,7 @@ class Bucket(object):
             pass
         pass
 
-    def put_external_mirror_request(self, source_site=""):
+    def put_external_mirror_request(self, source_site=None):
         operation = {
             "API": "PutBucketExternalMirror",
             "Method": "PUT",
@@ -783,7 +785,7 @@ class Bucket(object):
         self.put_bucket_external_mirror_validate(operation)
         return Request(self.config, operation)
 
-    def put_external_mirror(self, source_site=""):
+    def put_external_mirror(self, source_site=None):
         req = self.put_external_mirror_request(source_site=source_site)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -796,7 +798,7 @@ class Bucket(object):
             )
         pass
 
-    def put_lifecycle_request(self, rule=list()):
+    def put_lifecycle_request(self, rule=None):
         operation = {
             "API": "PutBucketLifecycle",
             "Method": "PUT",
@@ -812,7 +814,7 @@ class Bucket(object):
         self.put_bucket_lifecycle_validate(operation)
         return Request(self.config, operation)
 
-    def put_lifecycle(self, rule=list()):
+    def put_lifecycle(self, rule=None):
         req = self.put_lifecycle_request(rule=rule)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -855,7 +857,7 @@ class Bucket(object):
             pass
         pass
 
-    def put_logging_request(self, target_bucket="", target_prefix=""):
+    def put_logging_request(self, target_bucket=None, target_prefix=None):
         operation = {
             "API": "PutBucketLogging",
             "Method": "PUT",
@@ -872,7 +874,7 @@ class Bucket(object):
         self.put_bucket_logging_validate(operation)
         return Request(self.config, operation)
 
-    def put_logging(self, target_bucket="", target_prefix=""):
+    def put_logging(self, target_bucket=None, target_prefix=None):
         req = self.put_logging_request(
             target_bucket=target_bucket, target_prefix=target_prefix
         )
@@ -891,7 +893,7 @@ class Bucket(object):
             )
         pass
 
-    def put_notification_request(self, notifications=list()):
+    def put_notification_request(self, notifications=None):
         operation = {
             "API": "PutBucketNotification",
             "Method": "PUT",
@@ -907,7 +909,7 @@ class Bucket(object):
         self.put_bucket_notification_validate(operation)
         return Request(self.config, operation)
 
-    def put_notification(self, notifications=list()):
+    def put_notification(self, notifications=None):
         req = self.put_notification_request(notifications=notifications)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -938,7 +940,7 @@ class Bucket(object):
             pass
         pass
 
-    def put_policy_request(self, statement=list()):
+    def put_policy_request(self, statement=None):
         operation = {
             "API": "PutBucketPolicy",
             "Method": "PUT",
@@ -954,7 +956,7 @@ class Bucket(object):
         self.put_bucket_policy_validate(operation)
         return Request(self.config, operation)
 
-    def put_policy(self, statement=list()):
+    def put_policy(self, statement=None):
         req = self.put_policy_request(statement=statement)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -993,7 +995,7 @@ class Bucket(object):
             pass
         pass
 
-    def put_replication_request(self, rules=list()):
+    def put_replication_request(self, rules=None):
         operation = {
             "API": "PutBucketReplication",
             "Method": "PUT",
@@ -1009,7 +1011,7 @@ class Bucket(object):
         self.put_bucket_replication_validate(operation)
         return Request(self.config, operation)
 
-    def put_replication(self, rules=list()):
+    def put_replication(self, rules=None):
         req = self.put_replication_request(rules=rules)
         resp = self.client.send(req.sign())
         return Unpacker(resp)
@@ -1054,7 +1056,7 @@ class Bucket(object):
             pass
         pass
 
-    def abort_multipart_upload_request(self, object_key, upload_id=""):
+    def abort_multipart_upload_request(self, object_key, upload_id=None):
         operation = {
             "API": "AbortMultipartUpload",
             "Method": "DELETE",
@@ -1071,7 +1073,7 @@ class Bucket(object):
         self.abort_multipart_upload_validate(operation)
         return Request(self.config, operation)
 
-    def abort_multipart_upload(self, object_key, upload_id=""):
+    def abort_multipart_upload(self, object_key, upload_id=None):
         req = self.abort_multipart_upload_request(
             object_key, upload_id=upload_id
         )
@@ -1091,9 +1093,9 @@ class Bucket(object):
         object_key,
         position=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        x_qs_storage_class=None,
         body=None
     ):
         operation = {
@@ -1109,13 +1111,13 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        if content_length != "" and content_length is not None:
+        if content_length is not None:
             operation["Headers"]["Content-Length"] = content_length
-        if content_md5 != "" and content_md5 is not None:
+        if content_md5 is not None:
             operation["Headers"]["Content-MD5"] = content_md5
-        if content_type != "" and content_type is not None:
+        if content_type is not None:
             operation["Headers"]["Content-Type"] = content_type
-        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+        if x_qs_storage_class is not None:
             operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.append_object_validate(operation)
         return Request(self.config, operation)
@@ -1125,9 +1127,9 @@ class Bucket(object):
         object_key,
         position=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        x_qs_storage_class=None,
         body=None
     ):
         req = self.append_object_request(
@@ -1159,12 +1161,12 @@ class Bucket(object):
     def complete_multipart_upload_request(
         self,
         object_key,
-        upload_id="",
-        etag="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        object_parts=list()
+        upload_id=None,
+        etag=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        object_parts=None
     ):
         operation = {
             "API": "CompleteMultipartUpload",
@@ -1181,15 +1183,15 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if etag != "" and etag is not None:
+        if etag is not None:
             operation["Headers"]["ETag"] = etag
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
         self.complete_multipart_upload_validate(operation)
@@ -1198,12 +1200,12 @@ class Bucket(object):
     def complete_multipart_upload(
         self,
         object_key,
-        upload_id="",
-        etag="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        object_parts=list()
+        upload_id=None,
+        etag=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        object_parts=None
     ):
         req = self.complete_multipart_upload_request(
             object_key,
@@ -1261,20 +1263,20 @@ class Bucket(object):
     def get_object_request(
         self,
         object_key,
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        range="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        range=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         operation = {
             "API": "GetObject",
@@ -1294,23 +1296,23 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if if_match != "" and if_match is not None:
+        if if_match is not None:
             operation["Headers"]["If-Match"] = if_match
-        if if_modified_since != "" and if_modified_since is not None:
+        if if_modified_since is not None:
             operation["Headers"]["If-Modified-Since"] = if_modified_since
-        if if_none_match != "" and if_none_match is not None:
+        if if_none_match is not None:
             operation["Headers"]["If-None-Match"] = if_none_match
-        if if_unmodified_since != "" and if_unmodified_since is not None:
+        if if_unmodified_since is not None:
             operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
-        if range != "" and range is not None:
+        if range is not None:
             operation["Headers"]["Range"] = range
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
         self.get_object_validate(operation)
@@ -1319,20 +1321,20 @@ class Bucket(object):
     def get_object(
         self,
         object_key,
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        range="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        range=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         req = self.get_object_request(
             object_key,
@@ -1362,13 +1364,13 @@ class Bucket(object):
     def head_object_request(
         self,
         object_key,
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         operation = {
             "API": "HeadObject",
@@ -1381,21 +1383,21 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if if_match != "" and if_match is not None:
+        if if_match is not None:
             operation["Headers"]["If-Match"] = if_match
-        if if_modified_since != "" and if_modified_since is not None:
+        if if_modified_since is not None:
             operation["Headers"]["If-Modified-Since"] = if_modified_since
-        if if_none_match != "" and if_none_match is not None:
+        if if_none_match is not None:
             operation["Headers"]["If-None-Match"] = if_none_match
-        if if_unmodified_since != "" and if_unmodified_since is not None:
+        if if_unmodified_since is not None:
             operation["Headers"]["If-Unmodified-Since"] = if_unmodified_since
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
         self.head_object_validate(operation)
@@ -1404,13 +1406,13 @@ class Bucket(object):
     def head_object(
         self,
         object_key,
-        if_match="",
-        if_modified_since="",
-        if_none_match="",
-        if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5=""
+        if_match=None,
+        if_modified_since=None,
+        if_none_match=None,
+        if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None
     ):
         req = self.head_object_request(
             object_key,
@@ -1433,14 +1435,14 @@ class Bucket(object):
     def image_process_request(
         self,
         object_key,
-        action="",
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_modified_since=""
+        action=None,
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_modified_since=None
     ):
         operation = {
             "API": "ImageProcess",
@@ -1461,7 +1463,7 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if if_modified_since != "" and if_modified_since is not None:
+        if if_modified_since is not None:
             operation["Headers"]["If-Modified-Since"] = if_modified_since
         self.image_process_validate(operation)
         return Request(self.config, operation)
@@ -1469,14 +1471,14 @@ class Bucket(object):
     def image_process(
         self,
         object_key,
-        action="",
-        response_cache_control="",
-        response_content_disposition="",
-        response_content_encoding="",
-        response_content_language="",
-        response_content_type="",
-        response_expires="",
-        if_modified_since=""
+        action=None,
+        response_cache_control=None,
+        response_content_disposition=None,
+        response_content_encoding=None,
+        response_content_language=None,
+        response_content_type=None,
+        response_expires=None,
+        if_modified_since=None
     ):
         req = self.image_process_request(
             object_key,
@@ -1501,12 +1503,12 @@ class Bucket(object):
     def initiate_multipart_upload_request(
         self,
         object_key,
-        content_type="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_meta_data=dict(),
-        x_qs_storage_class=""
+        content_type=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_meta_data=None,
+        x_qs_storage_class=None
     ):
         operation = {
             "API": "InitiateMultipartUpload",
@@ -1519,20 +1521,20 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if content_type != "" and content_type is not None:
+        if content_type is not None:
             operation["Headers"]["Content-Type"] = content_type
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
-        if x_qs_meta_data != "" and x_qs_meta_data is not None:
+        if x_qs_meta_data is not None:
             operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
-        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+        if x_qs_storage_class is not None:
             operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.initiate_multipart_upload_validate(operation)
         return Request(self.config, operation)
@@ -1540,12 +1542,12 @@ class Bucket(object):
     def initiate_multipart_upload(
         self,
         object_key,
-        content_type="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_meta_data=dict(),
-        x_qs_storage_class=""
+        content_type=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_meta_data=None,
+        x_qs_storage_class=None
     ):
         req = self.initiate_multipart_upload_request(
             object_key,
@@ -1573,7 +1575,7 @@ class Bucket(object):
         pass
 
     def list_multipart_request(
-        self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=None
     ):
         operation = {
             "API": "ListMultipart",
@@ -1594,7 +1596,7 @@ class Bucket(object):
         return Request(self.config, operation)
 
     def list_multipart(
-        self, object_key, limit=None, part_number_marker=None, upload_id=""
+        self, object_key, limit=None, part_number_marker=None, upload_id=None
     ):
         req = self.list_multipart_request(
             object_key,
@@ -1614,9 +1616,9 @@ class Bucket(object):
     def options_object_request(
         self,
         object_key,
-        access_control_request_headers="",
-        access_control_request_method="",
-        origin=""
+        access_control_request_headers=None,
+        access_control_request_method=None,
+        origin=None
     ):
         operation = {
             "API": "OptionsObject",
@@ -1629,13 +1631,13 @@ class Bucket(object):
             "Body": None
         }
         operation["Properties"]["object-key"] = object_key
-        if access_control_request_headers != "" and access_control_request_headers is not None:
+        if access_control_request_headers is not None:
             operation["Headers"]["Access-Control-Request-Headers"
                                  ] = access_control_request_headers
-        if access_control_request_method != "" and access_control_request_method is not None:
+        if access_control_request_method is not None:
             operation["Headers"]["Access-Control-Request-Method"
                                  ] = access_control_request_method
-        if origin != "" and origin is not None:
+        if origin is not None:
             operation["Headers"]["Origin"] = origin
         self.options_object_validate(operation)
         return Request(self.config, operation)
@@ -1643,9 +1645,9 @@ class Bucket(object):
     def options_object(
         self,
         object_key,
-        access_control_request_headers="",
-        access_control_request_method="",
-        origin=""
+        access_control_request_headers=None,
+        access_control_request_method=None,
+        origin=None
     ):
         req = self.options_object_request(
             object_key,
@@ -1669,29 +1671,29 @@ class Bucket(object):
     def put_object_request(
         self,
         object_key,
-        cache_control="",
-        content_encoding="",
+        cache_control=None,
+        content_encoding=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        expect="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_fetch_if_unmodified_since="",
-        x_qs_fetch_source="",
-        x_qs_meta_data=dict(),
-        x_qs_metadata_directive="",
-        x_qs_move_source="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        expect=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_fetch_if_unmodified_since=None,
+        x_qs_fetch_source=None,
+        x_qs_meta_data=None,
+        x_qs_metadata_directive=None,
+        x_qs_move_source=None,
+        x_qs_storage_class=None,
         body=None
     ):
         operation = {
@@ -1705,65 +1707,65 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        if cache_control != "" and cache_control is not None:
+        if cache_control is not None:
             operation["Headers"]["Cache-Control"] = cache_control
-        if content_encoding != "" and content_encoding is not None:
+        if content_encoding is not None:
             operation["Headers"]["Content-Encoding"] = content_encoding
-        if content_length != "" and content_length is not None:
+        if content_length is not None:
             operation["Headers"]["Content-Length"] = content_length
-        if content_md5 != "" and content_md5 is not None:
+        if content_md5 is not None:
             operation["Headers"]["Content-MD5"] = content_md5
-        if content_type != "" and content_type is not None:
+        if content_type is not None:
             operation["Headers"]["Content-Type"] = content_type
-        if expect != "" and expect is not None:
+        if expect is not None:
             operation["Headers"]["Expect"] = expect
-        if x_qs_copy_source != "" and x_qs_copy_source is not None:
+        if x_qs_copy_source is not None:
             operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
-        if x_qs_copy_source_encryption_customer_algorithm != "" and x_qs_copy_source_encryption_customer_algorithm is not None:
+        if x_qs_copy_source_encryption_customer_algorithm is not None:
             operation["Headers"
                       ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
                         ] = x_qs_copy_source_encryption_customer_algorithm
-        if x_qs_copy_source_encryption_customer_key != "" and x_qs_copy_source_encryption_customer_key is not None:
+        if x_qs_copy_source_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
                                  ] = x_qs_copy_source_encryption_customer_key
-        if x_qs_copy_source_encryption_customer_key_md5 != "" and x_qs_copy_source_encryption_customer_key_md5 is not None:
+        if x_qs_copy_source_encryption_customer_key_md5 is not None:
             operation["Headers"
                       ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
                         ] = x_qs_copy_source_encryption_customer_key_md5
-        if x_qs_copy_source_if_match != "" and x_qs_copy_source_if_match is not None:
+        if x_qs_copy_source_if_match is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Match"
                                  ] = x_qs_copy_source_if_match
-        if x_qs_copy_source_if_modified_since != "" and x_qs_copy_source_if_modified_since is not None:
+        if x_qs_copy_source_if_modified_since is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
                                  ] = x_qs_copy_source_if_modified_since
-        if x_qs_copy_source_if_none_match != "" and x_qs_copy_source_if_none_match is not None:
+        if x_qs_copy_source_if_none_match is not None:
             operation["Headers"]["X-QS-Copy-Source-If-None-Match"
                                  ] = x_qs_copy_source_if_none_match
-        if x_qs_copy_source_if_unmodified_since != "" and x_qs_copy_source_if_unmodified_since is not None:
+        if x_qs_copy_source_if_unmodified_since is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
                                  ] = x_qs_copy_source_if_unmodified_since
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
-        if x_qs_fetch_if_unmodified_since != "" and x_qs_fetch_if_unmodified_since is not None:
+        if x_qs_fetch_if_unmodified_since is not None:
             operation["Headers"]["X-QS-Fetch-If-Unmodified-Since"
                                  ] = x_qs_fetch_if_unmodified_since
-        if x_qs_fetch_source != "" and x_qs_fetch_source is not None:
+        if x_qs_fetch_source is not None:
             operation["Headers"]["X-QS-Fetch-Source"] = x_qs_fetch_source
-        if x_qs_meta_data != "" and x_qs_meta_data is not None:
+        if x_qs_meta_data is not None:
             operation["Headers"]["X-QS-MetaData"] = x_qs_meta_data
-        if x_qs_metadata_directive != "" and x_qs_metadata_directive is not None:
+        if x_qs_metadata_directive is not None:
             operation["Headers"]["X-QS-Metadata-Directive"
                                  ] = x_qs_metadata_directive
-        if x_qs_move_source != "" and x_qs_move_source is not None:
+        if x_qs_move_source is not None:
             operation["Headers"]["X-QS-Move-Source"] = x_qs_move_source
-        if x_qs_storage_class != "" and x_qs_storage_class is not None:
+        if x_qs_storage_class is not None:
             operation["Headers"]["X-QS-Storage-Class"] = x_qs_storage_class
         self.put_object_validate(operation)
         return Request(self.config, operation)
@@ -1771,29 +1773,29 @@ class Bucket(object):
     def put_object(
         self,
         object_key,
-        cache_control="",
-        content_encoding="",
+        cache_control=None,
+        content_encoding=None,
         content_length=None,
-        content_md5="",
-        content_type="",
-        expect="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
-        x_qs_fetch_if_unmodified_since="",
-        x_qs_fetch_source="",
-        x_qs_meta_data=dict(),
-        x_qs_metadata_directive="",
-        x_qs_move_source="",
-        x_qs_storage_class="",
+        content_md5=None,
+        content_type=None,
+        expect=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
+        x_qs_fetch_if_unmodified_since=None,
+        x_qs_fetch_source=None,
+        x_qs_meta_data=None,
+        x_qs_metadata_directive=None,
+        x_qs_move_source=None,
+        x_qs_storage_class=None,
         body=None
     ):
         req = self.put_object_request(
@@ -1857,21 +1859,21 @@ class Bucket(object):
         self,
         object_key,
         part_number=None,
-        upload_id="",
+        upload_id=None,
         content_length=None,
-        content_md5="",
-        x_qs_copy_range="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
+        content_md5=None,
+        x_qs_copy_range=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
         body=None
     ):
         operation = {
@@ -1888,44 +1890,44 @@ class Bucket(object):
             "Body": body
         }
         operation["Properties"]["object-key"] = object_key
-        if content_length != "" and content_length is not None:
+        if content_length is not None:
             operation["Headers"]["Content-Length"] = content_length
-        if content_md5 != "" and content_md5 is not None:
+        if content_md5 is not None:
             operation["Headers"]["Content-MD5"] = content_md5
-        if x_qs_copy_range != "" and x_qs_copy_range is not None:
+        if x_qs_copy_range is not None:
             operation["Headers"]["X-QS-Copy-Range"] = x_qs_copy_range
-        if x_qs_copy_source != "" and x_qs_copy_source is not None:
+        if x_qs_copy_source is not None:
             operation["Headers"]["X-QS-Copy-Source"] = x_qs_copy_source
-        if x_qs_copy_source_encryption_customer_algorithm != "" and x_qs_copy_source_encryption_customer_algorithm is not None:
+        if x_qs_copy_source_encryption_customer_algorithm is not None:
             operation["Headers"
                       ]["X-QS-Copy-Source-Encryption-Customer-Algorithm"
                         ] = x_qs_copy_source_encryption_customer_algorithm
-        if x_qs_copy_source_encryption_customer_key != "" and x_qs_copy_source_encryption_customer_key is not None:
+        if x_qs_copy_source_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Copy-Source-Encryption-Customer-Key"
                                  ] = x_qs_copy_source_encryption_customer_key
-        if x_qs_copy_source_encryption_customer_key_md5 != "" and x_qs_copy_source_encryption_customer_key_md5 is not None:
+        if x_qs_copy_source_encryption_customer_key_md5 is not None:
             operation["Headers"
                       ]["X-QS-Copy-Source-Encryption-Customer-Key-MD5"
                         ] = x_qs_copy_source_encryption_customer_key_md5
-        if x_qs_copy_source_if_match != "" and x_qs_copy_source_if_match is not None:
+        if x_qs_copy_source_if_match is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Match"
                                  ] = x_qs_copy_source_if_match
-        if x_qs_copy_source_if_modified_since != "" and x_qs_copy_source_if_modified_since is not None:
+        if x_qs_copy_source_if_modified_since is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Modified-Since"
                                  ] = x_qs_copy_source_if_modified_since
-        if x_qs_copy_source_if_none_match != "" and x_qs_copy_source_if_none_match is not None:
+        if x_qs_copy_source_if_none_match is not None:
             operation["Headers"]["X-QS-Copy-Source-If-None-Match"
                                  ] = x_qs_copy_source_if_none_match
-        if x_qs_copy_source_if_unmodified_since != "" and x_qs_copy_source_if_unmodified_since is not None:
+        if x_qs_copy_source_if_unmodified_since is not None:
             operation["Headers"]["X-QS-Copy-Source-If-Unmodified-Since"
                                  ] = x_qs_copy_source_if_unmodified_since
-        if x_qs_encryption_customer_algorithm != "" and x_qs_encryption_customer_algorithm is not None:
+        if x_qs_encryption_customer_algorithm is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Algorithm"
                                  ] = x_qs_encryption_customer_algorithm
-        if x_qs_encryption_customer_key != "" and x_qs_encryption_customer_key is not None:
+        if x_qs_encryption_customer_key is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key"
                                  ] = x_qs_encryption_customer_key
-        if x_qs_encryption_customer_key_md5 != "" and x_qs_encryption_customer_key_md5 is not None:
+        if x_qs_encryption_customer_key_md5 is not None:
             operation["Headers"]["X-QS-Encryption-Customer-Key-MD5"
                                  ] = x_qs_encryption_customer_key_md5
         self.upload_multipart_validate(operation)
@@ -1935,21 +1937,21 @@ class Bucket(object):
         self,
         object_key,
         part_number=None,
-        upload_id="",
+        upload_id=None,
         content_length=None,
-        content_md5="",
-        x_qs_copy_range="",
-        x_qs_copy_source="",
-        x_qs_copy_source_encryption_customer_algorithm="",
-        x_qs_copy_source_encryption_customer_key="",
-        x_qs_copy_source_encryption_customer_key_md5="",
-        x_qs_copy_source_if_match="",
-        x_qs_copy_source_if_modified_since="",
-        x_qs_copy_source_if_none_match="",
-        x_qs_copy_source_if_unmodified_since="",
-        x_qs_encryption_customer_algorithm="",
-        x_qs_encryption_customer_key="",
-        x_qs_encryption_customer_key_md5="",
+        content_md5=None,
+        x_qs_copy_range=None,
+        x_qs_copy_source=None,
+        x_qs_copy_source_encryption_customer_algorithm=None,
+        x_qs_copy_source_encryption_customer_key=None,
+        x_qs_copy_source_encryption_customer_key_md5=None,
+        x_qs_copy_source_if_match=None,
+        x_qs_copy_source_if_modified_since=None,
+        x_qs_copy_source_if_none_match=None,
+        x_qs_copy_source_if_unmodified_since=None,
+        x_qs_encryption_customer_algorithm=None,
+        x_qs_encryption_customer_key=None,
+        x_qs_encryption_customer_key_md5=None,
         body=None
     ):
         req = self.upload_multipart_request(

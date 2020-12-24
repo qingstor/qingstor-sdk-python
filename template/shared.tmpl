@@ -4,17 +4,7 @@
   {{- range $_, $property := $customizedType.Properties -}}
     {{- if ne $property.ID $firstPropertyID -}},
     {{end -}}
-    {{- if eq $property.Type "string" -}}
-      {{$property.ID | snakeCase}}= ""
-    {{- else if eq $property.Type "timestamp" -}}
-      {{$property.ID | snakeCase}}=""
-    {{- else if eq $property.Type "array" -}}
-      {{$property.ID | snakeCase}}=list()
-    {{- else if eq $property.Type "map" -}}
-      {{$property.ID | snakeCase}}=dict()
-    {{- else -}}
-      {{$property.ID | snakeCase}}=None
-    {{- end -}}
+    {{$property.ID | snakeCase}}=None
   {{- end -}}
 {{end}}
 
@@ -213,7 +203,7 @@
         operation["Properties"]["object-key"] = object_key
         {{- end}}
         {{- range $id, $property := $operation.Request.Headers.Properties}}
-        if {{$property.Name| snakeCase}} != "" and {{$property.Name| snakeCase}} is not None:
+        if {{$property.Name| snakeCase}} is not None:
             operation["Headers"]["{{$property.Name}}"] = {{$property.Name| snakeCase}}
         {{- end}}
         self.{{$operation.ID | snakeCase }}_validate(operation)
