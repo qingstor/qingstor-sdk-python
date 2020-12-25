@@ -184,6 +184,7 @@ class Request:
 
 
 def has_ipv6(host):
+    """ Returns True if the system resolves host to an IPv6 address by default. """
     resolves_to_ipv6 = False
     try:
         for res in socket.getaddrinfo(host, None, socket.AF_UNSPEC):
@@ -196,6 +197,7 @@ def has_ipv6(host):
 
 
 def rewrite_allowed_gai_family(use_ipv6, host):
+    """ This function is designed to control the choice of address family. """
     def allowed_gai_family():
         family = socket.AF_INET
         if has_ipv6(host):
