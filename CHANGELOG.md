@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0] - 2021-01-18
+
+### Added
+
+- Support virtual host style (#80)
+
+### Fixed
+
+- Fix the signature error of some bucket api (#77)
+- Fix the template of request body valide function (#78)
+
 ## [2.5.0] - 2020-11-26
 
 ### Added
@@ -220,6 +231,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Python
 
+[2.6.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/yunify/qingstor-sdk-python/compare/2.2.6...2.3.0
