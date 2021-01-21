@@ -87,6 +87,9 @@ class Config:
 
     def load_config_from_data(self, data):
         for (k, v) in data.items():
+            value = self.load_from_env(k)
+            if not value is None:
+                v = value
             setattr(self, k, v)
         self.set_log_level()
         return self
@@ -96,8 +99,15 @@ class Config:
         self.load_config_from_data(config_data)
         return self
 
+    def load_from_env(self, key):
+        key = f"QINGSTOR_{key.upper()}"
+        v = os.environ.get(key)
+        return v
+
     def load_user_config(self):
-        user_config_file_path = self.get_user_config_file_path()
+        user_config_file_path = os.environ.get("QINGSTOR_CONFIG_PATH")
+        if not user_config_file_path:
+            user_config_file_path = self.get_user_config_file_path()
         if not os.path.exists(user_config_file_path):
             self.install_default_user_config()
         self.load_config_from_filepath(user_config_file_path)
