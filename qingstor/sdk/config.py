@@ -19,6 +19,7 @@ import os
 import sys
 import yaml
 import logging
+from urllib.parse import urlparse
 
 default_config_file_content = (
     '# QingStor Services Configuration\n'
@@ -34,6 +35,7 @@ default_config_file_content = (
     'log_level: "warn"\n'
     'enable_virtual_host_style: false\n'
     'zone: ""\n'
+    'endpoint: ""\n'
 )
 
 default_config_file = "~/.qingstor/config.yaml"
@@ -91,6 +93,10 @@ class Config:
             if not value is None:
                 v = value
             setattr(self, k, v)
+        if self.endpoint != "":
+            self.protocol = urlparse(self.endpoint).scheme
+            self.host = urlparse(self.endpoint).hostname
+            self.port = urlparse(self.endpoint).port
         self.set_log_level()
         return self
 
