@@ -38,13 +38,19 @@ default_config_file_content = (
     'endpoint: ""\n'
 )
 
+config_items_map = [
+    "access_key_id", "secret_access_key", "host", "port",
+    "protocol", "connection_retries", "timeout", "log_level",
+    "enable_virtual_host_style", "zone", "endpoint"
+]
+
 default_config_file = "~/.qingstor/config.yaml"
 
 
 class Config:
 
     def __init__(self, access_key_id="", secret_access_key=""):
-        self.load_default_config()
+        self.load_config()
         self.access_key_id = access_key_id
         self.secret_access_key = secret_access_key
 
@@ -78,25 +84,18 @@ class Config:
                 home = os.environ.get("USERPROFILE")
         return default_config_file.replace("~", home)
 
-    def install_default_user_config(self):
-        user_config_file_path = self.get_user_config_file_path()
-        user_dir = os.path.dirname(user_config_file_path)
-        if not os.path.exists(user_dir):
-            os.makedirs(user_dir)
-        with open(user_config_file_path, "w") as f:
-            f.write(default_config_file_content)
-            f.close()
+    def load_config(self):
+        self.load_default_config()
+        self.load_user_config()
+        self.load_from_env()
+        if self.endpoint != "":
+            u = urlparse(self.endpoint)
+            (self.protocol, self.host, self.port)  = (u.scheme, u.hostname, u.port)
+        return self
 
     def load_config_from_data(self, data):
         for (k, v) in data.items():
-            value = self.load_from_env(k)
-            if not value is None:
-                v = value
             setattr(self, k, v)
-        if self.endpoint != "":
-            self.protocol = urlparse(self.endpoint).scheme
-            self.host = urlparse(self.endpoint).hostname
-            self.port = urlparse(self.endpoint).port
         self.set_log_level()
         return self
 
@@ -105,18 +104,12 @@ class Config:
         self.load_config_from_data(config_data)
         return self
 
-    def load_from_env(self, key):
-        key = f"QINGSTOR_{key.upper()}"
-        v = os.environ.get(key)
-        return v
-
     def load_user_config(self):
         user_config_file_path = os.environ.get("QINGSTOR_CONFIG_PATH")
         if not user_config_file_path:
             user_config_file_path = self.get_user_config_file_path()
-        if not os.path.exists(user_config_file_path):
-            self.install_default_user_config()
-        self.load_config_from_filepath(user_config_file_path)
+        if os.path.exists(user_config_file_path):
+            self.load_config_from_filepath(user_config_file_path)
         return self
 
     def load_config_from_filepath(self, filepath):
@@ -125,3 +118,13 @@ class Config:
             self.load_config_from_data(config_data)
             f.close()
         return self
+
+    def load_from_env(self):
+        for item in config_items_map:
+            key = f"QINGSTOR_{item.upper()}"
+            v = os.environ.get(key)
+            if v is not None:
+                setattr(self, item, v)
+        return self
+
+
