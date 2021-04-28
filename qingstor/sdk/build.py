@@ -67,7 +67,7 @@ class Builder:
         if "Params" in self.operation:
             for (k, v) in self.operation["Params"].items():
                 if v != "" and v is not None:
-                    parsed_params[k] = quote(v)
+                    parsed_params[k] = quote(str(v))
 
         return parsed_params
 
