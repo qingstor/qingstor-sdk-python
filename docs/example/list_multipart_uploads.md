@@ -50,5 +50,5 @@ if resp.status_code != 200:
     print("List objects(multiUploaded and the complete api not been called) "
           "of bucket({}) failed with given message: {}".format(bucket_name, str(resp.content, 'utf-8')))
 else:
-    pprint(resp['uploads'])
+    print(resp['uploads'])
 ```

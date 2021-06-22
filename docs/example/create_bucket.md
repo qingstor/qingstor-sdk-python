@@ -27,7 +27,7 @@ resp = bucket_srv.put()
 if resp.status_code != 201:
     print("Create bucket({}) in zone:{} failed with given message: {}".format(
         bucket_name,
-        zone,
+        zone_name,
         str(resp.content, 'utf-8')))
 else:
     print("Create bucket successfully.")

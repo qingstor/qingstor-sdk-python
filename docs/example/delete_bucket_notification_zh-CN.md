@@ -23,7 +23,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 然后您可以 DELETE Bucket Notification
 
 ```python
-resp = bucket_src.delete_notification()
+resp = bucket_srv.delete_notification()
 if resp.status_code != 204:
     print("Delete notifications of bucket(name: %s) failed with given message: %s\n" % (
         bucket_name,

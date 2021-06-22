@@ -23,7 +23,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 then you can DELETE Bucket Policy
 
 ```python
-resp = bucket_src.delete_policy()
+resp = bucket_srv.delete_policy()
 if resp.status_code != 204:
     print("Delete policy of bucket(name: %s) failed with given message: %s\n" % (
         bucket_name,

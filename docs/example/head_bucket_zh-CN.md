@@ -27,14 +27,14 @@ resp = bucket_srv.head()
 if resp.status_code != 200:
     print("Head bucket({}) in zone:{} failed with given message: {}".format(
         bucket_name,
-        zone,
+        zone_name,
         str(resp.content, 'utf-8')))
 else:
     print("Head bucket successfully.")
 ```
 
 上面代码中出现的函数：
-- `bucket_srv.head()` 在 `pek3b` 区域尝试使用 HEAD 获取一个名为 `your-bucket-name` 的 Bucket 信息。 
+- `bucket_srv.head()` 在 `pek3b` 区域尝试使用 HEAD 获取一个名为 `your-bucket-name` 的 Bucket 信息。
 
 上面代码中出现的对象：
 - `resp` 对象是 `bucket_srv.head()` 方法的返回值。

@@ -23,7 +23,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 然后您可以 DELETE Bucket CORS
 
 ```python
-resp = bucket_src.delete_cors()
+resp = bucket_srv.delete_cors()
 if resp.status_code != 204:
     print("Delete CORS of bucket(name: %s) failed with given message: %s\n" % (
         bucket_name,
