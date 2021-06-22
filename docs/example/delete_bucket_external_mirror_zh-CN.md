@@ -23,7 +23,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 然后您可以 DELETE Bucket External Mirror
 
 ```python
-resp = bucket_src.delete_external_mirror()
+resp = bucket_srv.delete_external_mirror()
 if resp.status_code != 204:
     print("Delete external mirror of bucket(name: %s) failed with given message: %s\n" % (
         bucket_name,

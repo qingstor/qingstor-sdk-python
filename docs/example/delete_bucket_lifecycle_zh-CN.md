@@ -23,7 +23,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 然后您可以 DELETE Bucket Lifecycle
 
 ```python
-resp = bucket_src.delete_lifecycle()
+resp = bucket_srv.delete_lifecycle()
 if resp.status_code != 204:
     print("Delete lifecycle of bucket(name: %s) failed with given message: %s\n" % (
         bucket_name,

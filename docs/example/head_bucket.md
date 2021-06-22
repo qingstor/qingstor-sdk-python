@@ -27,7 +27,7 @@ resp = bucket_srv.head()
 if resp.status_code != 200:
     print("Head bucket({}) in zone:{} failed with given message: {}".format(
         bucket_name,
-        zone,
+        zone_name,
         str(resp.content, 'utf-8')))
 else:
     print("Head bucket successfully.")

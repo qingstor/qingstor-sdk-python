@@ -27,7 +27,7 @@ resp = bucket_srv.delete()
 if resp.status_code != 204:
     print("Delete bucket({}) in zone:{} failed with given message: {}".format(
         bucket_name,
-        zone,
+        zone_name,
         str(resp.content, 'utf-8')))
 else:
     print("Delete bucket successfully.")

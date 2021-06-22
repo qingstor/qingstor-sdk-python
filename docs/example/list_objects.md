@@ -29,7 +29,7 @@ if resp.status_code != 200:
         bucket_name,
         str(resp.content, 'utf-8')))
 else:
-    pprint(resp['keys'])
+    print(resp['keys'])
 ```
 
 Add some options which act as filter when list bucket objects
