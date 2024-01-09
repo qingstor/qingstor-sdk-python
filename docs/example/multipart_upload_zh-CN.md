@@ -64,7 +64,7 @@ list_resp = bucket_srv.list_multipart(object_key=object_key, upload_id=upload_id
 ```
 
 当所有分段都已经上传完毕后，您可以使用下面的方法来标记上传完成，所有分段将拼接为 object_key 指定的对象。
-ETag 信息不是必须设置，想要了解详细的参数信息，可以参考 [api docs](https://docs.qingcloud.com/qingstor/api/object/multipart/complete_multipart_upload.html)。
+ETag 信息不是必须设置，想要了解详细的参数信息，可以参考 [api docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/)。
 
 ```python
 if fin_resp.status_code != 201:

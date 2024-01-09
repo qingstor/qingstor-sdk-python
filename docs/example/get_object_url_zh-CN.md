@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-想要了解详细的参数信息，可以参考[官方 API 文档](https://docs.qingcloud.com/qingstor/api/object/get)。
+想要了解详细的参数信息，可以参考[官方 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/)。
 
 然后你可以获得该对象的签名地址。object_key 设置要获取的对象的 filepath（位于当前 bucket 中）。
 

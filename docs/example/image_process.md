@@ -14,7 +14,7 @@ Currently supported image formats are:
 
 > Currently, the encrypted picture is not supported. The maximum size of a single picture is 10M.
 
-For image process parameters' details, Please see [QingStor Image API](https://docs.qingcloud.com/qingstor/data_process/image_process).
+For image process parameters' details, Please see [QingStor Image API](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/).
 
 ## Usage
 
@@ -83,43 +83,43 @@ object_key = "your-picture-uploaded.jpg"
     ```python
     print(perform_img_action(bucket_srv, object_key, "info"))
     ```
-   
+
 2. Crop the image (here a 300px wide, 400px image is cropped around the center of the image).
     ```python
     print(perform_img_action(bucket_srv, object_key, "crop:w_300,h_400,g_0", True))
     ```
-   
+
 3. Rotate the image 90 degrees.
     ```python
     print(perform_img_action(bucket_srv, object_key, "rotate:a_90", True))
     ```
-   
+
 4. Resize the image.
     ```python
     print(perform_img_action(bucket_srv, object_key, "resize:w_300,h_400,m_0", True))
     ```
-   
+
 5. Add a text watermark to the image (the text should first be base64 encoded and remove padding, the same with color).
     ```python
     import base64
-    
+
     color = str.replace("c_" + str(base64.b64encode(bytes('#FF0000', encoding='utf8')), 'utf8'), "=", "")
     print(perform_img_action(bucket_srv, object_key,
                              "watermark:d_150,p_0.9,t_5rC05Y2w5paH5a2X," + color, True))
     ```
-   
+
 6. Add a picture watermark to the image.
     ```python
     print(perform_img_action(bucket_srv, object_key,
                              "watermark_image:l_10,t_10,p_2,"
                              "u_aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc", True))
     ```
-   
+
 7. Format the image as png.
     ```python
     print(perform_img_action(bucket_srv, object_key, "format:t_png", True))
     ```
-   
+
 8. include operations in pipeline and they will be processed in order. The maximum number of operations in the pipeline is 10. The example ends with a save action to save the image to `img_res.png` in the bucket: `your-bucket-01`.
     ```python
     print(perform_img_action(bucket_srv, object_key,

@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/object/get).
+For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/).
 
 Then you can get the signature address of the object. object_key Sets the filepath of the object to be fetched (in the current bucket).
 

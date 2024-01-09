@@ -17,14 +17,14 @@
 When cloudfunc has been set as image, we need cloudfunc_args as below parameters. <br>
 Object storage will process the image according to the specified picture processing rules and save the result back to object storage.
 
-|    Name     |  Type  | Description                                                                                                                                                                      | Required |
-| :---------: | :----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
-|   action    | String | The specific operation parameters of the picture, see [image basic processing service](https://docs.qingcloud.com/qingstor/data_process/image_process/index.html) for more info. |   Yes    |
-| key_prefix  | String | Prefix of the name of the object processed, “gen” is the default.                                                                                                                |    No    |
-| key_seprate | String | A separator between key_prefix and object, “_“ is the default.                                                                                                                   |    No    |
-| save_bucket | String | The target bucket name that is saved as. <br>The default is the current bucket where the object is located.                                                                      |    No    |
+|    Name     |  Type  | Description                                                                                                                                                                     | Required |
+| :---------: | :----: |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| :------: |
+|   action    | String | The specific operation parameters of the picture, see [image basic processing service](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/) for more info.                                                                         |   Yes    |
+| key_prefix  | String | Prefix of the name of the object processed, “gen” is the default.                                                                                                               |    No    |
+| key_seprate | String | A separator between key_prefix and object, “_“ is the default.                                                                                                                  |    No    |
+| save_bucket | String | The target bucket name that is saved as. <br>The default is the current bucket where the object is located.                                                                     |    No    |
 
-See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html) for more information about request elements.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/) for more information about request elements.
 
 ## Code Snippet
 

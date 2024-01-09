@@ -26,7 +26,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 objects = [{"key": "file_will_be_delete.jpg"}, {"key": "file_will_be_delete.zip"}]
 ```
 
-想要了解详细的参数信息，可以参考[官方 API 文档](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple)。
+想要了解详细的参数信息，可以参考[官方 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/)。
 
 然后调用 `delete_multiple_objects` 方法删除对象。object_key 设置要删除的对象的 filepath（位于当前 bucket 中）。
 

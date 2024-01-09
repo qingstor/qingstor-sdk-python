@@ -21,7 +21,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
 Then set the input parameters used by the PutObject method (core parameter: XQSFetchSource).
-For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/object/fetch).
+For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/fetch/).
 
 Then call the `put_object` method to fetch object. object_key Sets the filepath after put (in the current bucket).
 

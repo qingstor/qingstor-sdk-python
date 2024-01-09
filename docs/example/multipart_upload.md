@@ -67,7 +67,7 @@ list_resp = bucket_srv.list_multipart(object_key=object_key, upload_id=upload_id
 ```
 
 Once all the segments have been uploaded, you can use the following method to mark the upload completion, all segments will be stitched to the object specified by object_key.
-ETag header is not required to be set. For parameter details, please refer to [api docs] (https://docs.qingcloud.com/qingstor/api/object/multipart/complete_multipart_upload.html).
+ETag header is not required to be set. For parameter details, please refer to [api docs] (https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/).
 
 ```python
 if fin_resp.status_code != 201:

@@ -10,7 +10,7 @@
 | Access-Control-Request-Method  | String | 跨源请求的 HTTP method 。                      |   Yes    |
 | Access-Control-Request-Headers | String | 跨源请求中的 HTTP headers (逗号分割的字符串)。 |    No    |
 
-访问 [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) 以查看更多关于请求头的信息。
+访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/) 以查看更多关于请求头的信息。
 
 ### 响应头(Response Headers)
 
@@ -22,7 +22,7 @@
 | Access-Control-Allow-Headers  | String | 跨源请求中可以被允许发送的 HTTP headers (逗号分割的字符串)。                                   |
 | Access-Control-Expose-Headers | String | 跨源请求的响应中,客户端（如 JavaScript Client） 可以获取到的 HTTP headers (逗号分割的字符串)。 |
 
-访问 [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) 以查看更多关于响应头的信息。
+访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/) 以查看更多关于响应头的信息。
 
 ## 代码片段
 
@@ -68,6 +68,6 @@ else:
     print(header.get('Access-Control-Allow-Origin'))
 ```
 
-想要了解详细的参数信息，可以参考[官方 API 文档](https://docs.qingcloud.com/qingstor/api/object/options)。
+想要了解详细的参数信息，可以参考[官方 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/)。
 
 响应将返回过滤过后的所有被允许的操作（包括 header, method, origin）。

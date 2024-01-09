@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-然后设置 `put_object` 方法可能用到的输入参数。想要了解详细的参数信息，可以参考[官方 API 文档](https://docs.qingcloud.com/qingstor/api/object/put)。
+然后设置 `put_object` 方法可能用到的输入参数。想要了解详细的参数信息，可以参考[官方 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/)。
 
 然后调用 `put_object` 方法上传对象。object_key 设置上传后的 filepath。
 

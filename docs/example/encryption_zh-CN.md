@@ -4,7 +4,7 @@
 
 上传时可对数据进行加密。
 
-访问该链接 [https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers](https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers) .
+访问该链接 [https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/) .
 以更好的理解数据加密解密的过程。
 
 首先，需要初始化 bucket 服务。
@@ -25,7 +25,7 @@ bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```python
 object_key = "your_file_encrypted"
 with open("/tmp/your-picture.jpg", "rb") as f:
-    output = bucket_srv.put_object(object_key=object_key, 
+    output = bucket_srv.put_object(object_key=object_key,
             x_qs_encryption_customer_algorithm="AES256",
             x_qs_encryption_customer_key="key",
             x_qs_encryption_customer_key_md5="MD5 of the key",
