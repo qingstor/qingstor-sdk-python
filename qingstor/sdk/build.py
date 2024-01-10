@@ -104,7 +104,7 @@ class Builder:
 
         # Handle header X-QS-MetaData dict, for example:
         # {'X-QS-MetaData': {'x': 'vx', 'y': 'vy'}} => {'X-QS-Meta-x': 'vx', 'X-QS-Meta-y': 'vy'}
-        # https://docs.qingcloud.com/qingstor/api/common/metadata#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%85%83%E6%95%B0%E6%8D%AE
+        # https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/metadata/
         if 'X-QS-MetaData' in parsed_headers:
             metadata = parsed_headers.get('X-QS-MetaData')
             if isinstance(metadata, dict) and len(metadata) != 0:

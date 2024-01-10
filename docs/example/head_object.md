@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/object/head).
+For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/).
 
 Then call the `head_object` method to get the object meta information and test if it can be accessed. object_key Sets the filepath of the object to be fetched (in the current bucket).
 
@@ -33,7 +33,7 @@ if output.status_code != 200:
         bucket_name,
         str(output.content, 'utf-8')))
 else:
-    # check all useful headers related to object info in: https://docs.qingcloud.com/qingstor/api/object/head
+    # check all useful headers related to object info in: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/
     print(output.headers['ETag'])
     print(output.headers['Content-Type'])
 ```

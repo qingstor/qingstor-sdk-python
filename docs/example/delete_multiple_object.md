@@ -26,7 +26,7 @@ Then set the input parameters used by the `delete_multiple_objects` method. `qui
 objects = [{"key": "file_will_be_delete.jpg"}, {"key": "file_will_be_delete.zip"}]
 ```
 
-For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple).
+For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/).
 
 Then call the `delete_multiple_objects` method to delete the object. object_key Sets the filepath of the object to be deleted (in the current bucket).
 

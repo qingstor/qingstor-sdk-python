@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-Then set the input parameters that the PutObject method might use. For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/object/put).
+Then set the input parameters that the PutObject method might use. For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/).
 
 Then call the `put_object` method to upload the object. object_key Sets the filepath after uploading.
 

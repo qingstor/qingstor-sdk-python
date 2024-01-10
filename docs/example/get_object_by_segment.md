@@ -20,7 +20,7 @@ zone_name = "pek3b"
 bucket_srv = qingstor.Bucket(bucket_name, zone_name)
 ```
 
-The parameter that must be set manually here is the range parameter. For parameter details, please refer to [Official API Documentation](https://docs.qingcloud.com/qingstor/api/object/get).
+The parameter that must be set manually here is the range parameter. For parameter details, please refer to [Official API Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/).
 
 Then call the `get_object` method to download the object and set 5M as the segment size. object_key sets the filepath of the object to be fetched (in the current bucket).
 

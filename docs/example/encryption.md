@@ -4,7 +4,7 @@
 
 You can encrypt data when uploading.
 
-To understand the process of encryption better, visit the link [https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers](https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers) .
+To understand the process of encryption better, visit the link [https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/) .
 
 First, initialize the bucket service.
 
@@ -24,7 +24,7 @@ Encrypt when uploading files. The encryption operation is performed by setting r
 ```python
 object_key = "your_file_encrypted"
 with open("/tmp/your-picture.jpg", "rb") as f:
-    output = bucket_srv.put_object(object_key=object_key, 
+    output = bucket_srv.put_object(object_key=object_key,
             x_qs_encryption_customer_algorithm="AES256",
             x_qs_encryption_customer_key="key",
             x_qs_encryption_customer_key_md5="MD5 of the key",
