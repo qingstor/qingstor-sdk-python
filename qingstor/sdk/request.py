@@ -23,6 +23,8 @@ from urllib.parse import urlparse, quote, urlunparse, unquote
 
 from .build import Builder
 from .utils.helper import url_quote
+import requests.packages.urllib3.util.connection as urllib3_cn
+import socket
 
 
 class Request:
@@ -34,6 +36,9 @@ class Request:
         self.secret_access_key = config.secret_access_key
         self.logger = logging.getLogger("qingstor-sdk")
         self.enable_virtual_host_style = config.enable_virtual_host_style
+        urllib3_cn.allowed_gai_family = rewrite_allowed_gai_family(
+            config.enable_dual_stack, self.req.headers["Host"]
+        )
 
     def __repr__(self):
         return "<Request %s>" % self.req.method
@@ -176,3 +181,29 @@ class Request:
             "replication", "append", "position", "cname"
         ]
         return key in keys_map
+
+
+def has_ipv6(host):
+    """ Returns True if the system resolves host to an IPv6 address by default. """
+    resolves_to_ipv6 = False
+    try:
+        for res in socket.getaddrinfo(host, None, socket.AF_UNSPEC):
+            af, _, _, _, _ = res
+            if af == socket.AF_INET6:
+                resolves_to_ipv6 = True
+    except socket.gaierror:
+        pass
+    return resolves_to_ipv6
+
+
+def rewrite_allowed_gai_family(use_ipv6, host):
+    """ This function is designed to control the choice of address family. """
+    def allowed_gai_family():
+        family = socket.AF_INET
+        if has_ipv6(host):
+            if use_ipv6:
+                family = socket.AF_INET6
+            else:
+                family = socket.AF_UNSPEC
+        return family
+    return allowed_gai_family

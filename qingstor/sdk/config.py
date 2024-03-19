@@ -34,6 +34,7 @@ default_config_file_content = (
     '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
     'log_level: "warn"\n'
     'enable_virtual_host_style: false\n'
+    'enable_dual_stack: false\n'
     'zone: ""\n'
     'endpoint: ""\n'
 )
